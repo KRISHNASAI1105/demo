@@ -3,6 +3,8 @@ from scipy.stats import bernoulli
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+print("The z value between 10000 to 100000 will give you the approxmiate value.")
+
 count = 0
 z = int(input("\n Enter the minimum number of resistors to be defective : "))
 for i in range(0, z):
@@ -11,6 +13,8 @@ for i in range(0, z):
     defective = np.size(i)
     if defective >= 2:
         count += 1
+
+#The z value between 10000 to 100000 will give you the approxmiate value.        
 
 print("\n The required probability is : ",count/z)
 
