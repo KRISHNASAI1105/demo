@@ -178,5 +178,13 @@ Pr\left( X = 1 \right) = \frac{{e^{ - \lambda } \lambda ^1 }}{{1!}} = {e^{-1}}
 \implies \Pr{(X \ge 2)} = 0.2642
 
 \newline Hence, The probability of two or more defective resistors in the circuit is 0.26.
+
+
+\subsection*{\boldsymbol{Justification\ why\ we\ use\ POISSON\ DISTRIBUTION\ :}}
+First of all, Poisson distribution is used as an approximation of the Binomial distribution, if n is large and P is small.
+\newline The Binomial distribution counts the discrete occurrences among discrete trials. The Poisson distribution counts discrete occurrences among a continuous domain.
+\newline Thus, In this case, It is a continuous domain of defective resistors. Because we cannot choose a defective resistor in random, if you name the sequence of resistors as (x1,x2,....,x50). For example, If we know that x3 is a defective resistor, then it means that we cannot a defective from (x1,x2). we have to see defective resistors only in (x4,x5,....,x50). Similarly, we have continue the process until x50. So, it means that we are not selecting the defective resistors randomly.
+\newline Hence, This is the reason that we cannot apply binomial distribution here. 
+
 \end{flushleft}
 \end{document}
