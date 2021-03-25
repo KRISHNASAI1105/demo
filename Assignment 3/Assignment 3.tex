@@ -107,6 +107,7 @@ columns=fullflexible
 \theoremstyle{remark}
 \newtheorem{rem}{Remark}
 \newcommand{\sgn}{\mathop{\mathrm{sgn}}}
+\newcommand{\comb}[2]{{}^{#1}\mathrm{C}_{#2}}
 \providecommand{\abs}[1]{\vert#1\vert}
 \providecommand{\res}[1]{\Res\displaylimits_{#1}} 
 \providecommand{\norm}[1]{\lVert#1\rVert}
@@ -158,8 +159,9 @@ Consider,\ Probability \ of \ a \ defective \ resistor \ &= P
 \newline Let \ X \ be \ number\ of\ defective\ resistors.
 \newline By\  Binomial\  distribution,
 \newline
+
 \begin{equation}
-Pr(X = k) &= \binom{n}{k}(P)^k(1-P)^{n-k} 
+    Pr(X = k) = \binom{n}{k}(P)^k(1-P)^{n-k} 
 \end{equation}
 \begin{equation}
 Pr(X = 0) &= \binom{50}{0}(\dfrac{1}{50})^0(1 - \dfrac{1}{50})^{50-0} 
@@ -178,7 +180,6 @@ Pr(X = 1) &= \binom{50}{1}(\dfrac{1}{50})^1(1 - \dfrac{1}{50})^{50-1}
 \implies \Pr{(X \ge 2)} = 1 - [{\Pr{(X = 0)} + \Pr{(X = 1)}}] \\
 \implies \Pr{(X \ge 2)} = 1 - [{(\dfrac{49}{50})^{50}} + {(\dfrac{49}{50})^{49}}] \\
 \implies \Pr{(X \ge 2)} = 1 - [{(\dfrac{49}{50})^{49}}][{\dfrac{49}{50}} + {1}] \\
-\implies \Pr{(X \ge 2)} = 1 - [{(\dfrac{49}{50})^{49}}][{\dfrac{99}{50}}] \\
 \implies \Pr{(X \ge 2)} = 0.2642
 
 \newline Hence, The probability of two or more defective resistors in the circuit is 0.26.
