@@ -152,39 +152,38 @@ Download Python code and Latex from below link : \\
 \subsection*{\boldsymbol{Solution}}
 \begin{flushleft}
 Consider,\ Probability \ of \ a \ defective \ resistor \ &= P
-   &= 0.02.
-\newline Total number of resistors = n = 50.
-\begin{align}
-\newline From \ Poisson \ distribution, \ Mean = \lambda = nP \\
-\newline \implies \lambda = 50 * 0.02 = 1. 
-\end{align}
-\newline Let X be number of defective resistors.
-\newline By Poisson distribution,
-\begin{align} 
-Pr\left( X \right) = \frac{{e^{ - \lambda } \lambda ^X }}{{X!}}
-\end{align}
-\begin{align}
-Pr\left( X = 0  \right) = \frac{{e^{ - \lambda } \lambda ^0 }}{{0!}} = {e^{-1}}
-\end{align}
-\begin{align}
-Pr\left( X = 1 \right) = \frac{{e^{ - \lambda } \lambda ^1 }}{{1!}} = {e^{-1}}
-\end{align}
+   &= 0.02 &= \dfrac{1}{50}.
+\newline
+\newline Total \ number \ of \ resistors = n = 50.
+\newline Let \ X \ be \ number\ of\ defective\ resistors.
+\newline By\  Binomial\  distribution,
+\newline
+\begin{equation}
+Pr(X = k) &= \binom{n}{k}(P)^k(1-P)^{n-k} 
+\end{equation}
+\begin{equation}
+Pr(X = 0) &= \binom{50}{0}(\dfrac{1}{50})^0(1 - \dfrac{1}{50})^{50-0} 
+\end{equation}
+\begin{equation}
+\implies Pr(X = 0) &= (\dfrac{49}{50})^{50}
+\end{equation}
+\begin{equation}
+Pr(X = 1) &= \binom{50}{1}(\dfrac{1}{50})^1(1 - \dfrac{1}{50})^{50-1}
+\end{equation}
+\begin{equation}
+ \implies Pr(X = 1) &= (\dfrac{49}{50})^{49}
+\end{equation}
 
 \item \Pr{(X \ge 2)} = 1 - \Pr{(X < 2)} \\
 \implies \Pr{(X \ge 2)} = 1 - [{\Pr{(X = 0)} + \Pr{(X = 1)}}] \\
-\implies \Pr{(X \ge 2)} = 1 - [{\frac{{e^{ - \lambda } \lambda ^0 }}{{0!}}} + {\frac{{e^{ - \lambda } \lambda ^1 }}{{1!}}}] \\
-\implies \Pr{(X \ge 2)} = 1 - [{e^{-1}} + {e^{-1}}] \\
-\implies \Pr{(X \ge 2)} = 1 - {\frac{2}{e}} \\
+\implies \Pr{(X \ge 2)} = 1 - [{(\dfrac{49}{50})^{50}} + {(\dfrac{49}{50})^{49}}] \\
+\implies \Pr{(X \ge 2)} = 1 - [{(\dfrac{49}{50})^{49}}][{\dfrac{49}{50}} + {1}] \\
+\implies \Pr{(X \ge 2)} = 1 - [{(\dfrac{49}{50})^{49}}][{\dfrac{99}{50}}] \\
 \implies \Pr{(X \ge 2)} = 0.2642
 
 \newline Hence, The probability of two or more defective resistors in the circuit is 0.26.
 
 
-\subsection*{\boldsymbol{Justification\ why\ we\ use\ POISSON\ DISTRIBUTION\ :}}
-First of all, Poisson distribution is used as an approximation of the Binomial distribution, if n is large and P is small.
-\newline The Binomial distribution counts the discrete occurrences among discrete trials. The Poisson distribution counts discrete occurrences among a continuous domain.
-\newline Thus, In this case, It is a continuous domain of defective resistors. Because we cannot choose a defective resistor in random, if you name the sequence of resistors as (x1,x2,....,x50). For example, If we know that x3 is a defective resistor, then it means that we cannot a defective from (x1,x2). we have to see defective resistors only in (x4,x5,....,x50). Similarly, we have continue the process until x50. So, it means that we are not selecting the defective resistors randomly.
-\newline Hence, This is the reason that we cannot apply binomial distribution here. 
 
 \end{flushleft}
 \end{document}
