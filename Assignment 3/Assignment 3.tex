@@ -152,14 +152,11 @@ Download Python code and Latex from below link : \\
 \begin{flushleft} The probability of a resistor being defective is 0.02. There are 50 such resistors in a circuit. The probability of two or more defective resistors in the circuit (round off to two decimal places) is ---\end{flushleft}
 \subsection*{\boldsymbol{Solution}}
 \begin{flushleft}
-Consider,\ Probability \ of \ a \ defective \ resistor \ &= P
-   &= 0.02 &= \dfrac{1}{50}.
-\newline
-\newline Total \ number \ of \ resistors = n = 50.
-\newline Let \ X \ be \ number\ of\ defective\ resistors.
-\newline By\  Binomial\  distribution,
-\newline
-
+Consider, Probability of a defective resistor &= P
+   &= 0.02 &= \dfrac{1}{50}. \\
+Total number of resistors = n = 50. \\
+Let X be number of defective resistors. \\
+By Binomial distribution, \\
 \begin{equation}
     Pr(X = k) = \binom{n}{k}\brak{P}^k\brak{1 - P}^{n-k} 
 \end{equation}
@@ -176,9 +173,10 @@ Pr(X = 1) &= \binom{50}{1}\brak{\dfrac{1}{50}}^1\brak{1 - \dfrac{1}{50}}^{50-1}
  \implies Pr(X = 1) &= \brak{\dfrac{49}{50}}^{49}
 \end{equation}
 
-\item \Pr{(X \ge 2)} = 1 - \Pr{(X < 2)} \\
+\Pr{(X \ge 2)} = 1 - \Pr{(X < 2)} \\
 \implies \Pr{(X \ge 2)} = 1 - \brak{\Pr{(X = 0)} + \Pr{(X = 1)}} \\
-\implies \Pr{(X \ge 2)} = 0.2642
+\implies \Pr{(X \ge 2)} = 0.2642 
+
 
 \newline Hence, The probability of two or more defective resistors in the circuit is 0.26.
 
