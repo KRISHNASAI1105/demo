@@ -151,14 +151,14 @@ Download Python code and Latex from below link : \\
 \begin{flushleft} An array of 25 distinct elements is to be sorted using quicksort. Assume that the pivot element is chosen uniformly at random. The probability that the pivot element gets placed in the worst possible location in the first round of partitioning (rounded off to 2 decimal places) is ----\end{flushleft}
 \subsection*{\boldsymbol{Solution}}
 \begin{flushleft}
-Given an array of 25 distinct elements, and pivot element is chosen randomly. Quicksort puts the pivot in its correct place after 1st iteration. The worst place, the pivot element can be placed is at extreme left or extreme right. So, there are only 2 worst possible locations in the first round of partitioning that pivot element gets placed is either in the first or last position of array.
-\newline Total number of pivot elements &= 25.
-\newline Number of worst possible location of pivot element gets placed after first round of partitioning &= 2.
-\newline 
+The worst possible place, the pivot element can be placed is at extreme left or extreme right. So, there are only 2 worst possible locations. \\
+\begin{equation}
+   Pr (X1\ is\ compared\ to\ Xn) = \dfrac{2}{n}.
+\end{equation}
+Total number of pivot elements &= 25. \\
+Number of worst possible location of pivot element gets placed after first round of partitioning &= 2. \\
 
-Probability of placing pivot element in worst possible locations &= \dfrac{2}{25} &= 0.08.
-
-\newline Hence, The probability that the pivot element gets placed in the worst possible location in the first round is 0.08.
+Probability of placing pivot element in worst possible locations &= \dfrac{2}{25} &= 0.08. 
 
 
 \end{flushleft}
