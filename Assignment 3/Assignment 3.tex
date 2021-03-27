@@ -144,7 +144,7 @@ columns=fullflexible
 \renewcommand{\thefigure}{\theenumi}
 \renewcommand{\thetable}{\theenumi}
 \begin{mdframed}
-Download Python code and Latex from below link : \\
+Download Python code and LaTex from below link : \\
 \href{https://github.com/KRISHNASAI1105/demo/tree/main/Assignment3}{https://github.com/KRISHNASAI1105
 /demo/tree/main/Assignment3}
 \end{mdframed}
@@ -158,30 +158,26 @@ Total number of resistors = n = 50. \\
 Let X be number of defective resistors. \\
 By Binomial distribution, \\
 \begin{equation}
-    Pr(X = k) = \binom{n}{k}\brak{P}^k\brak{1 - P}^{n-k} 
+Pr(X = k) = \binom{n}{k}\brak{P}^k\brak{1 - P}^{n-k} 
 \end{equation}
 \begin{equation}
 Pr(X = 0) &= \binom{50}{0}\brak{\dfrac{1}{50}}^0\brak{1 - \dfrac{1}{50}}^{50-0} 
 \end{equation}
 \begin{equation}
-\implies Pr(X = 0) &= \brak{\dfrac{49}{50}}^{50}
+\implies Pr(X = 0) &= \brak{\dfrac{49}{50}}^{50} 
 \end{equation}
 \begin{equation}
-Pr(X = 1) &= \binom{50}{1}\brak{\dfrac{1}{50}}^1\brak{1 - \dfrac{1}{50}}^{50-1}
+Pr(X = 1) &= \binom{50}{1}\brak{\dfrac{1}{50}}^1\brak{1 - \dfrac{1}{50}}^{50-1} 
 \end{equation}
 \begin{equation}
- \implies Pr(X = 1) &= \brak{\dfrac{49}{50}}^{49}
+\implies Pr(X = 1) &= \brak{\dfrac{49}{50}}^{49}
 \end{equation}
 
-\begin{align}
-\Pr{(X \ge 2)} = 1 - \Pr{(X < 2)} 
-\end{align}
-\begin{align}
-\Pr{(X \ge 2)} = 1 - \brak{\Pr{(X = 0)} + \Pr{(X = 1)}}
-\end{align}
-\begin{align}
-\Pr{(X \ge 2)} = 0.2642 
-\end{align}
+\begin{align*}
+\Pr{(X \ge 2)} &= 1 - \Pr{(X < 2)} \\
+\Pr{(X \ge 2)} &= 1 - \brak{\Pr{(X = 0)} + \Pr{(X = 1)}} \\
+\Pr{(X \ge 2)} &= 0.2642 
+\end{align*}
 
 \newline Hence, The probability of two or more defective resistors in the circuit is 0.26.
 
