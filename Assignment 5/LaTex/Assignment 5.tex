@@ -169,22 +169,21 @@ Then Pr{(Z>2 | Z>1)}, rounded off to two decimal places, is equal to
 
 \subsection*{\boldsymbol{Solution}}
 \begin{flushleft}
-Given that Z is an exponential distribution with cumulative function
-\begin{align*}
-    F_Z(x) =
-    \begin{cases}
-    1 - {e^{-x}}, & if\ x \ge 0 \\
-    0, & if\ x<0.
-    \end{cases}
-\end{align*} 
+Given that Z is an exponential distribution with cumulative function F_Z(x)
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 0.45\textwidth]{CDF of X.png}
+\end{figure}
+
 We know that probability density function 
 \begin{align*}
-  f_Z(x) = F^\prime _Z(x) &= \begin{cases}{e^{-x}},& x \ge 0 \\
+  f_Z(x) = F^\prime _Z(x) = \begin{cases}{e^{-x}},& x \ge 0 \\
                           0, & x<0
   \end{cases}
 \end{align*}
 
-The PDF of $X$ and $Y$ is,
+The PDF of $X$ is,
 \begin{align*}
              f_Z(x) &= \int\limits_{-\infty}^\infty f(x)d x \\
     Pr{(Z>2 | Z>1)} &= \dfrac{Pr{((Z>2)\cap (Z>1))}}{Pr{(Z>1)}} \\
@@ -195,6 +194,12 @@ The PDF of $X$ and $Y$ is,
                     &= e^{-1} \\
                     &= 0.3679
 \end{align*}
+
+
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 0.45\textwidth]{Probability.png}
+\end{figure}
 
 \end{flushleft}
 \end{document}
