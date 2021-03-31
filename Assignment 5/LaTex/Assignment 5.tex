@@ -156,13 +156,13 @@ https://github.com/KRISHNASAI1105/demo/blob/main/Assignment%205/LaTex/Assignment
 
 \subsection*{\boldsymbol{Problem\ number\ GATE\ EC\ 2019\ Q.20}}
 \begin{flushleft} Let Z be an exponential random variable with mean 1. That is, the cumulative distribution function of Z is given by 
-\begin{align*}
+\begin{align}
     F_Z(x) =
     \begin{cases}
     1 - {e^{-x}}, & if\ x \ge 0\\
     0, & if\ x<0.
     \end{cases}
-\end{align*}
+\end{align}
 
 Then Pr{(Z>2 | Z>1)}, rounded off to two decimal places, is equal to 
 \end{flushleft}
@@ -177,34 +177,32 @@ Given that Z is an exponential distribution with cumulative function F_Z(x).
 \end{figure}
 
 We know that probability density function 
-\begin{align*}
+\begin{align}
   f_Z(x) = F^\prime _Z(x) = \begin{cases}{e^{-x}},& x \ge 0 \\
                           0, & x<0
   \end{cases}
-\end{align*}
+\end{align}
 
 The CDF of $X$ is,
 \begin{align*}
-             F_Z(x) &= Pr(Z \le x),\ for\ all\ x \in R \\
-        Pr(Z \le 2) &= F_Z(2) \\
-                    &= 1 - {e^{-2}} \\
-        Pr(Z \le 1) &= F_Z(1) \\
-                    &= 1 - {e^{-1}} \\
-          Pr(Z > 2) &= 1 - Pr(Z \le 2) \\
-                    &= {e^{-2}} \\
-          Pr(Z > 1) &= 1 - Pr(Z \le 1) \\
-                    &= {e^{-1}} \\        
-    Pr{(Z>2 | Z>1)} &= \dfrac{Pr{((Z>2)\cap (Z>1))}}{Pr{(Z>1)}} \\
-                    &= \dfrac{Pr{(Z>2)}}{Pr{(Z>1)}} \\
-                    &= \dfrac{e^{-2}}{e^{-1}} \\
-                    &= e^{-1} \\
-                    &= 0.3679
-\end{align*}
+ F_Z(x) &= Pr(Z \le x),\ for\ all\ x \in R \\
+ Pr(Z \le 2) &= F_Z(2) \\
+ &= 1 - {e^{-2}} \\
+ Pr(Z \le 1) &= F_Z(1) \\
+ &= 1 - {e^{-1}} 
+ \end{align*}
+ \begin{align}
+ Pr{(Z>2 | Z>1)} &= \dfrac{Pr{((Z>2),(Z>1))}}{Pr{(Z>1)}} \\
+                 &= \dfrac{Pr{(Z>2)}}{Pr{(Z>1)}} \\
+                 &= \dfrac{1 - Pr{(Z \le 2)}}{1 - Pr{(Z \le 1)}} \\
+                 &= \dfrac{e^{-2}}{e^{-1}} \\
+                 &= e^{-1} = 0.3679
+\end{align}
 
 
 \begin{figure}[!htb]
 \centering
-\includegraphics[width = 0.44\textwidth]{Probability.png}
+\includegraphics[width = 0.45\textwidth]{Probability.png}
 \end{figure}
 
 \end{flushleft}
