@@ -161,13 +161,33 @@ https://github.com/KRISHNASAI1105/demo/blob/main/Assignment_7/LaTex/Assignment_7
 
 \subsection*{\boldsymbol{Solution}}
 \begin{flushleft} \vspace{-7mm}
-\begin{definition} We say that Markov chain is irreducible if and only if all states belong to one communication class and all states communicate with each other. 
-\end{definition} 
-\begin{definition}  In an \textbf{irreducible chain} all states belong to a single communicating class. This means that, if one of the states in an irreducible Markov chain is \textbf{aperiodic}. Then, all the remaining states are also aperiodic.
+\begin{definition} We say that Markov chain is \textbf{irreducible} if and only if all states belong to one communication class and all states communicate with each other. 
 \end{definition} 
 \begin{center}
 S = \{1,2,....,100\}. 
 \end{center}
+
+Consider, the communication classes of the given Markov chain as follows : \\
+
+\begin{table}[h!]
+\resizebox{\columnwidth}{!}
+{ 
+\begin{tabular}{|c|c|}
+\hline
+Communication class & set of elements  \\  \hline
+C_1(1) & \{1,3,5,7,....,49\}  \\  \hline
+C_1(2) & \{2,4,6,8,....,50\}  \\  \hline
+C_1(51) & \{51\}  \\  \hline
+C_1(52) & \{52\}  \\  \hline
+\vdots & \vdots  \\  \hline
+C_1(100) & \{100\}  \\  \hline
+\end{tabular}
+}
+\caption{Communication class} 
+\label{table}
+\end{table}
+
+$\therefore$ As there are 52 communication classes, the given Markov chain is reducible. 
 
 \begin{tikzpicture}
 \filldraw[color=red!60, fill=red!5, very thick](1.5,0) circle (0.4);
@@ -287,34 +307,35 @@ S = \{1,2,....,100\}.
 
 \end{tikzpicture}
 
-Consider, the communication classes of the given Markov chain as follows : \\
-C_1(1) = \{ 1,3,5,7,....,49 \}. \\
-C_1(2) = \{ 2,4,6,8,....,50 \}. \\
-C_1(51) = \{ 51 \}, \ C_1(52) = \{ 52 \}, \ ...... \ C_1(100) = \{ 100 \}. \\
-$\therefore$ As there are 52 communication classes, the given Markov chain is reducible. \\
-
-\implies {[i \in C_{(i)}]} \ {($\because$ i communicate with i in zero steps)} \\
-
-Given, even states communicate with each other. Similarly odd states communicate with each other. \\ 
-
 Regarding periodicity, \\
 \begin{center}
 \begin{math}
 d(K) = gcd(m \ge 1 : P^{m}_{k,k} > 0). 
 \end{math}
-\end{center} \\
+\end{center} 
 
-For all odd states in \{1,3,5,7,....,49\}, Periodicity = d(1). \\
-Similarly, For all even states in \{2,4,6,8,....,50\}, Periodicity = d(2). \\
+\begin{table}[h!]
+\resizebox{\columnwidth}{!}
+{ 
+\begin{tabular}{|c|c|}
+\hline
+Periodicity of elements & set of elements  \\  \hline
+d(1) & \{1,3,5,7,....,49\}  \\  \hline
+d(2) & \{2,4,6,8,....,50\}  \\  \hline
+\end{tabular}
+}
+\caption{Periodicity of some of elements of set S} 
+\label{table:1} 
+\end{table}
+
 d(1) = d(2) = gcd\{2,3,....\} = 1. $\therefore$ Aperiodic. \\
 d(51) = d(52) = ....... = d(100) = 0. $\therefore$ periodic. \\
-
-Hence, The given \textbf{Markov\ chain} is reducible and not a aperiodic chain. \\
+Hence, The given \textbf{Markov\ chain} is \textbf{reducible} and not a \textbf{aperiodic} chain. \\
 \{1,3,5,7,...,49,51,52,53,....,100\} are recurrent states. \\
 \{2,4,6,8,....,50\} are transient states.
 
 \begin{center}
-     \boxed{\text{\textbf{Option 4} is a \textbf{correct} answer}}
+  $\therefore$ \boxed{\text{\textbf{Option 4} is a \textbf{correct} answer}}
 \end{center}
 
 \end{flushleft}
