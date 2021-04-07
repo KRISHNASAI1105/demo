@@ -161,9 +161,28 @@ https://github.com/KRISHNASAI1105/demo/blob/main/Assignment_6/LaTex/Assignment%2
 \end{flushleft}
 
 \subsection*{\boldsymbol{Solution}}
-\begin{flushleft} \vspace{-11mm}
+\begin{flushleft} 
+The probability density function (pdf) f(x) of a random variable X is defined as the derivative of the cdf F(x): \\
+\begin{center}
+\begin{math}
+    f(x) = \dfrac{d}{d x}F(x).
+\end{math}
+\end{center} 
+It is sometimes useful to consider the cdf F(x) in terms of the pdf f(x):
+\begin{center}
+    \begin{math}
+    F(x) = \int\limits_{-\infty}^x f(t) d t
+    \end{math}
+\end{center}
+
+The PDF of X is,
 \begin{align}
-    \pr{X2 > X1} &= \int\limits_{-\infty}^\infty f_X(x) \int\limits_{-\infty}^x                  f_X(t)\ d t d x \\
+    F_X(x) &= \int\limits_{-\infty}^\infty f(x) d x \\
+\int\limits_{-\infty}^\infty f(x) d x &= F_X(x) \biggr \vert_{-\infty}^{\infty} \\
+                                      &= 1.
+\end{align}
+\begin{align}
+  \pr{X_2 > X_1} &= \int\limits_{-\infty}^\infty f_X(x) \int\limits_{-\infty}^x                  f_X(t)\ d t d x \\
                  &= \int\limits_{-\infty}^\infty f_X(x) F_X(x) d x \\
                  &= \cfrac{F^{2}_X(x)}{2} \biggr \vert_{-\infty}^{\infty} \\
                  &= \dfrac{1}{2}.
