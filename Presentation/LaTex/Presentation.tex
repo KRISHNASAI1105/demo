@@ -83,7 +83,8 @@ If d(K) = 0, then the state K is periodic.
 Consider, S = \{1,2,3,....,100\}
 \end{center}
 \begin{center}
-\begin{tikzpicture}
+\begin{tikzpicture}[
+roundnode/.style={circle, draw=red!60, fill=red!5, very thick, minimum size=0.4mm}]
 \filldraw[color=red!60, fill=red!5, very thick](1.5,0) circle (0.4);
 \filldraw[color=red!60, fill=red!5, very thick](0,1.5) circle (0.4);
 \filldraw[color=red!60, fill=red!5, very thick](-1.5,0) circle (0.4);
