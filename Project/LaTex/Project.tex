@@ -1,0 +1,305 @@
+\documentclass[xcolor=dvipsnames]{beamer}
+\usepackage{listings}
+\lstset{
+%language=C,
+frame=single, 
+breaklines=true,
+columns=fullflexible
+}
+\usepackage{subcaption}
+\usepackage{url}
+% \usepackage{babel}
+% \usepackage[useregional]{datetime2}
+\usepackage{multirow}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{tikz}
+\usepackage{tkz-fct}
+\usepackage{mathrsfs}
+\usepackage{txfonts}
+\usepackage{tkz-euclide} % loads  TikZ and tkz-base
+%\usetkzobj{all}
+\usetikzlibrary{calc,math}
+\usepackage{float}
+\newcommand\norm[1]{\left\lVert#1\right\rVert}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+\usepackage[export]{adjustbox}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usetheme{CambridgeUS}
+% \usetheme{Madrid}
+% \usetheme{Boadilla}
+% \useoutertheme{miniframes} % Alternatively: miniframes, infolines, split
+% \useinnertheme{circles}
+\usecolortheme[named=UBCblue]{crane}
+\providecommand{\pr}[1]{\ensuremath{\Pr\left(#1\right)}}
+\usepackage{mathtools}
+\usepackage{diagbox}
+\usepackage{slashbox}
+\usepackage{multirow}
+
+\title{\textbf{Implementation of IoT Testbed with Improved Reliability using Conditional Probability Techniques}}
+\author{\textbf{Nagubandi Krishna Sai - MS20BTECH11014}}
+
+\begin{document}
+
+\begin{frame}
+\titlepage
+\end{frame}
+\section{Introduction}
+\begin{frame}{Internet of Things}
+    \begin{block}{Definition}
+        Internet of Things describes the network of the things that are embedded with sensors, software and other kind of technology for the purpose of connecting and exchanging data with other devices and systems over the Internet. In simple words, Internet of Things is a system of interrelated computing devices over network without requiring human-to-human or human-to-computer interaction.
+    \end{block}
+\end{frame}
+\begin{frame}{Internet of Things}
+        \begin{block}{Example}
+        \begin{itemize}
+            \item Consider an sensor device, first of all sensors collect data from their environment, then the collected data is sent to the \textbf{cloud}. And the sensors can connect to the cloud through a variety of methods(cellular, WiFi,etc or connecting to the internet via). \\
+            \item For example, consider a temperature sensor in a cold storage. So now, \textbf{\textbf{User interface}} processes the software data sent by the \textbf{cloud} and then decide to perform an action such as sending alert alarm, text or any other kind of notification or automatically adjusting the devices without the need of the user. \\
+            \item The user can reduce his/her work, by doing any adjustments using some other devices(IoT). \\
+        \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}{Example}
+     \begin{block}{Temperature sensor with \textbf{IoT} Technology}
+     \begin{figure}
+     \centering
+     \includegraphics[width=\columnwidth]{sensor 2.png}
+     \caption{Working principle of IoT technology based sensors}
+     \label{fig:fig1}
+     \end{figure}
+     \end{block}
+\end{frame}
+\begin{frame}{IoT Testbed}
+    \begin{block}{Definition}
+        IoT testbed which enables an IoT system to be immersed and tested in a virtual environment in order to evaluate its behavior under controllable conditions.
+    \end{block}
+    \begin{block}{Characteristics of IoT system}
+        \begin{enumerate}
+                \item 	Distributivity : imposed by multiple data sources. \\
+                \item   Interoperability : required both among devices and between devices and sensors. \\
+                \item   Scalability : implied by the ability to manage increasing amounts of data. \\
+                \item   Resources scarcity : caused by constraints of low-level devices. \\
+                \item 	Security : demanded by acquired standards.
+        \end{enumerate}
+    \end{block}
+\end{frame}
+\begin{frame}{Proposed architecture}
+     \begin{block}{Block Diagram}
+     \begin{figure}
+     \centering
+     \includegraphics[width=0.55\textwidth]{Block diagram.png}
+     \caption{Block Diagram of Proposed Architecture}
+     \label{fig:fig2}
+     \end{figure}
+     \end{block}
+\end{frame}
+\begin{frame}{Conditional probability}
+\begin{block}{Definition}
+    Conditional probability is a measure of the probability of an event occurring, given that another event has already occurred. \\
+    \textbf{Conditional probability} is included with \textbf{joint probability} and \textbf{marginal probability}.
+\end{block}
+\begin{block}{Formula}
+    \begin{center}
+       \pr{A|B} = \dfrac{\pr{A \cap B}}{\pr{A}} \\
+       $\therefore$ A and B are not independent events.
+    \end{center}
+    \begin{align*}
+    \text{Conditional Probability} &= \pr{A|B} \\
+    \text{Joint Probability} &= \pr{A \cap B} \\
+    \text{Marginal Probability} &= \pr{A}.
+    \end{align*}
+\end{block}
+\end{frame}
+\begin{frame}{Confusion Matrix}
+\begin{block}{Definition}
+\textbf{Confusion\ matrix} is a table that tells us how well our model has performed after it has been trained. \\
+A confusion matrix is a table with two rows and two columns that reports the number of false positives, false negatives, true positives, and true negatives. \\
+\end{block}
+\begin{block}{Confusion matrix}
+\begin{table}[h!]
+\begin{tabular}{ll|l|l|}
+\cline{3-4}
+          &  &   \multicolumn{2}{l|}{\quad\;\;\; Predicted} \\ \cline{3-4} 
+          &  &   Negative       & Positive                  \\ \hline
+\multicolumn{1}{|c|}{\multirow{2}{*}{Actual}} & Negative & a & b \\ \cline{2-4} 
+\multicolumn{1}{|c|}{}                        & Positive & c & d \\ \hline
+\end{tabular}
+\end{table}
+\end{block}
+\end{frame}
+\begin{frame}{Notations}
+    \begin{block}{}
+        \begin{align} 
+        \text{Accuracy} &= \dfrac{TP + TN}{TP + TN + FP + FN} \\
+        \text{Error rate} &= 1 - Accuracy \\
+        \text{True positive rate(TPR)} &= \dfrac{TP}{TP + FN} \\
+        \text{False positive rate(FPR)} &= \dfrac{FP}{FP + TN} \\
+        \text{Precision} &= \dfrac{TP}{TP + FP} \\
+        \text{Prevalence} &= \dfrac{TP + FN}{TP + TN + FP + FN} \\
+        \text{Specificity} &= 1 - FPR.
+        \end{align}
+    \end{block}
+\end{frame}
+\begin{frame}{Formula}
+    \begin{block}{}
+    \hspace{15mm} TP = True positive = d. \hspace{15mm}  FP = False positive = b.\\
+    \hspace{15mm} TN = True negative = a. \hspace{13.5mm} FN = False negative = c.\\ \vspace{-7mm} 
+    \begin{align}
+     \text{Accuracy} &= \dfrac{a+d}{a+b+c+d} \\  
+    \text{Error rate} &= 1 - Accuracy \\
+    \text{True positive rate(TPR)} &= \dfrac{d}{c+d}  \\
+     \text{False positive rate(FPR)} &= \dfrac{b}{a+b} \\
+     \text{Specificity} &= \dfrac{a}{a+b} \\
+     \text{Precision} &= \dfrac{d}{d+b} \\
+     \text{Prevalence} &= \dfrac{d+c}{a+b+c+d} 
+    \end{align}
+    \end{block}
+\end{frame}
+\section{Reliability of proposed IoT Testbed}
+\begin{frame}{}
+    \begin{block}{Definition}
+     Reliability is defined as the probability, that an item will perform a required function without any failure for a stated period of time. In another words, it is the measure of how long it takes for a network (or a system) to fail.
+    \end{block}
+    \begin{block}{}
+     The proposed architecture is to proved that the \textbf{\textbf{IoT testbed}} was more reliable. We use \textbf{\textbf{Conditional probability techniques}}, because it is a way to \textbf{\textbf{logically quantify uncertainty}} under  different conditions. 
+    \end{block}
+    \begin{block}{}
+    A confusion matrix have been constructed based on the experiment, to predict how  much time the test bed reliability(performance) was detected low when the test bed was performing fairly moderate. 
+   \begin{table}[h!]
+   \begin{tabular}{|l|l|l|l|} \hline
+   \multirow{3}{*}{Total (N = 500)} & & User Score Low & User Score High \\ \cline{2-4} 
+   & Actually Low     & 40             & 05              \\ \cline{2-4} 
+   & Actually High    & 65             & 390             \\ \hline
+   \end{tabular}
+   \end{table}
+    \end{block}
+\end{frame}
+\begin{frame}{}
+    \begin{block}{Calculation of system Usability}
+    \rightarrow \text{From the above table,} \\ \vspace{2mm}
+    \hspace{15mm} TP = True positive = 390. \hspace{15mm}  FP = False positive = 5.\\
+    \hspace{15mm} TN = True negative = 40. \hspace{13.5mm} FN = False negative = 65.\\  
+    \begin{align} 
+        \text{Accuracy} &= 0.86. \\
+        \text{Error rate} &= 0.14. \\
+        \text{True positive rate(TPR)} &= 0.86. \\
+        \text{False positive rate(FPR)} &= 0.11. \\
+        \text{Precision} &= 0.98. \\
+        \text{Prevalence} &= 0.91. \\
+        \text{Specificity} &= 0.89.
+        \end{align}
+    \end{block}
+\end{frame}
+\section{Feedback based Ranking system}
+\begin{frame}{}
+    \begin{block}{}
+    \begin{figure}
+     \centering
+     \includegraphics[width=\columnwidth]{Screenshot (6).png}
+     \caption{Allocation decision tree}
+     \label{fig:fig3}
+     \end{figure}
+    \end{block}
+\end{frame}
+\begin{frame}{}
+    \begin{block}{Decision tree}
+    % Decision trees are used for handling non-linear data sets effectively. \\
+    % For a decision tree to be effective, it must contain all possibilities, i.e. all possible pathways and event sequences. In addition, the events must be mutually exclusive; in other words, if one event happens, the other cannot. \\
+    Decision Trees are excellent tools for helping you to choose between several courses of action.
+    They also help you to form a balanced picture of the risks and rewards associated with each possible course of action.
+    \end{block}
+    \begin{block}{API}
+    The application program (or programming) interface, or API, is arguably what really ties together the connected “things” of the “internet of things.” IoT APIs are the points of interaction between an IoT device and the internet and/or other elements within the network.
+    \end{block}
+    \begin{block}{Decision Tree - based Ranking}
+    The user provides the feedback based on the user satisfaction of the performance of IoT test bed. The parameters adopted for allocation Decision tree are Realibility, Performance and API. These values are inserted as input to the Decision tree. The Decision tree in the above figure provides the best available platform to the next user based on the score.
+    \end{block}
+\end{frame}
+\begin{frame}{}
+    \begin{block}{The feedback system}
+    The feedback based ranking system is developed for efficient resource allocation for users. The feedback scores are used to decide the overall Reliability and performance of the available services based on architectural framework 
+    \end{block}
+    \begin{block}{Joint probability function of the discrete random variables R and P'}
+    To prove the Reliability of the given test bed, the joint probability function is also used in the below table, \\
+    \begin{table}[h!]
+    \begin{tabular}{|l|l|l|l|l|} \hline 
+    \diagbox[40mm]{R}{P'} & Low & Medium & High & \sum $a_{ij=1\;\text{to}\;3}$  \\ \hline
+    Low            & $a_{11}$ & $a_{12}$    & $a_{13}$ & $S_l$ \\ \hline
+    Medium         & $a_{21}$ & $a_{22}$    & $a_{23}$ & $S_m$ \\ \hline
+    High           & $a_{31}$ & $a_{32}$    & $a_{33}$ & $S_h$ \\ \hline
+    \sum $a_{ij=1\;\text{to}\;3}$ & $T_l$ & $T_m$ & $T_h$ & \sum $S_i$ = \sum $T_i$  \\ \hline
+    \end{tabular}
+    \end{table}
+    \end{block}
+\end{frame}
+\begin{frame}{}
+\begin{block}{Notations}
+ \begin{itemize}
+     \item "R" denotes Reliability, "$P^\prime$" denotes Performance. \\
+    \item l,m and h denotes low, medium and high. \\
+    \item \pr{R = r_i, P^\prime = P^\prime_i} denotes the probability that R takes $r_i$ and P takes $p^\prime_i$, it is the probability of intersection of events. \\
+    \item Reliability low and Performance low will be \pr{R = r_l, P^\prime = p^\prime_l}. \\ 
+    \item \pr{r_i, p^\prime_i} is the probability mass function, where i = l,m,h. \\
+    \item By the rule, \sum $S_i$ = \sum $T_i$ , where i = l,m,h. \\
+    \item The marginal probability function of Reliability R,\vspace{-4mm} 
+    \begin{align} 
+        P_R(r_i) &= \pr{R = r_i} \\
+                 &= \nonumber\pr{R = r_i, P^\prime = P^\prime_l} + \pr{R = r_i,    P^\prime    = P^\prime_m} \\
+                 &  + \pr{R = r_i, P^\prime = P^\prime_h} \\
+                 &\ge p_{io}
+    \end{align} \vspace{-9mm}
+    \item R = $r_i$, where i = l,m,h. 
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}{}
+    \begin{block}{Notations}
+    \begin{itemize}
+        \item The set ($r_i$,$p_{io}$) is the marginal distribution of reliability. \\
+        \item Similarly, the marginal distribution of performance P',
+        \begin{align}
+            P_{P'}(p'_i) &= \nonumber\pr{P^\prime = p^\prime_i} + \pr{R = r_l,                  P^\prime    = P^\prime_i} + \pr{R = r_m, P^\prime =                 P^\prime_i} \\
+                         &  + P(R=r_h, P'=P'_i) \\         
+                         &\ge p_{io}
+        \end{align}
+        \item Having found the marginal distribution of R and P', the conditional probability distribution are,
+        \begin{align}
+            F(P'/R) &= \dfrac{f(R,P')}{f(R)} \\
+            F(R/P') &= \dfrac{f(R,P')}{f(P')}
+        \end{align}
+    \end{itemize}
+    \end{block}
+\end{frame}
+\begin{frame}{}
+    \begin{block}{}
+    \hspace{20mm} f(P'=Low) = $T_l$ . \hspace{20mm}  f(P'=Medium) = $T_m$.\\
+    \begin{itemize}
+        \item The Conditional probability when performance is low,
+        \begin{align}
+            P(R=l/P'=l) &= \dfrac{a_{11}}{T_l} \\
+            P(R=m/P'=l) &= \dfrac{a_{21}}{T_l} \\
+            P(R=h/P'=l) &= \dfrac{a_{31}}{T_l}
+        \end{align}
+        \item The Conditional probability when performance is medium,
+        \begin{align}
+            P(R=l/P'=m) &= \dfrac{a_{12}}{T_m} \\
+            P(R=m/P'=m) &= \dfrac{a_{22}}{T_m} \\
+            P(R=h/P'=m) &= \dfrac{a_{32}}{T_m}
+        \end{align}
+        \end{itemize}
+    \end{block}
+\end{frame}
+\section{Conclusion}
+\begin{frame}{Conclusion}
+    \begin{block}{Conclusion}
+    \begin{itemize}
+        \item On calculation, it was observed that the performance of the test bed was considerably moderate even the scores happened to be low or moderate. \\
+        \item The \textbf{API’s} have been developed at the sensor data level, actuator, platform level which has shown good improvement in performance in terms of re-usability and utilization. \\
+        \item Usability and performance were measured with the help of user feedback scores. Based on the user feedback score, a \textbf{\textbf{confusion matrix and Joint probability distribution}} have been derived which has shown considerable performance even the scores happened to be moderate or low. \\
+        \item This gives the reference to use \textbf{\textbf{Conditional probability and Decision tree}} methods to improve the performance of \textbf{\textbf{IoT test bed}} under different conditions.
+    \end{itemize}
+    \end{block}
+\end{frame}
+\end{document}
