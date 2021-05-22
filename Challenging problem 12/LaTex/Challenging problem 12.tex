@@ -62,7 +62,6 @@
 \renewcommand\thesubsubsectiondis{\thesubsectiondis.\arabic{subsubsection}}
 
 
-\hyphenation{op-tical net-works semi-conduc-tor}
 \def\inputGnumericTable{}                                 %%
 
 \lstset{
@@ -186,66 +185,50 @@ P = \left[
 \end{math} \\
 For eigenvalue calculation, \\
 \begin{center}
-    $|A-\lambda I|$ = 0 & $A=P^\intercal$
+    $|A-\lambda I|$ = 0 & $A=P$
 \end{center} \\
 \begin{math}
 A = \left[
 \begin{array}{c c c c c}
-    1 & \frac{1}{3} & 0 & 0 & 0 \\
-    0 & \frac{1}{3}  & \frac{1}{3}  & 0 & 0 \\
+    1 & 0 & 0 & 0 & 0 \\
+    \frac{1}{3} & \frac{1}{3}  & \frac{1}{3}  & 0 & 0 \\
     0 & \frac{1}{3}  & \frac{1}{3}  & \frac{1}{3} & 0 \\
-    0 & 0 & \frac{1}{3} & \frac{1}{3}  & 0  \\
-    0 & 0 & 0 & \frac{1}{3} & 1
+    0 & 0 & \frac{1}{3} & \frac{1}{3}  & \frac{1}{3} \\
+    0 & 0 & 0 & 0 & 1
 \end{array}\right]
 \end{math} \\
 \begin{math}
 A - \lambda I = \left[
 \begin{array}{c c c c c}
-    1-\lambda & \frac{1}{3} & 0 & 0 & 0 \\
-    0 & \frac{1}{3}-\lambda  & \frac{1}{3}  & 0 & 0 \\
+    1-\lambda & 0 & 0 & 0 & 0 \\
+    \frac{1}{3} & \frac{1}{3}-\lambda  & \frac{1}{3}  & 0 & 0 \\
     0 & \frac{1}{3}  & \frac{1}{3}-\lambda  & \frac{1}{3} & 0 \\
-    0 & 0 & \frac{1}{3} & \frac{1}{3}-\lambda  & 0  \\
-    0 & 0 & 0 & \frac{1}{3} & 1-\lambda
+    0 & 0 & \frac{1}{3} & \frac{1}{3}-\lambda  & \frac{1}{3}  \\
+    0 & 0 & 0 & 0 & 1-\lambda
 \end{array}\right]
 \end{math} \\
 \begin{align}
-|A-\lambda I| &= \nonumber\brak{1-\lambda}\left|
+|A-\lambda I| &= \brak{1-\lambda}\left|
 \begin{array}{c c c c}
      \frac{1}{3}-\lambda  & \frac{1}{3}  & 0 & 0 \\
      \frac{1}{3}  & \frac{1}{3}-\lambda  & \frac{1}{3} & 0 \\
-     0 & \frac{1}{3} & \frac{1}{3}-\lambda  & 0  \\
-     0 & 0 & \frac{1}{3} & 1-\lambda
+     0 & \frac{1}{3} & \frac{1}{3}-\lambda & \frac{1}{3}  \\
+     0 & 0 & 0 & 1-\lambda
 \end{array}\right| \\ 
-& - \dfrac{1}{3}\left|
-\begin{array}{c c c c}
-     0 & \frac{1}{3}  & 0 & 0 \\
-     0 & \frac{1}{3}-\lambda  & \frac{1}{3} & 0 \\
-     0 & \frac{1}{3} & \frac{1}{3}-\lambda  & 0  \\
-     0 & 0 & \frac{1}{3} & 1-\lambda
-\end{array}\right| \\
 &= \nonumber\brak{1-\lambda} \brak{\dfrac{1}{3}-\lambda}\left|
 \begin{array}{c c c}
      \frac{1}{3}-\lambda & \frac{1}{3} & 0 \\
-     \frac{1}{3} & \frac{1}{3}-\lambda & 0  \\
-     0 & \frac{1}{3} & 1-\lambda
+     \frac{1}{3} & \frac{1}{3}-\lambda & \frac{1}{3} \\
+     0 & 0 & 1-\lambda
 \end{array}\right| \\
-& \nonumber - \dfrac{1}{3}\brak{1-\lambda}\left|
+& - \dfrac{1}{3}\brak{1-\lambda}\left|
 \begin{array}{c c c}
      \frac{1}{3} & \frac{1}{3} & 0 \\
-     0 & \frac{1}{3}-\lambda & 0  \\
-     0 & \frac{1}{3} & 1-\lambda
+     0 & \frac{1}{3}-\lambda & \frac{1}{3} \\
+     0 & 0 & 1-\lambda
 \end{array}\right| \\
-& +\dfrac{1}{9}\left|
-\begin{array}{c c c}
-     \frac{1}{3}-\lambda  & \frac{1}{3} & 0 \\
-     \frac{1}{3} & \frac{1}{3}-\lambda  & 0  \\
-     0 & \frac{1}{3} & 1-\lambda
-\end{array}\right| \\
-&= \nonumber\brak{1-\lambda}^2\brak{\dfrac{1}{3}-\lambda}^3 - \dfrac{2}{9} \brak{1-\lambda}^2\brak{\dfrac{1}{3}-\lambda} \\
-& + \dfrac{1}{9} \brak{1-\lambda}\brak{\dfrac{1}{3}-\lambda}^2 - \dfrac{1}{81} \brak{1-\lambda} \\
-&= \nonumber\brak{1-\lambda}^2\brak{\dfrac{1}{3}-\lambda}\sbrak{\brak{\dfrac{1}{3}-\lambda}^2 - \dfrac{2}{9}} \\
-& + \dfrac{1}{9}\brak{1-\lambda}\sbrak{\brak{\dfrac{1}{3}-\lambda}^2-\dfrac{1}{9}} \\
-&= \dfrac{-27{\lambda}^5+81{\lambda}^4-84{\lambda}^3+32{\lambda}^2-{\lambda}-1}{27} \\
+&= \brak{1-\lambda}^2\brak{\dfrac{1}{3}-\lambda}^3 - \dfrac{2}{9} \brak{1-\lambda}^2\brak{\dfrac{1}{3}-\lambda} \\
+&= \brak{1-\lambda}^2\brak{\dfrac{1}{3}-\lambda}\sbrak{\brak{\dfrac{1}{3}-\lambda}^2 - \dfrac{2}{9}} \\
 &= \brak{1-\lambda}^2\brak{\dfrac{1}{3}-\lambda}\brak{{\lambda}^2-\dfrac{2\lambda}{3}-\dfrac{1}{9}}
 \end{align}
 For eigenvalue calculation, \\
@@ -265,22 +248,22 @@ Corresponding Eigenvectors are: \\
 \item Eigenvector $V_1$,$V_2$ for $\lambda_1$=1(multiplicity =2) :\\
 \begin{math}
 \text{So, for } \lambda=1 \text{ we get 2 eigenvectors.} \\
-(A-\lambda_1).V_1=0 \\
+    (A-\lambda_1).V_1=0 \\
 \left[
 \begin{array}{c c c c c}
-    1-\lambda_1 & \frac{1}{3} & 0 & 0 & 0 \\
-    0 & \frac{1}{3}-\lambda_1  & \frac{1}{3}  & 0 & 0 \\
-    0 & \frac{1}{3}  & \frac{1}{3}-\lambda_1  & \frac{1}{3} & 0 \\
-    0 & 0 & \frac{1}{3} & \frac{1}{3}-\lambda_1  & 0  \\
-    0 & 0 & 0 & \frac{1}{3} & 1-\lambda_1
+    1-\lambda_1 & 0 & 0 & 0 & 0 \\
+    \frac{1}{3} & \frac{1}{3}-\lambda_1 & \frac{1}{3} & 0 & 0 \\
+    0 & \frac{1}{3}  & \frac{1}{3}-\lambda_1 & \frac{1}{3} & \frac{1}{3} \\
+    0 & 0 & \frac{1}{3} & \frac{1}{3}-\lambda_1 & 0  \\
+    0 & 0 & 0 & 0 & 1-\lambda_1
 \end{array}\right].V_1=0 \\
 \left[
 \begin{array}{c c c c c}
-    0 & \frac{1}{3} & 0 & 0 & 0 \\
-    0 & \frac{-2}{3}  & \frac{1}{3}  & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 \\
+    \frac{1}{3} & \frac{-2}{3} & \frac{1}{3} & 0 & 0 \\
     0 & \frac{1}{3}  & \frac{-2}{3} & \frac{1}{3} & 0 \\
-    0 & 0 & \frac{1}{3} & \frac{-2}{3}  & 0  \\
-    0 & 0 & 0 & \frac{1}{3} & 0
+    0 & 0 & \frac{1}{3} & \frac{-2}{3} & \frac{1}{3}  \\
+    0 & 0 & 0 & 0 & 0
 \end{array}\right].\left[
 \begin{array}{c}
      a_1\\
@@ -289,56 +272,56 @@ Corresponding Eigenvectors are: \\
      d_1\\
      e_1
 \end{array}\right]=0 \\
-Null space=a_1\left[
+Null space=d_1\left[
 \begin{array}{c}
+      4\\
+      3\\
+      2\\
       1\\
-      0\\
-      0\\
-      0\\
       0
 \end{array}\right]+e_1\left[
 \begin{array}{c}
-      0\\
-      0\\
-      0\\
+      -3\\
+      -2\\
+      -1\\
       0\\
       1
 \end{array}\right] \\
 \text{So, eigenvectors are,} \\
 V_1=\left[
 \begin{array}{c}
+      4\\
+      3\\
+      2\\
       1\\
-      0\\
-      0\\
-      0\\
       0
 \end{array}\right],V_2=\left[
 \begin{array}{c}
-      0\\
-      0\\
-      0\\
+      -3\\
+      -2\\
+      -1\\
       0\\
       1
 \end{array}\right]
-\end{math} \\
+\end{math} \\ \hspace{-30mm}
 \item Eigenvector $V_3$ for $\lambda_3$=\dfrac{1}{3}(multiplicity =1) :\\
 \begin{math}
-(A-\lambda_3).V_3=0 \\
+    (A-\lambda_3).V_3=0 \\
 \left[
 \begin{array}{c c c c c}
-    1-\lambda_3 & \frac{1}{3} & 0 & 0 & 0 \\
-    0 & \frac{1}{3}-\lambda_3  & \frac{1}{3}  & 0 & 0 \\
-    0 & \frac{1}{3}  & \frac{1}{3}-\lambda_3  & \frac{1}{3} & 0 \\
-    0 & 0 & \frac{1}{3} & \frac{1}{3}-\lambda_3  & 0  \\
-    0 & 0 & 0 & \frac{1}{3} & 1-\lambda_3
+    1-\lambda_3 & 0 & 0 & 0 & 0 \\
+    \frac{1}{3} & \frac{1}{3}-\lambda_3  & \frac{1}{3}  & 0 & 0 \\
+    0 & \frac{1}{3} & \frac{1}{3}-\lambda_3 & \frac{1}{3} & 0 \\
+    0 & 0 & \frac{1}{3} & \frac{1}{3}-\lambda_3 & \frac{1}{3}  \\
+    0 & 0 & 0 & 0 & 1-\lambda_3
 \end{array}\right].V_3=0 \\
 \left[
 \begin{array}{c c c c c}
-    \frac{2}{3} & \frac{1}{3} & 0 & 0 & 0 \\
-    0 & 0 & \frac{1}{3} & 0 & 0 \\
+    \frac{2}{3} & 0 & 0 & 0 & 0 \\
+    \frac{1}{3} & 0 & \frac{1}{3} & 0 & 0 \\
     0 & \frac{1}{3} & 0 & \frac{1}{3} & 0 \\
-    0 & 0 & \frac{1}{3} & 0 & 0  \\
-    0 & 0 & 0 & \frac{1}{3} & \frac{2}{3}
+    0 & 0 & \frac{1}{3} & 0 & \frac{1}{3} \\
+    0 & 0 & 0 & 0 & \frac{2}{3}
 \end{array}\right].\left[
 \begin{array}{c}
      a_3\\
@@ -357,31 +340,31 @@ V_3=\left[
 \end{array}\right]=
 \left[
 \begin{array}{c}
-      -1\\
-      2\\
       0\\
-      -2\\
-      1
+      -1\\
+      0\\
+      1\\
+      0
 \end{array}\right]
 \end{math} \\
-\item Eigenvector $V_4$ for $\lambda_4$=\dfrac{1-\sqrt{2}}{3}(multiplicity =1) :\\
+\item Eigenvector $V_4$ for $\lambda_4$=\dfrac{1-\sqrt{2}}{3}\\ (multiplicity =1) :\\
 \begin{math}
-(A-\lambda_4).V_4=0 \\
+    (A-\lambda_4).V_4=0 \\
 \left[
 \begin{array}{c c c c c}
-    1-\lambda_4 & \frac{1}{3} & 0 & 0 & 0 \\
-    0 & \frac{1}{3}-\lambda_4 & \frac{1}{3}  & 0 & 0 \\
+    1-\lambda_4 & 0 & 0 & 0 & 0 \\
+    \frac{1}{3} & \frac{1}{3}-\lambda_4 & \frac{1}{3}  & 0 & 0 \\
     0 & \frac{1}{3}  & \frac{1}{3}-\lambda_4 & \frac{1}{3} & 0 \\
-    0 & 0 & \frac{1}{3} & \frac{1}{3}-\lambda_4 & 0  \\
-    0 & 0 & 0 & \frac{1}{3} & 1-\lambda_4
+    0 & 0 & \frac{1}{3} & \frac{1}{3}-\lambda_4 & \frac{1}{3}  \\
+    0 & 0 & 0 & 0 & 1-\lambda_4
 \end{array}\right].V_4=0 \\
 \left[
 \begin{array}{c c c c c}
-    \dfrac{2+\sqrt{2}}{3} & \frac{1}{3} & 0 & 0 & 0 \\
-    0 & \frac{\sqrt{2}}{3} & \frac{1}{3} & 0 & 0 \\
+    \dfrac{2+\sqrt{2}}{3} & 0 & 0 & 0 & 0 \\
+    \frac{1}{3} & \frac{\sqrt{2}}{3} & \frac{1}{3} & 0 & 0 \\
     0 & \frac{1}{3} & \frac{\sqrt{2}}{3} & \frac{1}{3} & 0 \\
-    0 & 0 & \frac{1}{3} & \frac{\sqrt{2}}{3} & 0  \\
-    0 & 0 & 0 & \frac{1}{3} & \dfrac{2+\sqrt{2}}{3}
+    0 & 0 & \frac{1}{3} & \frac{\sqrt{2}}{3} & \frac{1}{3}  \\
+    0 & 0 & 0 & 0 & \dfrac{2+\sqrt{2}}{3}
 \end{array}\right].\left[
 \begin{array}{c}
      a_4\\
@@ -400,31 +383,31 @@ V_4=\left[
 \end{array}\right]=
 \left[
 \begin{array}{c}
+      0\\
       1\\
-      -2-\sqrt{2}\\
-      2+2\sqrt{2}\\
-      -2-\sqrt{2}\\
-      1
+      -\sqrt{2}\\
+      1\\
+      0
 \end{array}\right]
 \end{math} \\
-\item Eigenvector $V_5$ for $\lambda_5$=\dfrac{1+\sqrt{2}}{3}(multiplicity =1) :\\
+\item Eigenvector $V_5$ for $\lambda_5$=\dfrac{1+\sqrt{2}}{3}\\ (multiplicity =1) :\\
 \begin{math}
-(A-\lambda_5).V_5=0 \\
+    (A-\lambda_5).V_5=0 \\
 \left[
 \begin{array}{c c c c c}
-    1-\lambda_5 & \frac{1}{3} & 0 & 0 & 0 \\
-    0 & \frac{1}{3}-\lambda_5 & \frac{1}{3}  & 0 & 0 \\
+    1-\lambda_5 & 0 & 0 & 0 & 0 \\
+    \frac{1}{3} & \frac{1}{3}-\lambda_5 & \frac{1}{3}  & 0 & 0 \\
     0 & \frac{1}{3}  & \frac{1}{3}-\lambda_5 & \frac{1}{3} & 0 \\
-    0 & 0 & \frac{1}{3} & \frac{1}{3}-\lambda_5 & 0  \\
-    0 & 0 & 0 & \frac{1}{3} & 1-\lambda_5
+    0 & 0 & \frac{1}{3} & \frac{1}{3}-\lambda_5 & \frac{1}{3} \\
+    0 & 0 & 0 & 0 & 1-\lambda_5
 \end{array}\right].V_5=0 \\
 \left[
 \begin{array}{c c c c c}
-    \dfrac{2-\sqrt{2}}{3} & \frac{1}{3} & 0 & 0 & 0 \\
-    0 & \frac{-\sqrt{2}}{3} & \frac{1}{3} & 0 & 0 \\
+    \dfrac{2-\sqrt{2}}{3} & 0 & 0 & 0 & 0 \\
+    \frac{1}{3} & \frac{-\sqrt{2}}{3} & \frac{1}{3} & 0 & 0 \\
     0 & \frac{1}{3} & \frac{-\sqrt{2}}{3} & \frac{1}{3} & 0 \\
-    0 & 0 & \frac{1}{3} & \frac{-\sqrt{2}}{3} & 0  \\
-    0 & 0 & 0 & \frac{1}{3} & \dfrac{2-\sqrt{2}}{3}
+    0 & 0 & \frac{1}{3} & \frac{-\sqrt{2}}{3} & \frac{1}{3} \\
+    0 & 0 & 0 & 0 & \dfrac{2-\sqrt{2}}{3}
 \end{array}\right].\left[
 \begin{array}{c}
      a_5\\
@@ -443,11 +426,11 @@ V_5=\left[
 \end{array}\right]=
 \left[
 \begin{array}{c}
+      0\\
       1\\
-      -2+\sqrt{2}\\
-      2-2\sqrt{2}\\
-      -2+\sqrt{2}\\
-      1
+      \sqrt{2}\\
+      1\\
+      0
 \end{array}\right]
 \end{math} \\
 \end{enumerate}
@@ -459,38 +442,37 @@ V_5=\left[
 \begin{math}
 V=\left[
 \begin{array}{c c c c c}
-    1 & 0 & -1 & 1 & 1\\
-    0 & 0 & 2 & -2-\sqrt{2} & -2+\sqrt{2} \\
-    0 & 0 & 0 & 2+2\sqrt{2} & 2-2\sqrt{2} \\
-    0 & 0 & -2 & -2-\sqrt{2} & -2+\sqrt{2}  \\
-    0 & 1 & 1 & 1 & 1
+    4 & -3 & 0 & 0 & 0\\
+    3 & -2 & -1 & 1 & 1 \\
+    2 & -1 & 0 & -\sqrt{2} & \sqrt{2} \\
+    1 & 0 & 1 & 1 & 1  \\
+    0 & 1 & 0 & 0 & 0
 \end{array}\right]
-\end{math} 
+\end{math} \\
 \begin{math}
-V^{-1} = \dfrac{1}{8}\left[
+V^{-1} = \dfrac{1}{4\sqrt{2}}\left[
 \begin{array}{c c c c c}
-    8 & 6 & 4 & 2 & 0\\
-    0 & 2 & 4 & 6 & 8 \\
-    0 & 2 & 0 & -2 & 0 \\
-    0 & -2+\sqrt{2} & -2+2\sqrt{2} & -2+\sqrt{2} & 0  \\
-    0 & -2-\sqrt{2} & -2-2\sqrt{2} & -2-\sqrt{2} & 0
-\end{array}\right]
-\end{math}
-\begin{math}
+    \sqrt{2} & 0 & 0 & 0 & 3\sqrt{2}\\
+    0 & 0 & 0 & 0 & 4\sqrt{2} \\
+    \sqrt{2} & -2\sqrt{2} & 0 & 2\sqrt{2} & -\sqrt{2} \\
+    -\sqrt{2}+1 & \sqrt{2} & -2 & \sqrt{2} & -\sqrt{2}+1  \\
+    -\sqrt{2}-1 & \sqrt{2} & 2 & \sqrt{2} & -\sqrt{2}-1
+\end{array}\right] 
+\end{math} 
+\begin{math} \newpage
 V^{-1}AV = \left[
 \begin{array}{c c c c c}
     1 & 0 & 0 & 0 & 0\\
     0 & 1 & 0 & 0 & 0 \\
     0 & 0 & \dfrac{1}{3} & 0 & 0 \\
-    0 & 0 & 0 & \dfrac{1-\sqrt{2}}{3} & 0 \\
-    0 & 0 & 0 & 0 & \dfrac{1+\sqrt{2}}{3}
+    -1+\frac{1}{\sqrt{2}} & \frac{2-\sqrt{2}}{4} & 0 & \dfrac{1-\sqrt{2}}{3} & 0 \\
+    -1-\frac{1}{\sqrt{2}} & \frac{2+\sqrt{2}}{4} & 0 & 0 & \dfrac{1+\sqrt{2}}{3}
 \end{array}\right]
 \end{math} \\
 The above matrix is a diagonal matrix, with eigenvalues has diagonal elements.\\
 \begin{center}
 $V^{-1}AV$\times$V^{-1}AV$\times......(\text{n times})$V^{-1}AV$= $V^{-1}A^{n}V$
 \end{center}
-\textbf{As the $2^{nd}$ row $3^{rd}$ column element in the above matrix is Zero.} \\
 \begin{center}
     $V^{-1}A^{n}V$ = B
 \end{center} \\
@@ -498,8 +480,27 @@ Let, B be some matrix after the whole multiplication. \\
 \begin{center}
     $A^{n}$ = $VBV^{-1}$ 
 \end{center} \\
-V,$V^{-1}$ are left and right eigenvectors. Even if we don't know B matrix, $A^{n}$ resembles $P^{n}$. \\
-As $\lim_{n \to \infty } {Pr_{n}}^n$ approaches a matrix which has structure that all rows of matrix are identical.  \\
+\begin{math}
+B=\left[
+\begin{array}{c c c c c}
+    1 & 0 & 0 & 0 & 0\\
+    0 & 1 & 0 & 0 & 0 \\
+    0 & 0 & 0 & 0 & 0 \\
+    -\frac{9}{70} & \frac{9}{70} & 0 & 0 & 0  \\
+    -\frac{153}{35} & \frac{153}{35} & 0 & 0 & 0
+\end{array}\right]
+\end{math} \\
+\begin{math} 
+A^{n} = V^{-1}BV = \left[
+\begin{array}{c c c c c}
+    1 & 0 & 0 & 0 & 0\\
+    -\frac{3}{8} & 0 & 0 & 0 & \frac{11}{8} \\
+    -1 & 0 & 0 & 0 & 2 \\
+    -\frac{7}{8} & 0 & 0 & 0 & \frac{15}{8} \\
+    0 & 0 & 0 & 0 & 1
+\end{array}\right]
+\end{math} \\
+\textbf{As the $2^{nd}$ row $3^{rd}$ column element in the above matrix is Zero.} \\
 \therefore \text{Hence}, \lim_{n\to\infty} p_{23}^{(n)} = 0. 
 \begin{center}
   $\therefore$ \boxed{\text{\textbf{Option 3} is \textbf{correct} answer.}}
