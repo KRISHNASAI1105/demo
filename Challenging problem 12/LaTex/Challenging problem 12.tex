@@ -243,6 +243,9 @@ Eigenvalues are,\\
     \item $\lambda_4$ = \dfrac{1-\sqrt{2}}{3} \\
     \item $\lambda_5$ = \dfrac{1+\sqrt{2}}{3} \\
 \end{enumerate}
+\begin{definition}
+\textbf{Eigendecomposition} is the factorization of a matrix into a canonical form, whereby the matrix is represented in terms of its \textbf{eigenvalues} and \textbf{eigenvectors.}
+\end{definition}
 Corresponding Eigenvectors are: \\
 \begin{enumerate}
 \item Eigenvector $V_1$,$V_2$ for $\lambda_1$=1(multiplicity =2) :\\
@@ -448,7 +451,7 @@ V=\left[
     1 & 0 & 1 & 1 & 1  \\
     0 & 1 & 0 & 0 & 0
 \end{array}\right]
-\end{math} \\
+\end{math} \\ \newpage
 \begin{math}
 V^{-1} = \dfrac{1}{4\sqrt{2}}\left[
 \begin{array}{c c c c c}
@@ -459,7 +462,7 @@ V^{-1} = \dfrac{1}{4\sqrt{2}}\left[
     -\sqrt{2}-1 & \sqrt{2} & 2 & \sqrt{2} & -\sqrt{2}-1
 \end{array}\right] 
 \end{math} 
-\begin{math} \newpage
+\begin{math} 
 V^{-1}AV = \left[
 \begin{array}{c c c c c}
     1 & 0 & 0 & 0 & 0\\
@@ -469,6 +472,14 @@ V^{-1}AV = \left[
     -1-\frac{1}{\sqrt{2}} & \frac{2+\sqrt{2}}{4} & 0 & 0 & \dfrac{1+\sqrt{2}}{3}
 \end{array}\right]
 \end{math} \\
+\begin{definition}
+Let $ X_0,X_1,\ldots,X_n$ be a Markov chain with state space $ E=\{1,\ldots,l\}$, initial distribution $ {\boldsymbol{\alpha}}$ and one-step transition matrix $ {\mathbf{P}}$. Then the vector $ {\boldsymbol{\alpha}}_n=(\alpha_{n1},\ldots,\alpha_{nl})^\top$ of the probabilities $ \alpha_{ni}=P(X_n=i)$ is given by the equation,
+\begin{equation}
+    \alpha_n^{\top} = \alpha^{\top}P^{n}
+\end{equation}
+\end{definition} \\
+\boxed{\text{\textbf{Sir, the above definition is not completely}}} \\
+\boxed{\text{\textbf{related to this question.}}} \\
 The above matrix is a diagonal matrix, with eigenvalues has diagonal elements.\\
 \begin{center}
 $V^{-1}AV$\times$V^{-1}AV$\times......(\text{n times})$V^{-1}AV$= $V^{-1}A^{n}V$
