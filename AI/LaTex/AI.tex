@@ -1,0 +1,159 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+
+\title{\textbf{Machine Learning}}
+\author{\textbf{Nagubandi Krishna Sai} \\ \textbf{MS20BTECH11014}}
+\date{\textbf{June 2021}}
+
+\begin{document}
+
+\maketitle
+
+% \section{Contents}
+
+\tableofcontents{}
+
+\chapter{Fundamentals of Machine Learning}
+\section{Supervised Learning}
+Supervised Learning gives "correct answers", the output values are same as real life values. \\
+In Supervised Learning, we are given a set of data and we know what our correct output should look like, having an idea that there is relationship between the input and the output. \\
+Supervised Learning problems has two types of problems, 
+\begin{enumerate}
+    \item Regression. 
+    \item Classification. 
+\end{enumerate} \\
+
+\subsection{Linear Regression}
+In regression type of problems, we are trying to predict results within a continuous output, means that we are trying to map input variables to some continuous function. \\
+Linear regression has real-valued output, but the output will be same or near valued to the actual output. \\
+\begin{enumerate}
+    \item m = Number of training examples. 
+    \item x's = "input" variable (or) feature.
+    \item y's = "output (or) target" variable.
+    \item (x,y) = one training example.
+    \item ($x^{(i)}$,$y^{(i)}$) = $i^{th}$ training example.
+\end{enumerate} \\
+Example : \\
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{c|c}
+        Size of feet^2 (x) & Price(\$) in 1000's (y)  \\
+        2104 & 460  \\
+        1416 & 232  \\
+        1534 & 315  \\
+        852 & 178  \\
+        \vdots & \vdots  \\
+    \end{tabular}
+    \caption{Training set of housing prices.}
+    \label{tab:my_label}
+\end{table}
+\begin{enumerate}
+    \item m = 47.
+    \item $x^{(1)}$ = 2104 and $y^{(1)}$ = 460. 
+    \item $x^{(2)}$ = 1416 and $y^{(2)}$ = 232.
+\end{enumerate}
+\begin{center}
+\begin{tikzpicture}
+\node[draw] at (2.5,2.5) {Training set};
+\node[draw] at (2.5,0.5) {Learning algorithm};
+\node[draw] at (2.5,-2.5) {h};
+\node (A) at (2.5,2.3) {};
+\node (B) at (2.5,0.7) {};
+\draw[->, to path={-\ (\tikztotarget)}]
+  (A) edge (B) ;
+\node (A) at (2.5,0.3) {};
+\node (B) at (2.5,-2.3) {};
+\draw[->, to path={-\ (\tikztotarget)}]
+  (A) edge (B) ;
+\node[draw] at (6.5,1.5) {Training set is feeded to learning algorithm};
+\node[draw] at (9,-2.5) {(hypothesis, This is a function that takes input x and estimate value of y.)}
+\end{tikzpicture}
+\end{center} \\
+\subsection{Hypothesis}
+\begin{equation}
+    h_\theta(x) = \theta_0 + \theta_1.x 
+\end{equation} \\
+\begin{center}
+    $\theta_i$'s = parameters.
+\end{center} \\
+This type of hypothesis mode is called "Linear regression with one variable" (or) "Univariate linear regression."  \\
+\subsection{Cost function}
+Cost function helps us know that how well to fit the best possible straight line over the given data. \\ \newline
+Q\rangle\; How\ to\ choose\ $\theta_i$'s\ ? 
+\begin{enumerate}
+    \item Choose\ $\theta_i$ 's so that $h_\theta(x)$ is close to y for our training example (x,y). 
+    \item minimise $\theta_0$,$\theta_1$ so, that [$h_\theta(x)$ - y] is small.
+\end{enumerate}
+\begin{equation}
+    J(\theta_0,\theta_1) = \frac{1}{2m}\sum_{i=1}^{m}[h_\theta(x^{(i)}) - y^{(i)}]^2
+\end{equation}
+\begin{center}
+    J($\theta_0$,$\theta_1$) = Cost function (or) Squared error function.
+\end{center} \\
+\subsection{Gradient descent}
+Gradient descent is used to minimise cost function(J) in linear regression. \\
+Gradient descent is used in many areas to minimise many functions in ML/AI. \\
+\textbf{Gradient descent algorithm,} \\
+\begin{equation}
+    \text{Repeat\ until\ convergence\ (minimum)} \Bigg\{ \theta_j := \theta_j - \alpha\frac{\partial}{\partial \theta_j} J(\theta_0,\theta_1),\ for\ j=0, j=1.
+\end{equation}
+\begin{enumerate}
+    \item := is Assignment operator.
+    \item $\alpha$ is learning rate.
+    \item $\frac{\partial}{\partial \theta_j} J(\theta_0,\theta_1)$ is derivative. 
+\end{enumerate} \\
+Gradient descent is nothing but the derivative of the Cost function. \\
+\begin{equation}
+    Slope\ of\ cost\ function\ curve = \frac{\partial J(\theta_1)}{\partial \theta_1},\ when\ \theta_0 = 0.
+\end{equation} \\
+\textbf{Learning rate,} \\
+\begin{enumerate}
+    \item If $\alpha$ is too small, gradient descent can be slow. After many such operations(can be infinite times), the '$\theta_1$' could reach "global minimum".
+    \item If $\alpha$ is too large, gradient descent can overshoot the minimum. It may "fail to converge (or) even diverge". 
+    \item If $\theta_1$ is at the local optima itself when we started or taken $\theta_1$, then there is no use of "$\alpha$ (or) gradient descent". 
+\end{enumerate}
+\subsection{Linear Regression for multivariables}
+\textbf{Hypothesis,} \\
+\begin{equation}
+    h_\theta(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + ... + \theta_n x_n.
+\end{equation} \\
+In the total context of Supervised learning, hypothesis is just predicting the output. \\
+For convenience of notation, declare x_0 = 1\ (x^{(i)}_0 = 1). \\
+\begin{math} 
+x = \left[\begin{array}{c}
+     x_0 \\
+     x_1 \\
+     x_2 \\
+     \vdots \\
+     x_n
+\end{array}\right] \epsilon\ \Re^{n+1}  \;\;\;\;\;\;\;\;\;  
+\theta = \left[\begin{array}{c}
+     \theta_0 \\
+     \theta_1 \\
+     \theta_2 \\
+     \vdots \\
+     \theta_n
+\end{array}\right] \epsilon\ \Re^{n+1}
+\end{math} \\
+The above matrix is 0 - indexed. \\
+\begin{equation}
+    h_\theta(x) = \theta_0 + \theta_1 x_1 + \theta_2 x_2 + ... + \theta_n x_n. \\
+    h_\theta(x) = \theta^{\top} x.
+\end{equation} \\
+\textbf{Cost function,} \\
+\begin{equation}
+    J(\theta) = J(\theta_0,\theta_1,\theta_2,...,\theta_n) = \frac{1}{2m}\sum_{i=1}^{m}[h_\theta(x^{(i)}) - y^{(i)}]^2
+\end{equation} \\
+\textbf{Gradient descent,} \\
+\begin{equation}
+    \theta_j := \theta_j - \alpha\frac{\partial}{\partial \theta_j} J(\theta_0,\theta_1,\theta_2,...,\theta_n) \\
+    \theta_j := \theta_j - \alpha\frac{\partial}{\partial \theta_j} J(\theta) \\
+    \theta_j := \theta_j - \alpha\frac{1}{m}\sum_{i=1}^{m}[h_\theta(x^{(i)}) - y^{(i)}]x^{(i)}_j
+\end{equation} \\
+\textbf{Feature scaling,} \\
+Get every feature into approximately -1\le x_i \le 1 \ range. \\
+\textbf{Mean normalization,} \\
+Replace x_i \ with\ x_i - \mu_i\ to\ make\ features\ have\ approximately\ zero\ mean. \\
+\textbf{polynomial regression,} \\
+\end{document}
