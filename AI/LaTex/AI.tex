@@ -1,6 +1,8 @@
 \documentclass{report}
 \usepackage[utf8]{inputenc}
 \usepackage{tikz}
+\usepackage{mathtools}  
+\usepackage{diffcoeff}
 
 \title{\textbf{Machine Learning}}
 \author{\textbf{Nagubandi Krishna Sai} \\ \textbf{MS20BTECH11014}}
@@ -37,13 +39,13 @@ Linear regression has real-valued output, but the output will be same or near va
 Example : \\
 \begin{table}[h!]
     \centering
-    \begin{tabular}{c|c}
-        Size of feet^2 (x) & Price(\$) in 1000's (y)  \\
-        2104 & 460  \\
-        1416 & 232  \\
-        1534 & 315  \\
-        852 & 178  \\
-        \vdots & \vdots  \\
+    \begin{tabular}{|c|c|} \hline
+        Size of feet^2 (x) & Price(\$) in 1000's (y)  \\ \hline
+        2104 & 460  \\ \hline
+        1416 & 232  \\ \hline
+        1534 & 315  \\ \hline
+        852 & 178  \\ \hline
+        \vdots & \vdots  \\ \hline
     \end{tabular}
     \caption{Training set of housing prices.}
     \label{tab:my_label}
@@ -146,14 +148,83 @@ The above matrix is 0 - indexed. \\
     J(\theta) = J(\theta_0,\theta_1,\theta_2,...,\theta_n) = \frac{1}{2m}\sum_{i=1}^{m}[h_\theta(x^{(i)}) - y^{(i)}]^2
 \end{equation} \\
 \textbf{Gradient descent,} \\
-\begin{equation}
-    \theta_j := \theta_j - \alpha\frac{\partial}{\partial \theta_j} J(\theta_0,\theta_1,\theta_2,...,\theta_n) \\
-    \theta_j := \theta_j - \alpha\frac{\partial}{\partial \theta_j} J(\theta) \\
-    \theta_j := \theta_j - \alpha\frac{1}{m}\sum_{i=1}^{m}[h_\theta(x^{(i)}) - y^{(i)}]x^{(i)}_j
-\end{equation} \\
+\begin{center}
+\begin{align}
+    \theta_j &:= \theta_j - \alpha\frac{\partial}{\partial \theta_j} J(\theta_0,\theta_1,\theta_2,...,\theta_n)\\
+    \theta_j &:= \theta_j - \alpha\frac{\partial}{\partial \theta_j} J(\theta) \\
+    \theta_j &:= \theta_j - \alpha\frac{1}{m}\sum_{i=1}^{m}[h_\theta(x^{(i)}) - y^{(i)}]x^{(i)}_j
+\end{align} 
+\end{center} \\
 \textbf{Feature scaling,} \\
 Get every feature into approximately -1\le x_i \le 1 \ range. \\
 \textbf{Mean normalization,} \\
 Replace x_i \ with\ x_i - \mu_i\ to\ make\ features\ have\ approximately\ zero\ mean. \\
-\textbf{polynomial regression,} \\
+\subsection{Polynomial regression}
+\textbf{Hypothesis,} \\
+\begin{equation}
+    h_\theta(x) = \theta_0 + \theta_1x_1 + \theta_2 x_2 + \theta_3 x_3.
+\end{equation}\\
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|} \hline
+         Housing price prediction  \\ \hline 
+         x_1 = size \\ \hline
+         x_2 = (size)^2 \\ \hline
+         x_3 = (size)^3 \\  \hline
+    \end{tabular}
+    \caption{Features be-like in Polynomial regression.}
+    \label{tab:my_label}
+\end{table}
+\subsection{Normal Equation}
+\textbf{Intuition,} \\
+\begin{center}
+    \begin{math}
+    \diff{}{\theta}J(\theta) = 0. 
+    \end{math}
+\end{center} \\
+\textbf{Cost function,} 
+\begin{center} \vspace{-9mm}
+    \begin{align} 
+    \theta\ \epsilon\ \Re^{n+1},\ J(\theta_0,\theta_1,\theta_2,...,\theta_n) = \frac{1}{2m} \sum_{i=1}^{m} [h_\theta(x^{(i)}) - y{(i)}]^2 \\
+    \frac{\partial }{\partial \theta_j} J(\theta) = 0,\ (solve\ for\ \theta_0\ ,\theta_1\ ,...\ ,\theta_n)
+    \end{align} \\
+\end{center}
+\textbf{Example,} \\
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|} \hline
+         & Size (feet^2) & No.of Bed rooms & No.of floors & Age of home (years) & Price(\$1000) \\ \hline
+        x_0 & x_1 & x_2 & x_3 & x_4 & y \\ \hline 
+        1 & 2104 & 5 & 1 & 45 & 460 \\ \hline
+        1 & 1416 & 3 & 2 & 40 & 232 \\ \hline
+        1 & 1534 & 3 & 2 & 30 & 315 \\ \hline
+        1 & 1852 & 2 & 1 & 36 & 178 \\ \hline
+    \end{tabular}
+    \caption{Sample Training set for Multi-Variate Linear regression.}
+    \label{tab:my_label}
+\end{table} \\
+\begin{enumerate}
+    \item n = number of Features. 
+    \item $x_j^{(i)}$ = value of j in the $i^{th}$ training example.
+    \item $x_{(i)}$ = the input(features) of the $i^{th}$ training example.
+\end{enumerate} \\
+\begin{math}
+X = \left[\begin{array}{ccccc}
+    1 & 2104 & 5 & 1 & 45 \\
+    1 & 1416 & 3 & 2 & 40 \\
+    1 & 1534 & 3 & 2 & 30 \\
+    1 & 852 & 2 & 1 & 36
+\end{array} \right] &\;\;\;\;\;\;\;\;\; Y = \left[\begin{array}{c}
+    460  \\
+    232 \\
+    315 \\
+    178 
+\end{array} \right]
+\end{math} \\
+X is m\times(n+1)-dimensional\ matrix\ and\ Y\ is\ a\ m-dimensional\ vector. \\
+\begin{center}
+\begin{equation} \vspace{-10mm}
+    \theta = {(X^{\top}X)}^{-1} X^{\top} Y
+\end{equation} 
+\end{center}\\
 \end{document}
