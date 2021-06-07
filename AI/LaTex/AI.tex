@@ -3,6 +3,7 @@
 \usepackage{tikz}
 \usepackage{mathtools}  
 \usepackage{diffcoeff}
+\usepackage{pgfplots}
 
 \title{\textbf{Machine Learning}}
 \author{\textbf{Nagubandi Krishna Sai} \\ \textbf{MS20BTECH11014}}
@@ -221,10 +222,61 @@ X = \left[\begin{array}{ccccc}
     178 
 \end{array} \right]
 \end{math} \\
-X is m\times(n+1)-dimensional\ matrix\ and\ Y\ is\ a\ m-dimensional\ vector. \\
+X is m$\times$(n+1)-dimensional\ matrix\ and\ Y\ is\ a\ m-dimensional\ vector. \\
+\begin{align}
+\theta &= {(X^{\top}X)}^{-1} X^{\top} Y
+\end{align} \\
+The above $\theta$\ value\ is\ optimal\ $\theta$\ value. \\
+For Normal equation method, then no need to use \textbf{feature scaling.} \\
+We use 'Gradient descent' and 'Normal equation' methods to minimise cost function. \\
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+        Gradient descent & Normal equation  \\ \hline
+        1$\rangle$ Need to choose '$\alpha$'. & 1$\rangle$ No need to choose '$\alpha$'. \\ \hline
+        2$\rangle$ Need many iterations. & 2$\rangle$ Don't need to iterate. \\ \hline
+        3$\rangle$ Works well even, when 'n' is large. (n>10000) & 3$\rangle$ Need to compute n$\times$ n matrix inverse {(X^{$\top$}X)}^{-1} \\ \hline
+         & 4$\rangle$ Works Now if n is very large. \\ \hline
+    \end{tabular}
+    \caption{Why should we use the particular method? Advantages and Disadvantages of two methods.}
+    \label{tab:my_label}
+\end{table} \\
+\begin{align}
+\theta &= {(X^{\top}X)}^{-1} X^{\top} Y
+\end{align} \\
+Q$\rangle$ What is $X^{\top}X$ is non-invertible(singular/degenerate) ? \\
+Reasons, 
+\begin{enumerate}
+    \item Redundant features (linearly dependent)
+    \begin{itemize}
+        \item $x_1$ = Size in $feet^2$ 
+        \item $x_2$ = Size in $m^2$
+        \item $x_2$ = ${(3.28)}^2$ $x_1$ , 1m = 3.28feet. 
+    \end{itemize}
+    \item Too many features. (m$\le$n)
+    \begin{itemize}
+        \item m = 10
+        \item n = 100, $\theta\ \epsilon\ {\Re}^{101}$, Delete some features (or) Regularization.
+    \end{itemize}
+\end{enumerate} \\
+\subsection{Classification} 
+The output value 'y' is \textbf{discrete value.} \\
+The algorithm used is \textbf{logistic regression.} \\
+\subsection{Logistic Regression Model}
+$\therefore$ We want $0\le h_\theta(x) \le 1$. \\
+\begin{align}
+    h_\theta(x) &= g(\theta^{\top} x) \\
+    g(z) &= \frac{1}{1+e^{-z}} \\
+    h_\theta(x) &= g(\theta^{\top} x) \\
+                &= \frac{1}{1+e^{-\theta^{\top} x}}
+\end{align} \\
+The above g(z) is called sigmoid function (or) logistic function. \\
+\textbf{Graph,} \\
 \begin{center}
-\begin{equation} \vspace{-10mm}
-    \theta = {(X^{\top}X)}^{-1} X^{\top} Y
-\end{equation} 
-\end{center}\\
+\begin{tikzpicture}
+\begin{axis}
+\addplot[color=red]{1/(1+exp(-x))};
+\end{axis}
+\end{tikzpicture}
+\end{center}
 \end{document}
