@@ -4,6 +4,7 @@
 \usepackage{mathtools}  
 \usepackage{diffcoeff}
 \usepackage{pgfplots}
+\usepackage{comment}
 
 \title{\textbf{Machine Learning}}
 \author{\textbf{Nagubandi Krishna Sai} \\ \textbf{MS20BTECH11014}}
@@ -279,4 +280,71 @@ The above g(z) is called sigmoid function (or) logistic function. \\
 \end{axis}
 \end{tikzpicture}
 \end{center}
+\begin{align}
+    g(z) &\ge 0.5,\ when\ z \ge 0. \\
+    h_\theta(x) = g(\theta^{\top} x) &\ge 0.5,\ when\ \theta^{\top} x \ge 0.
+\end{align} 
+\subsection{Interpretation of hypothesis output}
+\begin{align}
+    h_\theta(x) &= P(y=1|x;\theta) \\
+    P(y=0|x;\theta) &+ P(y=1|x;\theta) = 1 \\
+    P(y=0|x;\theta) &= 1-P(y=1|x;\theta) \\
+                    &= 1-h_\theta(x) \\
+\end{align} 
+\therefore\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; y = 0 (or) 1. \\
+\textbf{Decision boundary,} \\
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    enlargelimits=false,
+]
+\addplot[
+    only marks,
+    scatter,
+    mark=x,
+    mark size=2.9pt]
+table[meta=ma]
+{scattered_example.dat};
+\end{axis}
+\end{tikzpicture}
+\end{center} \\
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 0.45\textwidth]{Screenshot (79).png}
+\end{figure} \\
+For, the above diagram decision boundary will be a line separating the two output values of y(y=0 (or) y=1). \\
+\begin{align}
+    h_\theta(x) &\ge 0.5 \rightarrow y=1. \\
+    h_\theta(x) &< 0.5 \rightarrow y=0. \\
+    h_\theta(x) &= g(\theta^{\top} x) \\
+                &= g(\theta_0 + \theta_1x_1 + \theta_2x_2)
+\end{align} 
+\begin{math}
+\theta = \left[\begin{array}{c}
+    \theta_0  \\
+    \theta_1 \\
+    \theta_2
+\end{array} \right] & \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\; x = \left[\begin{array}{c}
+    1  \\
+    x_1 \\
+    x_2
+\end{array} \right]
+\end{math} \\
+\textbf{Example,} \\
+Let, \\
+\begin{center}
+\begin{math}
+\theta = \left[\begin{array}{c}
+    -3  \\
+    1 \\
+    1
+\end{array} \right] 
+\end{math}
+\end{center}
+\begin{align}
+    y = 1, if\ \theta^{\top} x &\ge 0 \\
+               -3+x_1+x_2 &\ge 0 \\
+               x_1+x_2 &\ge 3,\ y=1 \\
+               x_1+x_2 &<3,\ y=0.
+\end{align}
 \end{document}
