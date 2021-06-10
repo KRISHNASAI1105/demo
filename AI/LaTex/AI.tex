@@ -5,6 +5,8 @@
 \usepackage{diffcoeff}
 \usepackage{pgfplots}
 \usepackage{comment}
+\usepackage{graphicx}
+\usepackage{rotating}
 
 \title{\textbf{Machine Learning}}
 \author{\textbf{Nagubandi Krishna Sai} \\ \textbf{MS20BTECH11014}}
@@ -74,7 +76,7 @@ Example : \\
 \node[draw] at (9,-2.5) {(hypothesis, This is a function that takes input x and estimate value of y.)}
 \end{tikzpicture}
 \end{center} \\
-\subsection{Hypothesis}
+\subsection{Hypothesis for Linear Regression}
 \begin{equation}
     h_\theta(x) = \theta_0 + \theta_1.x 
 \end{equation} \\
@@ -82,7 +84,7 @@ Example : \\
     $\theta_i$'s = parameters.
 \end{center} \\
 This type of hypothesis mode is called "Linear regression with one variable" (or) "Univariate linear regression."  \\
-\subsection{Cost function}
+\subsection{Cost function for Linear Regression}
 Cost function helps us know that how well to fit the best possible straight line over the given data. \\ \newline
 Q\rangle\; How\ to\ choose\ $\theta_i$'s\ ? 
 \begin{enumerate}
@@ -95,7 +97,7 @@ Q\rangle\; How\ to\ choose\ $\theta_i$'s\ ?
 \begin{center}
     J($\theta_0$,$\theta_1$) = Cost function (or) Squared error function.
 \end{center} \\
-\subsection{Gradient descent}
+\subsection{Gradient descent for Linear Regression}
 Gradient descent is used to minimise cost function(J) in linear regression. \\
 Gradient descent is used in many areas to minimise many functions in ML/AI. \\
 \textbf{Gradient descent algorithm,} \\
@@ -284,7 +286,7 @@ The above g(z) is called sigmoid function (or) logistic function. \\
     g(z) &\ge 0.5,\ when\ z \ge 0. \\
     h_\theta(x) = g(\theta^{\top} x) &\ge 0.5,\ when\ \theta^{\top} x \ge 0.
 \end{align} 
-\subsection{Interpretation of hypothesis output}
+\subsection{Interpretation of hypothesis output for Logistic Regression}
 \begin{align}
     h_\theta(x) &= P(y=1|x;\theta) \\
     P(y=0|x;\theta) &+ P(y=1|x;\theta) = 1 \\
@@ -346,5 +348,324 @@ Let, \\
                -3+x_1+x_2 &\ge 0 \\
                x_1+x_2 &\ge 3,\ y=1 \\
                x_1+x_2 &<3,\ y=0.
+\end{align} 
+\textbf{Non-Linear Decision Boundary,} \\
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1.2\textwidth]{Screenshot (83).png}
+\end{figure} \\
+So, in the above non-linear classification, the \textbf{decision boundary is a circle} of radius of 1unit. \\
+\begin{align}
+    Inside\ circle,\ y &= 0 \\
+    Outside\ circle,\ y &= 1.
+\end{align} \\
+\subsection{Cost function for Logistic Regression}
+\textbf{Training set,} \\
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+        x^{(1)} & y^{(1)} \\ \hline
+        x^{(2)} & y^{(2)} \\ \hline
+        x^{(3)} & y^{(3)} \\ \hline
+        \vdots & \vdots \\ \hline
+        x^{(m)} & y^{(m)} \\ \hline
+    \end{tabular}
+    \caption{Training set of m-examples for Logistic Regression}
+    \label{tab:my_label}
+\end{table} \\
+\begin{math}
+x = \left[\begin{array}{c}
+     x_0 \\
+     x_1 \\
+     x_2 \\
+     \vdots \\
+     x_n
+\end{array}\right] \epsilon\ \Re^{n+1}\ -\ n\ features.\ x_0 = 1,\ y\ \epsilon\ {0,1}. 
+\end{math} \\
+For linear regression, \\
+\begin{align}
+    J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} [h_\theta(x^{(i)} - y^{(i)}]^2 \\
+    J(\theta) = \frac{1}{m} \sum_{i=1}^{m} Cost(h_\theta(x^{(i)}, y^{(i)}) \\
+    Cost(h_\theta(x^{(i)}), y^{(i)}) = \frac{1}{2} [h_\theta(x^{(i)} - y^{(i)}]^2
+\end{align} \\
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[title={Convex function},
+    xlabel={x-axis},
+    ylabel={y-axis}]
+\addplot[color=red]{x^2};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+The above graph is a convex. \\
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 0.45\textwidth]{Non-convex(10.png}
+\end{figure} \\
+The below graph is a non-convex.\\
+If we use the cost function of linear regression in logistic regression, the the we would get non-convex cost function, because the \textbf{hypothesis is} $\frac{1}{1+e^{-\theta^{\top}x}}$. \\
+For Logistic regression, 
+\begin{align}
+    Cost(h_\theta(x^{(i)}), y^{(i)}) =
+    \begin{cases}
+    -\log(1-h_\theta(x)), & if\ y = 0\\
+    -\log(h_\theta(x)), & if\ y=1.
+    \end{cases}
+\end{align} \\
+If y=1, \\
+% \begin{center}
+% \begin{tikzpicture}
+% \begin{axis}[title={Convex function},
+%     xlabel={h_\theta(x)}
+%     ylabel={Cost function}]
+% \addplot[color=red]{-ln(x)};
+% \end{axis}
+% \end{tikzpicture}
+% \end{center}
+\begin{center}
+\setlength{\unitlength}{0.8cm}
+\begin{picture}(6,6)
+\thicklines
+\put(1,1){\line(1,0){5}}
+\put(1,1){\line(0,1){5}}
+\qbezier(1.3,6)(1.5,1.693147)(6,1)
+\put(3,0.5){$h_\theta(x)$}
+\put(0.5,2.5){\begin{turn}{90}Cost function\end{turn}}
+\put(5.95,0.9){$|$}
+\put(5.95,0.3){1}
+\put(0.95,0.9){$|$}
+\put(1,0.3){0}
+\end{picture}
+\end{center} \\
+If y=0, \\
+\begin{center}
+\setlength{\unitlength}{0.8cm}
+\begin{picture}(6,6)
+\thicklines
+\put(1,1){\line(1,0){5}}
+\put(1,1){\line(0,1){5}}
+\qbezier(1,1)(5,1.3)(6,6)
+\put(3,0.5){$h_\theta(x)$}
+\put(0.5,2.5){\begin{turn}{90}Cost function\end{turn}}
+\put(5.95,0.9){$|$}
+\put(5.95,0.3){1}
+\put(0.95,0.9){$|$}
+\put(1,0.3){0}
+\end{picture}
+\end{center} \\
+\textbf{Simplified Cost function,} \\
+\begin{align}
+    Cost(h_\theta(x^{(i)}), y^{(i)}) &= -(1-y)\log(1-h_\theta(x)) -y\log(h_\theta(x)).\ \forall\ y\ \epsilon\ \{0,1\}. \\
+    If\ y &= 1: Cost(h_\theta(x), y) = -\log(h_\theta(x)). \\
+    If\ y &= 0: Cost(h_\theta(x), y) = -\log(1-h_\theta(x)). 
 \end{align}
+\begin{align}
+    Cost function = J(\theta) &= \frac{1}{m} \sum_{i=1}^{m} Cost(h_\theta(x^{(i)}, y^{(i)}) \\
+    &= \frac{1}{m} [-\sum_{i=1}^{m} (1-y^{(i)})\log(1-h_\theta(x^{(i)})) +y^{(i)} \log(h_\theta(x^{(i)}))] 
+\end{align}
+\subsection{Gradient Descent for Logistic Regression}
+\begin{align}
+    \text{Repeat\ until\ convergence\ (minimum)}& \Bigg\{ \theta_j := \theta_j - \alpha\frac{\partial}{\partial \theta_j} J(\theta) \\
+    \frac{\partial}{\partial \theta_j} J(\theta) &= \frac{1}{m} \sum_{i=1}^{m} [h_\theta(x^{(i)}) - y^{(i)}]x_j^{(i)}
+\end{align}
+\subsection{Optimization algorithm}
+\begin{enumerate}
+    \item Gradient descent. 
+    \item Conjugate gradient.
+    \item BFGS.
+    \item L - BFGS.
+\end{enumerate}
+These are the 4 algorithms to minimise \textbf{cost function.} \\
+Advantages of the \textbf{last three advanced optimization algorithm.} 
+\begin{itemize}
+    \item No need to manually pick $\alpha$.
+    \item Often faster than Gradient descent.
+    \item They themselves choose $\alpha$, for faster convergence.
+\end{itemize} 
+\subsection{Multiclass Classification : One-vs-All}
+\begin{align*}
+y &\in \lbrace0, 1 ... n\rbrace \\
+h_\theta^{(0)}(x) &= P(y = 0 | x ; \theta) \\
+h_\theta^{(1)}(x) &= P(y = 1 | x ; \theta) \\
+&\vdots \\
+h_\theta^{(n)}(x) &= P(y = n | x ; \theta) \\
+\mathrm{prediction} &= \max_i( h_\theta ^{(i)}(x) ) 
+\end{align*}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1.2\textwidth]{multi class.png}
+\end{figure} 
+To summarize, 
+\begin{enumerate}
+    \item Train a logistic regression classifier $h_\theta(x)$ for each class to predict the probability that y=i.
+    \item To make a prediction on a new x, pick the class that maximizes  $h_\theta(x)$
+\end{enumerate}
+\subsection{Problem of Overfitting,} 
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1.2\textwidth]{Screenshot (89).png}
+\end{figure} \\
+Similar for Logistic Regression. \\
+\textbf{Addressing Overfitting,} 
+\begin{enumerate}
+    \item Reduce number of features.
+    \begin{itemize}
+        \item Manually select which features to keep.
+        \item Model selection algorithm.
+    \end{itemize}
+    \item Regularization
+    \begin{itemize}
+        \item Keep all features, but reduce magnitude/values of parameters $\thicklines_j$.
+        \item Works well when we have a lot of features, each of which contributes a bit to predict $y^{(i)}$.
+    \end{itemize}
+\end{enumerate}
+\subsection{Regularization}
+Small values for parameters $\theta_0,\theta_1,\theta_2,...,\theta_n$.
+\begin{enumerate}
+    \item Simpler hypothesis.
+    \item Less prone to overfitting.
+\end{enumerate}
+\textbf{Regularized Cost function,}
+\begin{align}
+    J(\theta) = \frac{1}{2m} \sum_{i=1}^{m} \bigg[[h_\theta(x^{(i)} - y^{(i)}]^2 + \lambda\sum_{j=1}^{n} \theta_j^2\bigg] 
+\end{align} \\
+If '$\lambda$' is extremely large, then the cost function will become underfitting (doesn't fit to our training data). \\
+\begin{align*} 
+\text{Repeat}\ \lbrace & \\
+\theta_0 &:= \theta_0 - \alpha\ \frac{1}{m}\ \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})x_0^{(i)} \\
+\theta_j &:= \theta_j - \alpha\ \left[ \left( \frac{1}{m}\ \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)} \right) + \frac{\lambda}{m}\theta_j \right] &\ \ \ \ \ \ \ \ \ \ j \in \lbrace 1,2...n\rbrace\\
+\rbrace
+\end{align*}
+The term $\frac{\lambda}{m} \theta_j$ performs our regularization. With some manipulation our update rule can also be represented as:
+\begin{align}
+\theta_j := \theta_j(1 - \alpha\frac{\lambda}{m}) - \alpha\frac{1}{m}\sum_{i=1}^m(h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)}
+\end{align}
+The first term in the above equation, $1 - \alpha\frac{\lambda}{m}$ will always be less than 1. Intuitively you can see it as reducing the value of $\theta_j$ by some amount on every update. Notice that the second term is now exactly the same as it was before. \\
+\textbf{Normal equation after regularization,}
+\begin{align}
+\theta &= {(X^{\top}X) + \lambda.L}^{-1} X^{\top} Y
+\end{align} 
+\begin{math}
+where\ L = \left[\begin{array}{ccccc}
+    0 &  &  &  &   \\
+     & 1 &  &  &   \\
+     &  & 1 &  & \\
+     &  &  & \ddots &  \\
+     &  &  &  & 1 \\
+\end{array} \right]
+\end{math} 
+\subsection{Regularized Logistic Regression}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1.2\textwidth]{regular logis 1.png}
+\end{figure}
+\textbf{Cost function,} 
+\begin{align}
+J(\theta) = \frac{1}{m} [-\sum_{i=1}^{m} (1-y^{(i)})\log(1-h_\theta(x^{(i)})) +y^{(i)} \log(h_\theta(x^{(i)}))] + \frac{\lambda}{2m} \sum_{j=1}^{n} \theta_j^2
+\end{align} 
+\newpage The second sum, $\sum_{j=1}^n \theta_j^2$ means to explicitly exclude the bias term, $\theta_0$. I.e. the θ vector is indexed from 0 to n (holding n+1 values, $\theta_0$ through $\theta_n$), and this sum explicitly skips $\theta_0$, by running from 1 to n, skipping 0. Thus, when computing the equation, we should continuously update the two following equations: 
+\begin{align*} 
+\text{Repeat}\ \lbrace & \\
+\theta_0 &:= \theta_0 - \alpha\ \frac{1}{m}\ \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})x_0^{(i)} \\
+\theta_j &:= \theta_j - \alpha\ \left[ \left( \frac{1}{m}\ \sum_{i=1}^m (h_\theta(x^{(i)}) - y^{(i)})x_j^{(i)} \right) + \frac{\lambda}{m}\theta_j \right] &\ \ \ \ \ \ \ \ \ \ j \in \lbrace 1,2...n\rbrace\\
+\rbrace
+\end{align*}
+\section{Neural Networks}
+\subsection{Model representation I}
+Let's examine how we will represent a hypothesis function using neural networks. At a very simple level, neurons are basically computational units that take inputs (dendrites) as electrical inputs (called \textbf{"spikes"}) that are channeled to outputs (axons). In our model, our dendrites are like the input features $x_1\cdots x_n$, and the output is the result of our hypothesis function. In this model our $x_0$ input node is sometimes called the \textbf{"bias unit".} It is always equal to 1. In neural networks, we use the same logistic function as in classification, $\frac{1}{1 + e^{-\theta^Tx}}$, yet we sometimes call it a sigmoid (logistic) activation function. In this situation, our \textbf{"theta" parameters} are sometimes called \textbf{"weights".} \\
+A simple representation looks like : 
+\begin{center}
+\begin{math}
+\left[ \begin{array}{c}
+    x_0x_1x_2  \\
+\end{array}\right] \rightarrow \left[\; \right] \rightarrow h_\theta(x)
+\end{math}
+\end{center} \\
+Our input nodes (layer 1), also known as the \textbf{"input layer"}, go into another node (layer 2), which finally outputs the hypothesis function, known as the \textbf{"output layer".} \\
+We can have intermediate layers of nodes between the input and output layers called the \textbf{"hidden layers."} \\
+In this example, we label these intermediate or \textbf{"hidden"} layer nodes $a^2_0, \cdots, a^2_na$ and call them \textbf{"activation units."} 
+\begin{center}
+    \begin{enumerate}
+        \item $a_i^{(j)}$ = "activation" of unit i in layer j
+        \item $\Theta^{(j)}$ = matrix of weights controlling function mapping from layer j to layer j+1
+    \end{enumerate}
+\end{center}
+If we had one hidden layer, it would look like : \\
+\begin{center}
+\begin{math}
+\left[ \begin{array}{c}
+    x_0x_1x_2x_3  \\
+\end{array}\right] \rightarrow \left[a_1^{(2)}a_2^{(2)}a_3^{(2)} \right] \rightarrow h_\theta(x)
+\end{math}
+\end{center}
+The values for each of the \textbf{"activation"} nodes is obtained as follows : \\
+\begin{align}
+    a_1^{(2)} = g(\Theta_{10}^{(1)}x_0 + \Theta_{11}^{(1)}x_1 + \Theta_{12}^{(1)}x_2 + \Theta_{13}^{(1)}x_3) \\
+    a_2^{(2)} = g(\Theta_{20}^{(1)}x_0 + \Theta_{21}^{(1)}x_1 + \Theta_{22}^{(1)}x_2 + \Theta_{23}^{(1)}x_3) \\
+    a_3^{(2)} = g(\Theta_{30}^{(1)}x_0 + \Theta_{31}^{(1)}x_1 + \Theta_{32}^{(1)}x_2 + \Theta_{33}^{(1)}x_3) \\
+    h_\Theta(x) = a_1^{(3)} = g(\Theta_{10}^{(2)}a_0^{(2)} + \Theta_{11}^{(2)}a_1^{(2)} + \Theta_{12}^{(2)}a_2^{(2)} + \Theta_{13}^{(2)}a_3^{(2)})
+\end{align}
+This is saying that we compute our activation nodes by using a 3$\times$4 matrix of parameters. We apply each row of the parameters to our inputs to obtain the value for one activation node. Our hypothesis output is the logistic function applied to the sum of the values of our activation nodes, which have been multiplied by yet another parameter matrix $\Theta^{(2)}$ containing the weights for our second layer of nodes. \\
+Each layer gets its own matrix of weights, $\Theta^{(j)}$. \\
+The dimensions of these matrices of weights is determined as follows : \\ 
+If network has $s_j$ units in layer $j$ and $s_{j+1}$ units in layer $j+1$, then $\Theta^{(j)}$ will be of dimension $s_{j+1} \times (s_j + 1)$. \\
+The +1 comes from the addition in $\Theta^{(j)}$ of the \textbf{"bias nodes,"} $x_0$ and $\Theta_0^{(j)}$. In other words the output nodes will not include the bias nodes while the inputs will. \\ 
+\subsection{Model representation II}
+we'll do a vectorized implementation of the above functions. We're going to define a new variable $z_k^{(j)}$ that encompasses the parameters inside our g function. \\
+\begin{align}
+    a_1^{(2)} &= g(z_1^{(2)}) \\
+    a_2^{(2)} &= g(z_2^{(2)}) \\
+    a_3^{(2)} &= g(z_3^{(2)})
+\end{align}
+In other words, for layer j=2 and node k, the variable z will be : \\
+\begin{align}
+    z_k^{(2)} = \Theta_{k,0}^{(1)} x_0 + \Theta_{k,1}^{(1)} x_1 + \cdots + \Theta_{k,n}^{(1)} x_n
+\end{align}
+The vector representation of x and $z^{j}$ is : \\
+\begin{math}
+x = \left[\begin{array}{c}
+x_0 \\
+x_1 \\
+\vdots \\
+x_n
+\end{array} \right] \;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;\;
+z^{(j)} = \left[\begin{array}{c}
+z_1^{(j)} \\
+z_2^{(j)} \\
+\vdots \\
+z_n^{(j)}
+\end{array} \right]
+\end{math} \\
+Setting x = $a^{(1)}$, we can rewrite the equation as :
+\begin{align}
+    z^{(j)} = \theta^{(j-1)} a^{(j-1)}
+\end{align} 
+We are multiplying our matrix $\Theta^{(j-1)}$ with dimensions $s_j\times$ (n+1)(where $s_j$ is the number of our activation nodes) by our vector $a^{(j-1)}$ with height (n+1). This gives us our vector $z^{(j)}$ with height $s_j$. Now we can get a vector of our activation nodes for layer j as follows : \\
+\begin{align} 
+a^{(j)} = g(z^{(j)})a 
+\end{align}
+Where our function g can be applied element-wise to our vector $z^{(j)}$ \\
+We can then add a bias unit (equal to 1) to layer j after we have computed $a^{(j)}$. This will be element $a_0^{(j)}$ and will be equal to 1. To compute our final hypothesis, let's first compute another z vector : \\
+\begin{align}
+z^{(j+1)} = \Theta^{(j)}a^{(j)}
+\end{align}
+We get this final z vector by multiplying the next theta matrix after $\Theta^{(j-1)}$ with the values of all the activation nodes we just got. This last theta matrix $\Theta^{(j)}$ will have only one row which is multiplied by one column $a^{(j)}$ so that our result is a single number. We then get our final result with : \\
+\begin{align}
+h_\Theta(x) = a^{(j+1)} = g(z^{(j+1)})
+\end{align}
+Notice that in this last step, between layer j and layer j+1, we are doing exactly the same thing as we did in logistic regression. Adding all these intermediate layers in neural networks allows us to more elegantly produce interesting and more complex non-linear hypothesis. \\
+\textbf{Examples,} \\
+A simple example of applying neural networks is by predicting $x_1$ AND $x_2$, which is the logical 'and' operator and is only true if both $x_1$ and $x_2$ are 1.
+\begin{align*}
+h_\Theta(x) &= g(-30 + 20x_1 + 20x_2) \\
+x_1 &= 0 \ \ and \ \ x_2 = 0 \ \ then \ \ g(-30) \approx 0 \\
+x_1 &= 0 \ \ and \ \ x_2 = 1 \ \ then \ \ g(-10) \approx 0 \\
+x_1 &= 1 \ \ and \ \ x_2 = 0 \ \ then \ \ g(-10) \approx 0 \\
+x_1 &= 1 \ \ and \ \ x_2 = 1 \ \ then \ \ g(10) \approx 1
+\end{align*}
+So we have constructed one of the fundamental operations in computers by using a small neural network rather than using an actual AND gate. Neural networks can also be used to simulate all the other logical gates. The following is an example of the logical operator 'OR', meaning either $x_1$ is true or $x_2$ is true, or both :
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1.2\textwidth]{OR 1.png}
+\end{figure} \\
 \end{document}
