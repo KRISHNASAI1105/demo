@@ -1685,4 +1685,200 @@ What this basically leads to is the selection of a decision boundary that tries 
 \end{figure} \\
 The effect of C can be considered as reciprocal of regularization parameter, 
 $\lambda$. This is more clear from Fig-5. A single outlier, can make the model choose the decision boundary with smaller margin if the value of C is large. A small value of C ensures that the outliers are overlooked and best approximation of large margin boundary is determined.
+\subsection{Mathematical Background for SVM}
+Vector Inner Product: Consider two vectors, v and w, given by, \\
+\begin{center}
+\begin{math}
+v = \begin{bmatrix}v_1 \\ v_2 \end{bmatrix} \\
+w = \begin{bmatrix}w_1 \\ w_2 \end{bmatrix}
+\end{math} 
+\end{center}\\
+Then, the inner product or the dot product is defined as $v^{\top}w = w^{\top}v.$ \\
+Norm of a vector, v, denoted as $\| v\|$ is the euclidean length of the vector given by the pythagoras theorem as,
+\begin{align}
+    \| v\| = \sqrt{\sum_{i=0}^n v_{i}^2}\; \epsilon\; \Re \label{7}
+\end{align}
+The inner product can also be defined as,
+\begin{align}
+\text{Inner Product(v, w)} &= v^{\top}w = w^{\top}v = \sum_{i=0}^n v_i .w_i \\
+    &= \| v\|. \| w\|cos\theta = p.\| v\| \label{8}
+\end{align}
+where $\| w\|.cos(\theta)$ can be described as the projection of vector w onto vector v which can be either positive or negative signed based on the angle $\theta$ between the vectors as shown in the image below. \\
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 0.5\textwidth]{dot-product.png}
+\caption{Dot Product.}
+\label{fig:fig3}
+\end{figure}
+\textbf{SVM Decision Boundary:} From \ref{6}, the optimization statement can be written as,
+\begin{align}
+    min_\theta \, {1 \over 2 } \sum_{j=1}^n \theta_j^2 \label{9}
+\end{align}
+subject to contraints,
+\begin{align}
+\theta^{\top}x^{(i)} &\geq 1 \text{, if } y^{(i)}=1 \\
+\theta^{\top}x^{(i)} &\leq -1 \text{, if } y^{(i)}=0 \label{10}
+\end{align}
+Let $\theta_0$=0 and n=2, i.e. number of features is 2 for simplicity, then \ref{9} can be written as,
+\begin{align}
+    min_\theta \, \frac{1}{2} (\theta_1^2 + \theta_1^2) = {1 \over 2 } \sqrt{(\theta_1^2 + \theta_1^2)}^2 =  \frac{1}{2} \| \theta \|^2 \label{11}
+\end{align}
+Using \ref{8}, $\theta^{\top}x^{(i)}$ in \ref{10} can be written as,
+\begin{align}
+    \theta^{\top}x^{(i)} = p^{(i)}. \| \theta \| \label{12}
+\end{align}
+The plot of \ref{12} can be seen below, \\
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 0.5\textwidth]{dot-product-in-svm.png}
+\caption{Dot Product in SVM.}
+\label{fig:fig3}
+\end{figure} \newpage
+Hence, using \ref{11} and \ref{12}, the optimization objective in \ref{9} and the constraints in \ref{10} are written as,
+\begin{align}
+    min_\theta \, \frac{1}{2} \| \theta\|^2 \label{13}
+\end{align}
+subject to contraints,
+\begin{align}
+p^{(i)}. \| \theta\| &\geq 1 \text{, if } y^{(i)}=1 \\
+p^{(i)}. \| \theta\| &\leq -1 \text{, if } y^{(i)}=0 \label{14}
+\end{align}
+where $p^{(i)}$ is the projection of $x^{(i)}$ onto vector $\theta$.\\
+Consider two decision boundaries, A and B, and their respective perpendicular parameters, $\theta_A$ and $\theta_B$ as shown in the plot below. As a consequence of choosing $\theta_0=0$ for simplification, all the corresponding decision boundaries pass through the origin.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 0.5\textwidth]{choosing-large-margin.png}
+\caption{ Choosing Large Margin Classifier.}
+\label{fig:fig3}
+\end{figure} \\
+Based on the two training examples of either class chosen, close to the boundaries, it can be seen that the magnitude of projection is more in case of $\theta_B$ than $\theta_A$. This basically tells that it would be possible to choose smaller values of $\theta$ and satisfy \ref{13} and \ref{14} if the value of projection p is bigger and hence, the decision boundary, B is more favourable to the optimization objective. \\
+\textbf{Why is decision boundary perpendicular to the $\theta$?} \\
+Consider two points $x_1$ and $x_2$ on the decision boundary given by,
+\begin{align}
+    \theta\,x + c= 0 \label{15}
+\end{align}
+Since the two points are on the line, they must satisfy \ref{15}. Substitution leads to the following,
+\begin{align}
+    \theta\,x_1 + c= 0 \label{16}
+    \theta\,x_2 + c= 0 \label{17}
+\end{align}
+Subtracting \ref{17} from \ref{16},
+\begin{align}
+    \theta\,(x_1 - x_2) = 0 \label{18}
+\end{align}
+Since $x_1$ and $x_2$ lie on the line, the vector $(x_1 - x_2)$ is on the line too. Following the property of orthogonal vectors, 1\ref{18} is possible only if $\theta$ is orthogonal or perpendicular to $(x_1 - x_2)$, and hence perpendicular to the decision boundary.
+\subsection{Kernels in SVM}
+When dealing with non-linear decision boundaries, a learning method like logistic regression relies on high order polynomial features to find a complex decision boundary and fit the dataset, i.e. predict y=1 if,
+\begin{align}
+    \theta_0\,f_0 + \theta_1\,f_1 + \theta_2\,f_2 + \theta_3\,f_3 + \cdots \geq 0 \label{19}
+\end{align}
+where $f_0 = x_0,\, f_1=x_1,\, f_2=x_2,\, f_3=x_1x_2,\, f_4=x_1^2,\, \cdots.$\\
+A natural question that arises is if there are choices of better/different features than in \ref{19}? A SVM does this by picking points in the space called \textbf{landmarks} and defining functions called \textbf{similarity} corresponding to the landmarks.
+\begin{figure}[!htb]
+\centering 
+\includegraphics[width = 0.5\textwidth]{svm-landmarks.png}
+\caption{SVM Landmarks.}
+\label{fig:fig3}
+\end{figure}\\ \newpage
+\textbf{How many landmarks do we need?}\\
+It might surprise you that given m training samples, the location of landmarks is exactly the location of your m training samples.
+\begin{figure}[!htb]
+\centering 
+\includegraphics[width = 1.0\textwidth]{l-m.png}
+\caption{Number of Landmarks.}
+\label{fig:fig3}
+\end{figure}\\
+That is saying Non-Linear SVM recreates the features by comparing each of your training sample with all other training samples. Thus the number of features for prediction created by landmarks is the the size of training samples. For a given sample, we have updated features as below:
+\begin{figure}[!htb]
+\centering 
+\includegraphics[width = 0.8\textwidth]{f-i.png}
+\caption{f and k relation.}
+\label{fig:fig3}
+\end{figure}\\ \newpage
+Say, there are three landmarks defined, $l^{(1)}, l^{(2)} and\ l^{(3)}$ as shown in the plot above, the for any given x, $f_1, f_2 and\ f_3$ are defined as follows,
+\begin{align}
+f_1 &= similarity(x, l^{(1)}) = exp \left(- \frac {\| x - l^{(1)} \|^2} {2 \sigma^2} \right) \\
+f_2 &= similarity(x, l^{(2)}) = exp \left(- \frac {\| x - l^{(2)} \|^2} {2 \sigma^2} \right) \\ \label{20}
+f_3 &= similarity(x, l^{(3)}) = exp \left(- \frac {\| x - l^{(3)} \|^2} {2 \sigma^2} \right) \\
+    & \vdots 
+\end{align}
+Here, the similarity function is mathematically termed a \textbf{kernel.} The specific kernel used in \ref{20} is called the \textbf{Guassian Kernel}. Kernels are sometimes also denoted as $k(x, l^{(i)})$\\
+Consider $f_1$ from \ref{20}. If there exists x close to landmark $l^{(1)}$, then $\|x-l^{(1)}\| \approx 0$ and hence, $f_1 \approx 1$. Similarly for a x far from the landmark, $\|x-l^{(1)}\|$ will be a larger value and hence exponential fall will cause $f_1 \approx 0$. So effectively the choice of landmarks has helped in increasing the number of features x had from 2 to 3. which can be helpful in discrimination.\\
+For a gaussian kernel, the value of $\sigma$ defines the spread of the normal distribution. If $\sigma$ is small, the spread will be narrower and when its large the spread will be wider.\\
+Also, the intuition is clear about how landmarks help in generating the new features. Along with the values of parameter, $\theta$ and $\sigma$, various different decision boundaries can be achieved.\\
+\textbf{How to choose optimal landmarks?}\\
+In a complex machine learning problem it would be advantageous to choose a lot more landmarks. This is generally acheived by choosing landmarks at the point of the training examples, i.e. landmarks equal to the number of training examples are chosen, ending up in $l^{(1)}, l^{(2)}, \cdots, l^{(m)}$ if there are m training examples. This translates to the fact that each feature is a measure of how close is an instance to the existing points of the class, leading to generation of new feature vectors. \\
+\notte{\textbf{For SVM training, given training examples, x, features f are computed, and y =1, if $\theta^{\top} f \geq 0.$}}
+The training objective from \ref{5} is modified as follows,
+\begin{align}
+    min_\theta \, C \sum_{i=1}^m \left[ y^{(i)}\,cost_1(\theta^T f^{(i)}) + (1-y^{(i)})\,cost_0(\theta^T f^{(i)}) \right] + {1 \over 2 } \sum_{j=1}^m \theta_j^2 \label{21}
+\end{align}
+In this case, n=m in \ref{5} by the virtue of procedure used to choose f.\\
+\notte{\textbf{The regularization term in \ref{21} can be written as $\theta^{\top} \theta$. But in practice most SVM libraries, instead $\theta^{\top} M\theta$
+, which can be considered a scaled version is used as it gives certain optimization benefits and scaling to bigger training sets, which will be taken up at a later point in maybe another post.}}
+While the kernels idea can be applied to other algorithms like logistic regression, the computational tricks that apply to SVMs do not generalize as well to other algorithms.
+\notte{\textbf{Hence, SVMs and Kernels tend to go particularly well together.}}
+\subsection{Bias/Variance}
+\begin{enumerate}
+    \item $c=\frac{1}{\lambda}$,
+    \begin{itemize}
+        \item \textbf{Large C:} Low bias, High Variance.
+        \item \textbf{Small C:} High bias, Low Variance.
+    \end{itemize}
+    \item $\sigma$,
+    \begin{itemize}
+        \item \textbf{Large $\sigma^2$:} High Bias, Low Variance (Features vary more smoothly).
+        \item \textbf{Small $\sigma^2$:} Low Bias, High Variance (Features vary less smoothly).
+    \end{itemize}
+\end{enumerate}
+\subsection{Choice of Kernels}
+\begin{enumerate}
+    \item \textbf{Linear Kernel:} is equivalent to a no kernel setting giving a standard linear classifier given by,
+    \begin{align}
+        \theta_0\,x_0 + \theta_1\,x_1 + \theta_2\,x_2 + \theta_3\,x_3 + \cdots \geq 0 \label{22}
+    \end{align}
+    Linear kernels are used when the number of training data is less but the number of features in the training data is huge.
+    \item Gaussian Kernel: Make a choice of $\sigma^2$ to adjust the bias/variance trade-off. \\
+    Gaussian kernels are generally used when the number of training data is huge and the number of features are small.
+    \notte{\textbf{Feature scaling is important when using SVM, especially Gaussian Kernels, because if the ranges vary a lot then the similarity feature would be dominated by features with higher range of values.}}
+    \notte{\textbf{All the kernels used for SVM, must satisfy Mercer’s Theorem, to make sure that SVM optimizations do not diverge.}}\\
+    Some other kernels known to be used with SVMs are:
+    \begin{itemize}
+        \item Polynomial kernels, $k(x,l)=(x^{\top}l+constant)^{degree}.$ \item Esoteric kernels, like string kernel, chi-square kernel, histogram intersection kernel, ...
+    \end{itemize}
+\end{enumerate}
+\subsection{Multi-Class Classification}
+\begin{enumerate}
+    \item Most SVM libraries have multi-class classification.
+    \item Alternatively, one may use one-vs-all technique to train k different SVMs and pick class with largest $\theta^{\top}x.$
+\end{enumerate}
+\textbf{Logistic Regression vs SVM}
+\begin{enumerate}
+    \item If n is large relative to m, use logistic regression or SVM with linear kernel, like if n = 10000, m = 10-1000.
+    \item If n is small and m is intermediate, use SVM with gaussian kernel, like if n = 1-1000, m = 10-10000.
+    \item If n is small and m is large, create/add more features, then use logistic regression or SVM with no kernel, as with huge datasets SVMs struggle with gaussian kernels, like if n = 1-1000, m = 50000+.
+\end{enumerate}
+\notte{\textbf{Logistic Regression and SVM without a kernel (with linear kernel) generally give very similar. A neural network would work well on these training data too, but would be slower to train.}}
+Also, the optimization problem of SVM is a convex problem, so the issue of getting stuck in local minima is non-existent for SVMs.
+\subsection{Cost function for SVM}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1.4\textwidth]{h-t.png}
+\caption{Hypothesis and Regularized Cost Function.}
+\label{fig:fig3}
+\end{figure}\\
+\subsection{What are the advantages of Artificial Neural Networks over Support Vector Machines?}
+Both Support Vector Machines (SVMs) and Artificial Neural Networks (ANNs) are supervised machine learning classifiers. An ANN is a parametric classifier that uses hyper-parameters tuning during the training phase. An SVM is a non-parametric classifier that finds a linear vector (if a linear kernel is used) to separate classes. Actually, in terms of the model performance, SVMs are sometimes equivalent to a shallow neural network architecture. Generally, an ANN will outperform an SVM when there is a large number of training instances, however, neither outperforms the other over the full range of problems.\\
+We can summarize the advantages of the ANN over the SVM as follows:
+ANNs can handle multi-class problems by producing probabilities for each class. In contrast, SVMs handle these problems using independent one-versus-all classifiers where each produces a single binary output. For example, a single ANN can be trained to solve the hand-written digits problem while 10 SVMs (one for each digit) are required.\\
+Another advantage of ANNs, from the perspective of model size, is that the model is fixed in terms of its inputs nodes, hidden layers, and output nodes; in an SVM, however, the number of support vector lines could reach the number of instances in the worst case.\\
+The SVM does not perform well when the number of features is greater than the number of samples. More work in feature engineering is required for an SVM than that needed for a multi-layer Neural Network.\\
+On the other hand, SVMs are better than ANNs in certain respects:\\
+In comparison to SVMs, ANNs are more prone to becoming trapped in local minima, meaning that they sometime miss the global picture.\\
+While most machine learning algorithms can overfit if they don’t have enough training samples, ANNs can also overfit if training goes on for too long - a problem that SVMs do not have.\\
+SVM models are easier to understand. There are different kernels that provide a different level of flexibilities beyond the classical linear kernel, such as the Radial Basis Function kernel (RBF). Unlike the linear kernel, the RBF can handle the case when the relation between class labels and attributes is nonlinear.\\
+For a review of the practical results, the following link to benchmarks of the performance of SVMs and ANNs on a variety datasets is useful:
+\begin{center}
+    \underline{\href{https://web.archive.org/web/20120304030602/http://indiji.com/svm-vs-nn.html}{Support Vector Machine vs Artificial Neural Networks.}}
+\end{center}
 \end{document}
