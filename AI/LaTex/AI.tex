@@ -25,6 +25,8 @@
 \usepackage{slashbox}
 \usepackage{multirow}
 \usepackage[table,xcdraw]{xcolor}
+\usepackage{animate}
+\usepackage{animate,media9,movie15}
 
 \newlength{\Lnote}
 \newcommand{\notte}[1]
@@ -64,7 +66,7 @@ Supervised Learning problems has two types of problems,
 \begin{enumerate}
     \item Regression. 
     \item Classification. 
-\end{enumerate} \\
+\end{enumerate} 
 
 \subsection{Linear Regression}
 In regression type of problems, we are trying to predict results within a continuous output, means that we are trying to map input variables to some continuous function. \\
@@ -1759,14 +1761,14 @@ Consider two points $x_1$ and $x_2$ on the decision boundary given by,
 \end{align}
 Since the two points are on the line, they must satisfy \ref{15}. Substitution leads to the following,
 \begin{align}
-    \theta\,x_1 + c= 0 \label{16}
+    \theta\,x_1 + c= 0 \label{16} \\
     \theta\,x_2 + c= 0 \label{17}
 \end{align}
 Subtracting \ref{17} from \ref{16},
 \begin{align}
     \theta\,(x_1 - x_2) = 0 \label{18}
 \end{align}
-Since $x_1$ and $x_2$ lie on the line, the vector $(x_1 - x_2)$ is on the line too. Following the property of orthogonal vectors, 1\ref{18} is possible only if $\theta$ is orthogonal or perpendicular to $(x_1 - x_2)$, and hence perpendicular to the decision boundary.
+Since $x_1$ and $x_2$ lie on the line, the vector $(x_1 - x_2)$ is on the line too. Following the property of orthogonal vectors, \ref{18} is possible only if $\theta$ is orthogonal or perpendicular to $(x_1 - x_2)$, and hence perpendicular to the decision boundary.
 \subsection{Kernels in SVM}
 When dealing with non-linear decision boundaries, a learning method like logistic regression relies on high order polynomial features to find a complex decision boundary and fit the dataset, i.e. predict y=1 if,
 \begin{align}
@@ -1867,6 +1869,8 @@ Also, the optimization problem of SVM is a convex problem, so the issue of getti
 \caption{Hypothesis and Regularized Cost Function.}
 \label{fig:fig3}
 \end{figure}\\
+\notte{\textbf{Like Logistic Regression, SVM’s cost function is convex as well. The most popular optimization algorithm for SVM is Sequential Minimal Optimization that can be implemented by ‘libsvm’ package in python. SMO solves a large quadratic programming(QP) problem by breaking them into a series of small QP problems that can be solved analytically to avoid time-consuming process to some degree. In terms of detailed calculations, It’s pretty complicated and contains many numerical computing tricks that makes computations much more efficient to handle very large training datasets.}}
+\notte{\textbf{In summary, if you have large amount of features, probably Linear SVM or Logistic Regression might be a choice. If you have small number of features (under 1000) and not too large size of training samples, SVM with Gaussian Kernel might work for you data well.}}
 \subsection{What are the advantages of Artificial Neural Networks over Support Vector Machines?}
 Both Support Vector Machines (SVMs) and Artificial Neural Networks (ANNs) are supervised machine learning classifiers. An ANN is a parametric classifier that uses hyper-parameters tuning during the training phase. An SVM is a non-parametric classifier that finds a linear vector (if a linear kernel is used) to separate classes. Actually, in terms of the model performance, SVMs are sometimes equivalent to a shallow neural network architecture. Generally, an ANN will outperform an SVM when there is a large number of training instances, however, neither outperforms the other over the full range of problems.\\
 We can summarize the advantages of the ANN over the SVM as follows:
@@ -1881,4 +1885,453 @@ For a review of the practical results, the following link to benchmarks of the p
 \begin{center}
     \underline{\href{https://web.archive.org/web/20120304030602/http://indiji.com/svm-vs-nn.html}{Support Vector Machine vs Artificial Neural Networks.}}
 \end{center}
+\chapter{Unsupervised Learning}
+Unsupervised learning is a type of machine learning in which models are trained using unlabeled dataset and are allowed to act on that data without any supervision.\\
+\textbf{Unsupervised learning works by analyzing the data without its labels for the hidden structures within it, and through determining the correlations, and for features that actually correlate two data items. It is being used for clustering, dimensionality reduction, feature learning, density estimation, etc.}\\
+\textbf{\textit{\textsc{Unsupervised learning is a type of algorithm that learns patterns from untagged data. The hope is that, through mimicry, the machine is forced to build a compact internal representation of its world and then generate imaginative content.}}}
+\subsection{Clustering in Unsupervised Learning}
+Cluster analysis, or clustering, is an unsupervised machine learning task. It involves automatically discovering natural grouping in data. Unlike supervised learning (like predictive modeling), clustering algorithms only interpret the input data and find natural groups or clusters in feature space.\\
+\newline\textbf{What is Clustering?} \\
+“Clustering” is the process of grouping similar entities together. The goal of this unsupervised machine learning technique is to find similarities in the data point and group similar data points together.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1.0\textwidth]{Screenshot (160).png}
+\caption{Clustering the data into groups.}
+\label{fig:fig3}
+\end{figure} \newpage
+\newline\textbf{Why use Clustering?}\\
+Grouping similar entities together help profile the attributes of different groups. In other words, this will give us insight into underlying patterns of different groups. There are many applications of grouping unlabeled data, for example, you can identify different groups/segments of customers and market each group in a different way to maximize the revenue. Another example is grouping documents together which belong to the similar topics etc.\\
+Clustering is also used to reduces the dimensionality of the data when you are dealing with a copious number of variables.\\
+\newline\textbf{How does Clustering algorithms work?}
+There are many algorithms developed to implement this technique but for this post, let’s stick the most popular and widely used algorithms in machine learning.
+\begin{enumerate}
+    \item K-mean Clustering.
+    \item Hierarchical Clustering
+\end{enumerate}
+For this course, we will not dicusss Hierarchical Clustering.
+\subsection{K-mean Clustering}
+\begin{enumerate}
+    \item It starts with K as the input which is how many clusters you want to find. Place K centroids in random locations in your space.
+    \item Now, using the euclidean distance between data points and centroids, assign each data point to the cluster which is close to it.
+    \item Recalculate the cluster centers as a mean of data points assigned to it.
+    \item Repeat 2 and 3 until no further changes occur.
+\end{enumerate}
+\subsection{How to choose k?}
+One of the methods is called \textbf{“Elbow”} method can be used to decide an optimal number of clusters. Here you would run K-mean clustering on a range of K values and plot the “percentage of variance explained” on the Y-axis and “K” on X-axis.\\
+In the picture below you would notice that as we add more clusters after 3 it doesn't give much better modeling on the data. The first cluster adds much information, but at some point, the marginal gain will start dropping.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1\textwidth]{elbow.png}
+\caption{Elbow Method.}
+\label{fig:fig3}
+\end{figure} \\
+\subsection{Things to remember when using clustering algorithm:}
+\begin{enumerate}
+    \item Standardizing variables so that all are on the same scale. It is important when calculating distances.
+    \item Treat data for outliers before forming clusters as it can influence the distance between the data points.
+\end{enumerate} \newpage
+\section{K-Means Algorithm}
+\notte{\textbf{K-means clustering, a method from vector quantization, aims to partition n observations into k clusters in which each observation belongs to the cluster with the nearest mean, serving as a prototype of the cluster.}}
+\subsection{Introduction}
+\begin{enumerate}
+    \item K-means clustering is one of the most popular clustering algorithms.
+    \item It gets it name based on its property that it tries to find most optimal user specified k number of clusters in a any dataset. The quality of the dataset and their seperability is subject to implementation details, but it is fairly straight forward iterative algorithm.
+    \item It basically involves a random centroid initialization step followed by two steps, namely, cluster assignment step, and centroid calculation step that are executed iteratively until a stable mean set is arrived upon. It becomes more clear in the animation below.
+    \begin{figure}[!htb]
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (161).png} 
+\caption{Random initialization for two cluster centroids.}
+\label{fig:subim1}
+\end{subfigure}\;\;\;
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (162).png}
+\caption{All the data or points has been divided by taking the points near to blue/red centroids.}
+\label{fig:subim2}
+\end{subfigure}
+\caption{The data points which are near to blue centroid are labeled as blue and similar to red, if the clustering contains 3 types then we would take blue,red and green has cluster centroids.}
+\label{fig:image2}
+\end{figure}
+    \begin{figure}[!htb]
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (163).png} 
+\caption{After classifying data into blue/red. Take the average of each data and move the centroid to the average point.}
+\label{fig:subim1}
+\end{subfigure}\;\;\;
+\begin{subfigure}{0.6\textwidth}
+\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (170).png}
+\caption{Again moving to average point, take near data points for blue as blue and for red as red, now again take the average of new classified data and move the centroids to the average point. }
+\label{fig:subim2}
+\end{subfigure}
+\caption{Repeat the process classifying and reshuffling the data until the cluster centroids remain constant at the some points.}
+\label{fig:image2}
+\end{figure}\newpage
+    \item \textbf{Cluster Assignment:} Assign each data point to one of the two clusters based on its distance from them. A point is assigned to the cluster, whose centroid it is closer to.
+    \item \textbf{Move Centroid:} After cluster assignment, centroids are moved to the mean of clusters formed. And then the process is repeated. After a certain number of steps the centroids will no longer move around and then the iterations can stop.
+\end{enumerate}
+\subsection{Algorithm}
+\textbf{Input:}
+\begin{enumerate}
+    \item K, number of clusters.
+    \item Training set, $x^{(1)}, x^{(2)},\cdots, x^{(m)}.$
+    \item where: \\ $x^{(i)}\ \epsilon\ \Re^n$, as there are no bias terms, $x_0=1.$
+\end{enumerate}
+\textbf{Algorithm:}
+\begin{enumerate}
+    \item Randomly initialize K cluster centroids, $\mu_1, \mu_2, \cdots, \mu_k\ \epsilon\ \Re^n.$
+    \item Then,
+    \begin{align*}
+Repeat \{ \\
+    \text{for }i &= 1\text{ to }m \\
+        & c^{(i)} =\text{ index (from }1\text{ to }K\text{) of centroid closest to }x^{(i)}\text{, i.e., } min_k \lVert x^{(i)} - \mu_k \rVert^2 \\
+    \text{for }k &= 1\text{ to }K \\
+        & \mu_k =\text{ average (mean) of points assigned to cluster, }k\text{, i.e., } \frac {\text{sum of } x^{(i)}\text{, where }c^{(i)} = k} {\text{number of }c^{(i)} = k} \\
+\} \tag{4.0} \label{40}
+    \end{align*}
+\end{enumerate}
+\notte{It is common to apply k-means to a non-seperated clusters. This has particular applications in segmentation problems, like market segmentation or population division based on pre-selected features.}
+\subsection{Optimization Objective}
+\textbf{Notation:}
+\begin{enumerate}
+    \item $c^{(i)}$ - index of cluster $\{1, 2,\cdots, K\}$ to which example $x^{(i)}$ is currently assigned.
+    \item $\mu_k$ - cluster centroid K, $\mu_k\ \in\ \Re^n$.
+    \item cluster centroid of the cluster to which the example $x^{(i)}$ is assigned.
+\end{enumerate}
+Following the above notation, the cost function of the k-means clustering is given by,
+\begin{align}
+J(c^{(1)}, c^{(2)}, \cdots, c^{(m)}, \mu_1, \mu_2, \cdots, \mu_K) = {1 \over m} \sum_{i=1}^m \lVert x^{(i)} - \mu_{c^{(i)}} \rVert^2  \label{41}
+\end{align}
+Hence the optimization objective is,
+\begin{align}
+    \nonumber \min_&{c^{(1)}, c^{(2)}, \cdots, c^{(m)},} J(c^{(1)}, c^{(2)}, \cdots, c^{(m)}, \mu_1, \mu_2, \cdots, \mu_K) \\
+    &\mu_1, \mu_2, \cdots, \mu_K\label{42}
+\end{align}
+\notte{\textbf{The cost function in \ref{41} is called distortion cost function or the distortion of k-means clustering.}}
+It can argued that the k-means algorithm in \ref{40}, is implementing the cost function optimization. This is so because the first step of k-mean clustering, i.e. the cluster assignment step is nothing but the minimization of the cost w.r.t. $c^{(1)}, c^{(2)},\cdots, c^{(m)}$ as this step involves assigning a data point to the nearest possible cluster. Similarly the second step, i.e. moving the centroid step is the minimization of the clustering cost w.r.t. $\mu_1, \mu_2, \cdots, \mu_K$ as the most optimal position of centroid for minimizing the distortion for a given set of points is the mean position.\\
+One handy way of checking if the clustering alorithm is working correctly is to plot distortion as a function of number of iterations. As both the steps in the k-means are calculated steps for minimization it is always going to decrease or remain approximately constant as the number of iterations increase.
+\subsection{Random Initialization}
+There are various ways for randomly picking out K<m cluster centroids, but the most recommended one involves picking K randomly picked training examples and initialize $\{\mu_1, \mu_2, \cdots, \mu_K\}$ equal to these K examples.\\
+Based on initialization, it is possible that k-means could converge to different centroids or stuck in some local optima. One possible solution to this is to try multiple random initializations and then choose the one with the least distortion. It’s fairly usual to run k-means around 50-1000 times with random initialization to make sure that it does not get stuck in local optima.\\
+Generally the trick of multiple random initializations will help only if the number of clusters is small, i.e. between 2-10. For higher number of clusters the multiple number of random initializations are less likely to help improve the distortion cost function.
+\subsection{Choosing the Number of Clusters}
+\begin{enumerate}
+    \item One way of choosing the number of clusters is by manually visualizing the data.
+    \item Sometimes it is ambiguous as to how many clusters exist in the dataset and in such cases it’s rather more useful to choose the number of clusters on the basis of end goal or the number of clusters that serve well the later down stream goal that needs to be extracted from the datasets.
+    \item \textbf{Elbow Method:} On plotting the distortion as a function of number of clusters, K, this methods says that the optimal number of cluster at the point the elbow occurs as can be seen for line B in the plot below. It is a reasonable way of choosing the number of clusters. But this method does not always work because the sometimes the plot would look like line A which does not have clear elbow to choose.
+    \begin{figure}[!htb]
+\centering
+\includegraphics[width = 1.\textwidth]{fig-2-elbow-method.png}
+\caption{Elbow Method.}
+\label{fig:fig3}
+\end{figure}
+\end{enumerate}
+\notte{As a strict rule in k-means, as the number of cluster K increases, the distortion would decrease. But after some point the increase in cluster would not give much decrease in the distortion.}
+\chapter{Principal Component Analysis (PCA)}
+\textbf{A mathematical procedure that transforms a number of (possibly) correlated variables into a (possibly smaller) number of uncorrelated variables called principal components.}
+\section{Introduction}
+For a given dataset, PCA tries to find a lower dimensional surface onto which these points can be projected while minimizing the approximation losses. For example consider the dataset (marked by blue dots’s) in $\Re^2$ in the the plot below. The line formed by the red x’s is the projection of the data from $\Re^2$ to $\Re$.\\
+\textbf{Principal Component Analysis (PCA)} is a statistical procedure that uses an orthogonal transformation which converts a set of correlated variables to a set of uncorrelated variables. \textbf{PCA} is a most widely used tool in exploratory data analysis and in \textbf{machine learning} for predictive models. Moreover, PCA is an unsupervised statistical technique used to examine the interrelations among a set of variables. It is also known as a general factor analysis where regression determines a line of best fit.\\
+\textbf{PCA is an unsupervised machine learning algorithm that attempts to reduce the dimensionality (number of features) within a dataset while still retaining as much information as possible.}\\
+Principal Component Analysis, or PCA, is a dimensionality-reduction method that is often used to reduce the dimensionality of large data sets, by transforming a large set of variables into a smaller one that still contains most of the information in the large set.\\
+Reducing the number of variables of a data set naturally comes at the expense of accuracy, but the trick in dimensionality reduction is to trade a little accuracy for simplicity. Because smaller data sets are easier to explore and visualize and make analyzing data much easier and faster for machine learning algorithms without extraneous variables to process.\\
+So to sum up, the idea of PCA is simple — reduce the number of variables of a data set, while preserving as much information as possible.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1\textwidth]{fig-1-pca-projection.png}
+\caption{PCA Projection.}
+\label{fig:fig3}
+\end{figure}
+\section{STEP BY STEP EXPLANATION OF PCA}
+\begin{enumerate}
+    \item \textbf{STEP 1: STANDARDIZATION}\\
+    The aim of this step is to standardize the range of the continuous initial variables so that each one of them contributes equally to the analysis.\\
+    More specifically, the reason why it is critical to perform standardization prior to PCA, is that the latter is quite sensitive regarding the variances of the initial variables. That is, if there are large differences between the ranges of initial variables, those variables with larger ranges will dominate over those with small ranges (For example, a variable that ranges between 0 and 100 will dominate over a variable that ranges between 0 and 1), which will lead to biased results. So, transforming the data to comparable scales can prevent this problem.\\
+    Mathematically, this can be done by subtracting the mean and dividing by the standard deviation for each value of each variable.
+    \begin{align}
+        z = \frac{value - Mean}{Standard deviation.}
+    \end{align}
+    Once the standardization is done, all the variables will be transformed to the same scale.
+    \item \textbf{STEP 2: COVARIANCE MATRIX COMPUTATION}\\
+    The aim of this step is to understand how the variables of the input data set are varying from the mean with respect to each other, or in other words, to see if there is any relationship between them. Because sometimes, variables are highly correlated in such a way that they contain redundant information. So, in order to identify these correlations, we compute the covariance matrix.\\
+    The covariance matrix is a $p\times\ p$ symmetric matrix (where p is the number of dimensions) that has as entries the covariances associated with all possible pairs of the initial variables. For example, for a 3-dimensional data set with 3 variables x, y, and z, the covariance matrix is a $3\times\ 3$ matrix of this from:\\
+    \begin{center}
+    \begin{math}
+    \left[\begin{array}{ccc}
+        Cov(x,x) & Cov(x,y) & Cov(x,z) \\
+        Cov(y,x) & Cov(y,y) & Cov(y,z) \\
+        Cov(z,x) & Cov(z,y) & Cov(z,z) \\
+    \end{array}\right]
+    \end{math}
+    \end{center}\\
+    Since the covariance of a variable with itself is its variance (Cov(a,a)=Var(a)), in the main diagonal (Top left to bottom right) we actually have the variances of each initial variable. And since the covariance is commutative (Cov(a,b)=Cov(b,a)), the entries of the covariance matrix are symmetric with respect to the main diagonal, which means that the upper and the lower triangular portions are equal.\\
+    \newline\textbf{What do the covariances that we have as entries of the matrix tell us about the correlations between the variables?}\\
+    It’s actually the sign of the covariance that matters :
+    \begin{itemize}
+        \item If positive then : the two variables increase or decrease together (correlated).
+        \item If negative then : One increases when the other decreases (Inversely correlated).
+    \end{itemize}
+    Now, that we know that the covariance matrix is not more than a table that summaries the correlations between all the possible pairs of variables, let’s move to the next step.
+    \item \textbf{STEP 3: COMPUTE THE EIGENVECTORS AND EIGENVALUES OF THE COVARIANCE MATRIX TO IDENTIFY THE PRINCIPAL COMPONENTS}\\
+    Eigenvectors and eigenvalues are the linear algebra concepts that we need to compute from the covariance matrix in order to determine the principal components of the data. Before getting to the explanation of these concepts, let’s first understand what do we mean by principal components.\\
+    Principal components are new variables that are constructed as linear combinations or mixtures of the initial variables. These combinations are done in such a way that the new variables (i.e., principal components) are uncorrelated and most of the information within the initial variables is squeezed or compressed into the first components. So, the idea is 10-dimensional data gives you 10 principal components, but PCA tries to put maximum possible information in the first component, then maximum remaining information in the second and so on, until having something like shown in the scree plot below.\\
+    \begin{figure}[!htb]
+    \centering
+    \includegraphics[width = 1\textwidth]{Principal Component Analysis Principal Components.png}
+    \caption{Percentage of variance for each by PC.}
+    \label{fig:fig3}
+    \end{figure}
+    Organizing information in principal components this way, will allow you to reduce dimensionality without losing much information, and this by discarding the components with low information and considering the remaining components as your new variables.\\
+    An important thing to realize here is that, the principal components are less interpretable and don’t have any real meaning since they are constructed as linear combinations of the initial variables.\\
+    Geometrically speaking, principal components represent the directions of the data that explain a maximal amount of variance, that is to say, the lines that capture most information of the data. The relationship between variance and information here, is that, the larger the variance carried by a line, the larger the dispersion of the data points along it, and the larger the dispersion along a line, the more the information it has. To put all this simply, just think of principal components as new axes that provide the best angle to see and evaluate the data, so that the differences between the observations are better visible.
+\end{enumerate}
+\section{Implementation}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{fig-2-pca-projection-with-errors.png}
+    \caption{PCA Projection, Components, and Projection Errors.}
+    \label{fig:fig3}
+    \end{figure}
+From the above plot it is easier to point out what exactly PCA is doing. The green points show the original data. So all PCA is trying to do is to find the orthogonal components along which the eigenvalues are maximized which is basically a fancy way of saying that PCA finds a feature set in the order of decreasing variance for a given dataset. In the above example, the red vector is displaying higher variance and is the first component, while the blue vector is displaying relatively less variance.\\
+As there are as many principal components as there are variables in the data, principal components are constructed in such a manner that the first principal component accounts for the largest possible variance in the data set. For example, let’s assume that the scatter plot of our data set is as shown below, can we guess the first principal component ? Yes, it’s approximately the line that matches the purple marks because it goes through the origin and it’s the line in which the projection of the points (red dots) is the most spread out. Or mathematically speaking, it’s the line that maximizes the variance (the average of the squared distances from the projected points (red dots) to the origin).
+\notte{\textbf{Performing PCA for number of components greater than the current number of dimensions is useless as the data is preserved with 100$\%$ variance in the current dimension and no new dimension can help enhance that metric.}}\\
+So, when dimensionality reduction is done using PCA as can be seen in the red dots, the projection is done along the more dominant feature among the two as it is more representative of the data among the two dimensions. Also, it can be seen that the red vector lies on a line than minimizes the projection losses represented by the green lines from the original data point to the projected data points.\\
+The second principal component is calculated in the same way, with the condition that it is uncorrelated with (i.e., perpendicular to) the first principal component and that it accounts for the next highest variance.\\
+This continues until a total of p principal components have been calculated, equal to the original number of variables.\\
+\notte{\textbf{Mean Normalization and feature scaling are a must before performing the PCA, so that the variance of a component is not affected by the disparity in the range of values.}}
+Generalizing to n-dimensional data the same technique can be used to reduce the data to k-dimensions in a similar way by finding the hyper-surface with least projection error.
+\section{Projection vs Prediction}
+\notte{\textbf{PCA is not Linear Regression.}}
+In linear regression, the aim is predict a given dependent variable, y based on independent variables, x, i.e. minimize the prediction error. In contrast, PCA does not have a target variable, y, it is mere feature reduction by minimizing the projection error. The difference is clear from the plot in \ref{fig:fig4}.
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=0.75\textwidth]{fig-3-projection-vs-prediction.png}
+    \caption{PCA Projection, Components, and Projection Errors.}
+    \label{fig:fig4}
+    \end{figure}\\
+The blue points display the prediction based on linear regression, while the red points display the projection on the reduced dimension. The optimization objectives of the two algorithms are different. While linear regression is trying to minimize the squared errors represented by the blue lines, PCA is trying to minimize the projection errors represented by the red lines.
+\section{Mean Normalization and Feature Scaling}
+It is important to have both these steps in the preprocessing, before PCA is applied. The mean of any feature in a design matrix can be calculated by,
+\begin{align}
+    \mu_j = {1 \over m} \sum_{i=1}^m x_j^{(i)} \label{43}
+\end{align}
+Following the calculation of means, the normalization can be done by replacing each $x_j$ by $x_j - \mu_j$. Similarly, feature scaling is done by replacing each $x_j^{(i)}$ by,
+\begin{align}
+    \frac {x_j^{(i)} -\mu_j} {s_j} \label{44}
+\end{align}
+where $s_j$ is some measure of the range of values of feature j. It can be $max(x_j) - min(x_j)$ or more commonly the standard deviation of the feature.
+\section{PCA Algorithm}
+\begin{enumerate}
+    \item Compute covariance matrix given by,
+    \begin{align}
+        \Sigma = {1 \over m} \sum_{i}^n \left( x^{(i)} \right) \left( x^{(i)} \right)^T \label{45}
+    \end{align}
+    \notte{\textbf{All covariance matrices, $\Sigma$, satisfy a mathematical property called symmetric positive definite. (Will take up in future posts.)}}
+    \item Follow by this, eigen vectors and eigen values are calculated. There are various ways of doing this, most popularly done by singular value decomposition (SVD) of the covariance matrix. SVD returns three different matrices given by,
+    \begin{align}
+        [U,S,V] = SVD(\Sigma) \label{46}
+    \end{align}
+    where,
+    \begin{itemize}
+        \item $\Sigma$ is a $n * n$ matrix because each $x^{(i)}$ is a $n * 1$ vector.
+        \item U is the $n * n$ matrix where each column represents a component of the PCA. In order to reduce the dimensionality of the data, one needs to choose the first k columns to form a matrix, $U_{reduce}$, which is a $n ∗ k$ matrix.
+    \end{itemize}
+    So the dimensionally compressed data is given by,
+    \begin{align}
+        z^{(i)} = U_{reduce}^T x^{(i)} \label{47}
+    \end{align}
+    Since, $U_{reduce}^{\top}$ is $k * n$ matrix and $x^{(i)}$ is $n * 1$ vector, the product, $z^{(i)}$ is a $k * 1$ vector with reduced number of dimensions.\\
+    Given a reduced representation, $z^{(i)}$, we can find its approximate reconstruction in the higher dimension by,
+    \begin{align}
+        x_{approx}^{(i)} = U_{reduce} \cdot z^{(i)} \label{48}
+    \end{align}
+    Since, $U_{reduce}$ is $n * k$ matrix and $z^{(i)}$ is $k * 1$ vector, the product, $x_{approx}^{(i)}$ is a $n * 1$ vector with the original number of dimensions.
+\end{enumerate}
+\subsection{Number of Principal Components}
+How to determine the number pricipal components to retain during the dimensionality reduction?\\
+Consider the following two metrics
+\begin{enumerate}
+    \item The objective of PCA is to minimize the projection error given by,
+    \begin{align}
+        {1 \over m} \sum_{i=1}^m \lVert x^{(i)} - x_{approx}^{(i)} \rVert^2 \label{49} 
+    \end{align}
+    \item Total variation in the data is given by,
+    \begin{align}
+        {1 \over m} \sum_{i=1}^m \lVert x^{(i)} \rVert^2 \label{50} 
+    \end{align}
+\end{enumerate}
+\textbf{Rule of Thumb} is, choose the smallest value of k, such that,
+\begin{align}
+    \frac { {1 \over m} \sum_{i=1}^m \lVert x^{(i)} - x_{approx}^{(i)} \rVert^2} { {1 \over m} \sum_{i=1}^m \lVert x^{(i)} \rVert^2} \leq 0.01 (\text{or } 1\%) \label{51}
+\end{align}
+i.e. 99$\%$ of the variance is retained (Generally values such as 95−90$\%$ variance retention are used). It will be seen overtime than often the amount of dimensions reduced is significant while maintaining the 99$\%$ variance. (because many features are highly correlated.)
+\notte{\textbf{Talking about the amount of variance retained in more informative than citing the number of principal components retained.}}
+So for choosing k the following method could be used,
+\begin{enumerate}
+    \item Try PCA for k = 1.
+    \item Compute $U_{reduce},\ z^{(1)}, z^{(2)}, \cdots, z^{(m)},\ x_{approx}^{(1)}, x_{approx}^{(2)}, \cdots, x_{approx}^{(m)}.$
+    \item Check variance retention using \ref{51}.
+    \item Repeat the steps for k = 2, 3,$\cdots$ to satisfy \ref{51}.
+\end{enumerate}
+There is an easy work around to bypass this tedious process by using \ref{46}. The matrix S returned by SVD is a diagonal matrix of eigenvalues corresponding to each of the components in U. S is a $n ∗ n$ matrix with diagonal eigenvalues $s_{11}, s_{22}, \cdots, s_{nn}$ and off-diagonal elements equal to 0. Then for a given value of k,
+\begin{align}
+    \frac { {1 \over m} \sum_{i=1}^m \lVert x^{(i)} - x_{approx}^{(i)} \rVert^2} { {1 \over m} \sum_{i=1}^m \lVert x^{(i)} \rVert^2} = 1 - \frac {\sum_{i=1}^k s_{ii}} {\sum_{i=1}^n s_{ii}} \label{52}
+\end{align}
+Using \ref{52}, \ref{51} can be written as,
+\begin{align}
+    \frac {\sum_{i=1}^k s_{ii}} {\sum_{i=1}^n s_{ii}} \gt 0.99 (\text{or } 99\%) \label{53} 
+\end{align}
+Now, it is easier to calculate the variance retained by iterating over values of k and calculating the value in \ref{53}.
+\notte{\textbf{The value in \ref{52} is a good metrics to cite as the performance of PCA, as to how well is the reduced dimensional data representing the original data.}}
+\section{Suggestions for Using PCA}
+\begin{enumerate}
+    \item \textbf{Speed up a learning algorithm} by reducing the number of features by applying PCA and choosing top-k to maintain 99$\%$ variance. PCA should be only applied on the training data to get the $U_{reduce}$ and not on the cross-validation or test data. This is because $U_{reduce}$ is parameter of the model and hence should be only learnt on the training data. Once the matrix is determined, the same mapping can be applied on the other two sets.
+    \notte{\textbf{Run PCA only on the training data, not on cross-validation or test data.}}
+    \item If using PCA for visualization, it does not make sense to choose K>3.
+    \item Usage of PCA to reduce overfitting is not correct. The reason it works well in some cases is because it reduces the number of features and hence reduces the variance and increases the bias. But often there are better ways of doing this by using regularization and other similar techniques than use PCA. This would be a bad application of PCA. It is generally adviced against because PCA removes some information without keeping into consideration the target values. While this might work when 99$\%$ of the variance is retained, it may as well on various occasions lead to the loss of some useful information. On the other hand, regularization parameters are more optimal for preventing overfitting because while penalizing overfitting they also keep in context the values of the target vector.
+    \notte{\textbf{Do not use PCA to prevent overfitting. Instead look into $\href{https://machinelearningmedium.com/2017/09/08/overfitting-and-regularization/}{regularization}$.}}
+    \item It is often worth a shot to try any algorithm without using PCA before diving into dimensionality reduction. So, before implementing PCA, implement the models with original dataset. If this does not give desired result, one should move ahead a try using PCA to reduce the number of features. This would also give a worthy baseline score to match the performance of model against once PCA is applied.
+    \item PCA can also be used in cases when the original data is too big for the disk space. In such cases, compressed data will give some benefits of space saving by dimensionality reduction.
+\end{enumerate}
+\begin{figure}[!htb]
+\begin{subfigure}{0.75\textwidth}
+\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (172).png} 
+\caption{Where not to use PCA.}
+\label{fig:subim1}
+\end{subfigure}\;
+\begin{subfigure}{0.75\textwidth}
+\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (173).png}
+\caption{PCA cannot be used to prevent overfitting.}
+\label{fig:subim2}
+\end{subfigure}
+\caption{Defining where not to use PCA.}
+\label{fig:image2}
+\end{figure}
+    \begin{figure}[!htb]
+\begin{subfigure}{0.75\textwidth}
+\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (174).png} 
+\caption{Uses of PCA.}
+\label{fig:subim1}
+\end{subfigure}\;
+\begin{subfigure}{0.75\textwidth}
+\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (175).png}
+\caption{Speeding up Supervised Learning.}
+\label{fig:subim2}
+\end{subfigure}
+\caption{Applications of PCA.}
+\label{fig:image2}
+\end{figure}
+\chapter{Information beyond this course}
+\section{Backpropagation Derivation}
+\textbf{The post delves into the mathematics of how backpropagation is defined. It has its roots in partial derivatives and is easily understandable.}
+\subsection{Derivative of Sigmoid}
+The sigmoid function, represented by $\sigma$ is defined as,
+\begin{align}
+    \sigma(x)  = {1 \over 1 + e^{-x}}  \label{23}
+\end{align}
+So, the derivative of \ref{23}, denoted by $\sigma^{\prime}$ can be derived using the quotient rule of differentiation, i.e., if f and g are functions, then,
+\begin{align}
+    \left({f \over g} \right)^{\prime} = {f^{\prime}g - g^{\prime}f \over g^2}  \label{24}
+\end{align}
+Since f is a constant (i.e. 1) in this case, \ref{24} reduces to,
+\begin{align}
+    \left({1 \over g} \right)^{\prime} = {- g^{\prime} \over g^2}  \label{25}
+\end{align}
+Also, by the chain rule of differentiation, if h(x) = f(g(x)), then,
+\begin{align}
+    h^{\prime}(x) = f^{\prime}(g(x)) \cdot g^{\prime}(x)  \label{26}
+\end{align}
+Applying \ref{25} and \ref{26} to \ref{23}, $\sigma^{\prime}(x)$ is given by,
+\begin{align}
+\sigma^{\prime}(x) &= -\frac{e^{-x}} {(1+e^{-x})^2} \cdot -1 \\
+    &= \frac{e^{-x}} {(1+e^{-x})^2} \\
+    &= {1 \over 1 + e^{-x}} \cdot \frac{1 + e^{-x} - 1} {1+e^{-x}} \\
+    &= \sigma(x) \cdot \left(\frac{1 + e^{-x}} {1+e^{-x}} - \frac{1} {1+e^{-x}} \right) \\
+\sigma^{\prime}(x) &= \sigma(x) \cdot (1 - \sigma(x)) \label{27}
+\end{align}
+\subsection{Mathematics of Backpropagation}
+(* all the derivations are based scalar calculus and not the matrix calculus for simplicity of calculations)\\
+In most of the cases of algorithms like logistic regression, linear regression, there is no hidden layer, which basically zeroes down to the fact that there is no concept of error propagation in backward direction because there is a direct dependence of model cost function on the single layer of model parameters.\\
+Backpropagation tries to do the similar exercise using the partial derivatives of model output with respect to the individual parameters. It so happens that there is a trend that can be observed when such derivatives are calculated and backpropagation tries to exploit the patterns and hence minimizes the overall computation by reusing the terms already calculated.\\
+Consider a simple neural network with a single path (following the notation from $\href{https://machinelearningmedium.com/2017/10/03/neural-networks-cost-function-and-back-propagation/}{Neural\ Networks:\ Cost\ Function\ and\ Backpropagation}$) as shown below,
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1.0\textwidth]{single-path-neural-network.png}
+\caption{Single-Path Neural Network.}
+\label{fig:fig3}
+\end{figure}\\
+where,
+\begin{align}
+a^{(1)} &= x^{(i)} \\ 
+z^{(2)} &= \theta^{(1)} a^{(1)} \\
+a^{(2)} &= \sigma(z^{(2)}) \\ 
+z^{(3)} &= \theta^{(2)} a^{(2)} \\
+a^{(3)} &= \sigma(z^{(3)}) \\ 
+z^{(4)} &= \theta^{(3)} a^{(3)} \\
+a^{(4)} &= g(z^{(4)}) = h(x^{(i)}) = \hat{y}^{(i)}  \label{28}
+\end{align}
+where g is a linear function defined as g(x)=x, and hence $g^{\prime}(x)$=1. $\sigma$ represents the sigmoid function.\\
+For the simplicity of derivation, let the cost function, J be defined as,
+\begin{align}
+    J = {1 \over 2} (\hat{y}^{(i)} - y^{(i)})^2 \label{29}
+\end{align}
+where,
+\begin{align}
+    \delta^{(4)} = \hat{y}^{(i)} - y^{(i)} \label{30}
+\end{align}
+Now, in order to find the changes that should be made in the parameters (i.e. weights), partial derivatives of the cost function is calculated w.r.t. individual $\theta^{\prime}$s,
+\begin{align}
+\frac {\partial J} {\partial \theta^{(3)}} &= \frac {\partial} {\partial \theta^{(3)}} {1 \over 2} (\hat{y}^{(i)} - y^{(i)})^2 \\
+    &= (\hat{y}^{(i)} - y^{(i)}) \frac {\partial} {\partial \theta^{(3)}} (g(\theta^{(3)} a^{(3)}) - y^{(i)}) \\
+    &= (\hat{y}^{(i)} - y^{(i)}) \cdot a^{(3)} \\
+    &= (\hat{y}^{(i)} - y^{(i)}) \cdot a^{(3)} \label{31} \\ 
+\frac {\partial J} {\partial \theta^{(2)}} &= \frac {\partial} {\partial \theta^{(2)}} {1 \over 2} (\hat{y}^{(i)} - y^{(i)})^2 \\
+    &= (\hat{y}^{(i)} - y^{(i)}) \frac {\partial} {\partial \theta^{(2)}} (g(\theta^{(3)} \sigma(\theta^{(2)} a^{(2)})) - y^{(i)}) \\
+    &= (\hat{y}^{(i)} - y^{(i)}) \cdot \theta^{(3)} \sigma'(z^{(3)}) \cdot a^{(2)}\label{32}\\ 
+\frac {\partial J} {\partial \theta^{(1)}} &= \frac {\partial} {\partial \theta^{(1)}} {1 \over 2} (\hat{y}^{(i)} - y^{(i)})^2 \\
+    &= (\hat{y}^{(i)} - y^{(i)}) \frac {\partial} {\partial \theta^{(1)}} (g(\theta^{(3)} \sigma(\theta^{(2)} \sigma(\theta^{(1)} a^{(1)}))) - y^{(i)}) \\
+    &= (\hat{y}^{(i)} - y^{(i)}) \cdot \theta^{(3)} \sigma'(z^{(3)}) \cdot \theta^{(2)} \sigma'(z^{(2)}) \cdot a^{(1)} \\
+    &= (\hat{y}^{(i)} - y^{(i)}) \cdot \theta^{(3)} \sigma'(z^{(3)}) \cdot \theta^{(2)} \sigma'(z^{(2)}) \cdot x^{(i)} \label{33}
+\end{align}
+One can see a pattern emerging among the partial derivatives of the cost function with respect to the individual parameters matrices. The expressions in \ref{31}, \ref{32} and \ref{33} show that each term consists of the derivative of the network error, the weighted derivative of the node output with respect to the node input leading upto that node.\\
+So, for this network the updates for the matrices are given by,
+\begin{align}
+\Delta \theta^{(1)} &= - \eta [(\hat{y}^{(i)} - y^{(i)}) \cdot \theta^{(3)} \sigma'(z^{(3)}) \cdot \theta^{(2)} \sigma'(z^{(2)}) \cdot x^{(i)}] \\
+\Delta \theta^{(2)} &= - \eta [(\hat{y}^{(i)} - y^{(i)}) \cdot \theta^{(3)} \sigma'(z^{(3)}) \cdot a^{(2)}] \\
+\Delta \theta^{(3)} &= - \eta [(\hat{y}^{(i)} - y^{(i)}) \cdot a^{(3)}]  \label{34}
+\end{align}
+\notte{\textbf{Forward propagation is a recursive algorithm takes an input, weighs it along the edges and then applies the activation function in a node and repeats this process until the output node. Similarly, backpropagation is a recursive algorithm performing the inverse of the forward propagation, i.e. it takes the error signal from the output layer, weighs it along the edges and performs derivative of activation in an encountered node until it reaches the input. This brings in the concept of backward error propagation.}}
+\section{Error Signal}
+Following the concept of backward error propagation, error signal is defined as the accumulated error at each layer. The recursive error signal at a layer l is defined as,
+\begin{align}
+    \delta^{(l)} = \frac {\partial J} {\partial z^{(l)}}  \label{35}
+\end{align}
+Intuitively, it can be understood as the measure of how the network error changes with respect to the change in input to unit l. \\
+So, $\delta^{(4)}$ in \ref{30}, can be derived using \ref{35},
+\begin{align}
+\delta^{(4)} &= \frac {\partial J} {\partial z^{(4)}} = \frac {\partial} {\partial z^{(4)}} {1 \over 2} (\hat{y}^{(i)} - y^{(i)})^2 \\
+&= (\hat{y}^{(i)} - y^{(i)}) \frac {\partial} {\partial z^{(4)}} (\hat{y}^{(i)} - y^{(i)}) \\
+    &= (\hat{y}^{(i)} - y^{(i)}) \frac {\partial} {\partial z^{(4)}} (g(z^{(4)}) - y^{(i)}) \\ 
+    &= (\hat{y}^{(i)} - y^{(i)}) \label{36}
+\end{align}
+Similary the error signal at previous layers can be derived and it can be seen how the error signal of the forward layers get transmitted to the backward layers
+\begin{align}
+\delta^{(3)} &= \frac {\partial J} {\partial z^{(3)}} \\
+    &= \frac {\partial} {\partial z^{(3)}} {1 \over 2} (\hat{y}^{(i)} - y^{(i)})^2 \\
+    &= \delta^{(4)} \frac {\partial} {\partial z^{(3)}} (g(\theta^{(3)} \sigma(z^{(3)}))) \\
+    &= \delta^{(4)} \theta^{(3)} \sigma'(z^{(3)})  \label{37} \\ 
+\delta^{(2)} &= \frac {\partial J} {\partial z^{(2)}} \\
+    &= \frac {\partial} {\partial z^{(2)}} {1 \over 2} (\hat{y}^{(i)} - y^{(i)})^2 \\
+    &= \delta^{(4)} \frac {\partial} {\partial z^{(2)}} (g(\theta^{(3)} \sigma(\theta^{(2)} \sigma(z^{(2)})))) \\
+    &= \delta^{(4)} \theta^{(3)} \sigma'(z^{(3)}) \cdot \theta^{(2)} \sigma'(z^{(2)}) \\ 
+    &= \delta^{(3)} \theta^{(2)} \sigma'(z^{(2)})  \label{38} \\
+\end{align}
+Using \ref{36}, \ref{37} and \ref{38}, \ref{34} can be written as,
+\begin{align}
+\Delta \theta^{(1)} &= - \eta \delta^{(2)} a^{(1)} \\
+\Delta \theta^{(2)} &= - \eta \delta^{(3)} a^{(2)} \\
+\Delta \theta^{(3)} &= - \eta \delta^{(4)} a^{(3)} \label{39}
+\end{align}
+which is nothing but the updates to individual parameter matrices based on partial derivatives of cost w.r.t. individual matrices.
+\section{Activation Function}
+Generally, the choice of activation function at the output layer is dependent on the type of cost function. This is mainly to simplify the process of differentiation. For example, as shown in the example above, if the cost function is mean-squared error then choice of linear function as activation for the output layer often helps simplify calculations. Similarly, the cross-entropy loss works well with sigmoid or softmax activation functions. But this is not a hard and fast rule. One is free to use any activation function with any cost function, although the equations for partial derivatives might not look as nice.\\
+Similarly, the choice of activation function in hidden layers are plenty. Although sigmoid functions are widely used, they suffer from vanishing gradient as the depth increases, hence other activations like ReLUs are recommended for deeper neural networks.
 \end{document}
