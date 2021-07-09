@@ -27,6 +27,8 @@
 \usepackage[table,xcdraw]{xcolor}
 \usepackage{animate}
 \usepackage{animate,media9,movie15}
+\newcommand{\RomanNumeralCaps}[1]
+    {\MakeUppercase{\romannumeral #1}}
 
 \newlength{\Lnote}
 \newcommand{\notte}[1]
@@ -1365,6 +1367,18 @@ Logistic Regression & Support Vector Machine \\ \hline
  &  of the data.  \\ \hline
 5. It is vulnerable to overfitting. &  5. The risk of overfitting is less in SVM. \\ \hline
 \end{tabular}
+\begin{figure}[!htb]
+\centering 
+\includegraphics[width = 1.0\textwidth]{Screenshot (184).png}
+\caption{Cost function for SVM.}
+\label{fig:fig3}
+\end{figure}
+\begin{figure}[!htb]
+\centering 
+\includegraphics[width = 1.0\textwidth]{Screenshot (183).png}
+\caption{SVM Hypothesis.}
+\label{fig:fig3}
+\end{figure}
 \newpage 
 \subsection{SVM for Non-linear data}
 \begin{figure}[!htb]
@@ -1810,6 +1824,18 @@ For a gaussian kernel, the value of $\sigma$ defines the spread of the normal di
 Also, the intuition is clear about how landmarks help in generating the new features. Along with the values of parameter, $\theta$ and $\sigma$, various different decision boundaries can be achieved.\\
 \textbf{How to choose optimal landmarks?}\\
 In a complex machine learning problem it would be advantageous to choose a lot more landmarks. This is generally acheived by choosing landmarks at the point of the training examples, i.e. landmarks equal to the number of training examples are chosen, ending up in $l^{(1)}, l^{(2)}, \cdots, l^{(m)}$ if there are m training examples. This translates to the fact that each feature is a measure of how close is an instance to the existing points of the class, leading to generation of new feature vectors. \\
+\begin{figure}[!htb]
+\centering 
+\includegraphics[width = 1.0\textwidth]{Screenshot (181).png}
+\caption{Kernels and Similarity.}
+\label{fig:fig3}
+\end{figure}
+\begin{figure}[!htb]
+\centering 
+\includegraphics[width = 0.9\textwidth]{Screenshot (182).png}
+\caption{Guassian distribution.}
+\label{fig:fig3}
+\end{figure}
 \notte{\textbf{For SVM training, given training examples, x, features f are computed, and y =1, if $\theta^{\top} f \geq 0.$}}
 The training objective from \ref{5} is modified as follows,
 \begin{align}
@@ -2193,12 +2219,12 @@ Now, it is easier to calculate the variance retained by iterating over values of
 \end{enumerate}
 \begin{figure}[!htb]
 \begin{subfigure}{0.75\textwidth}
-\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (172).png} 
+\includegraphics[width=1\linewidth, height=6cm]{Screenshot (172).png} 
 \caption{Where not to use PCA.}
 \label{fig:subim1}
 \end{subfigure}\;
 \begin{subfigure}{0.75\textwidth}
-\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (173).png}
+\includegraphics[width=1\linewidth, height=6cm]{Screenshot (173).png}
 \caption{PCA cannot be used to prevent overfitting.}
 \label{fig:subim2}
 \end{subfigure}
@@ -2207,18 +2233,573 @@ Now, it is easier to calculate the variance retained by iterating over values of
 \end{figure}
     \begin{figure}[!htb]
 \begin{subfigure}{0.75\textwidth}
-\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (174).png} 
+\includegraphics[width=1\linewidth, height=6cm]{Screenshot (174).png} 
 \caption{Uses of PCA.}
 \label{fig:subim1}
 \end{subfigure}\;
 \begin{subfigure}{0.75\textwidth}
-\includegraphics[width=0.9\linewidth, height=6cm]{Screenshot (175).png}
+\includegraphics[width=1.0\linewidth, height=6cm]{Screenshot (175).png}
 \caption{Speeding up Supervised Learning.}
 \label{fig:subim2}
 \end{subfigure}
 \caption{Applications of PCA.}
 \label{fig:image2}
 \end{figure}
+\chapter{Anomaly Detection}
+\notte{\textbf{In data mining, anomaly detection (also outlier detection) is the identification of items, events or observations which do not conform to an expected pattern or other items in a dataset.}}
+\begin{enumerate}
+    \item Anomalies only occur very rarely in the data.
+    \item Their features differ from the normal instances significantly.
+\end{enumerate}
+\section{Introduction}
+\notte{\textbf{Anomaly detection is primarily an unsupervised learning problem, but some aspects of it are like supervised learning problems.}}
+Consider a set of points, $\{x^{(1)}, x^{(2)}, \cdots, x^{(m)}\}$ in a training example (represented by blue points) representing the regular distribution of features $x_1^{(i)}$ and $x_2^{(i)}$. The aim of anomaly detection is to sift out anomalies from the test set (represented by the red points) based on distribution of features in the training example. For example, in the plot below, while point A is not an outlier, point B and C in the test set can be considered to be \textbf{anomalous (or outliers).}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.75\textwidth]{fig-1-anomaly.png}
+\caption{Anomaly.}
+\label{fig:fig4}
+\end{figure}\\\newpage
+Formally, in anomaly detection the m training examples are considered to be normal or non-anomalous, and then the algorithm must decide if the next example, $x_{test}$ is anomalous or not. So given the training set, it must come up with a model $p(x)$ that gives the probability of a sample being normal (high probability is normal, low probability is anomaly) and resulting decision boundary is defined by,
+\begin{align}
+p(x_{test}) &< \epsilon \text{, flag as outlier or anomaly} \\
+p(x_{text}) &\geq \epsilon \text{, flag as normal or non-anomalous} \label{54}
+\end{align}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 0.75\textwidth]{Screenshot (188).png}
+\caption{Anomaly detection example.}
+\label{fig:fig3}
+\end{figure}\\
+Some of the popular applications of anomaly detection are,
+\begin{enumerate}
+    \item \textbf{Fraud Detection:}
+    \begin{enumerate}
+        \item A observation set $x^{(i)}$ would represent user i′s activities. \item Model $p(x)$ is trained on the data from various users and. 
+        \item Unusual users are identified, by checking which have $p(x^{(i)})\ <\ \epsilon$.
+    \end{enumerate}
+    \item \textbf{Manafacturing:} Based on features of products produced on a production line, one can identify the ones with outlier characteristics for quality control and other such preventive measures.
+    \item \textbf{Monitoring Systems in a Data Center:} Based on characteristics of a machine behaviour such as CPU load, memory usage etc. it is possible to identify the anomalous machines and prevent failure of nodes in a data-center and initiate diagnostic measures for maximum up-time.
+    \begin{enumerate}
+        \item $x^{(i)}$ = features of machine i.
+        \item $x_1$ = memory use.
+        \item $x_2$ = $\frac{\text{number of disk access}}{sec}.$
+        \item $x_3$ = CPU load.
+        \item $x_4$ = $\frac{\text{CPU load}}{\text{network traffic}}.$
+    \end{enumerate}
+\end{enumerate}
+\section{Gaussian Distribution}
+\notte{\textbf{Gaussian distribution is also called Normal Distribution.}}
+For a basic derivation, refer $\href{https://machinelearningmedium.com/2017/07/31/normal-distribution/}{Normal Distribution.}$\\
+If $x\ \in\ \Re$, and x follows Gaussian distribution with mean, $\mu$ and variance $\sigma^2$, denoted as,
+\begin{align}
+    x \sim \mathcal{N}(\mu, \sigma^2) \label{55} 
+\end{align}
+A standard normal gaussian distribution is a bell-shaped probability distribution curve with mean, $\mu$ = 0 and standard deviation, $\sigma = 1$, as shown in the plot below.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.75\textwidth]{fig-2-gaussian-distribution.png}
+\caption{Gaussian Distribution.}
+\label{fig:fig4}
+\end{figure}\\
+The parameters $\mu$ and $\sigma$ signify the centring and spread of the gaussian curve as marked in the plot above. It can also be seen that the density is higher around the mean and reduces rapidly as distance from mean increases.\\
+\newline The probability of x in a Gaussian distribution, $\mathcal{N}(\mu, \sigma^2)$ is given by,
+\begin{align}
+    p(x;\mu, \sigma^2) = {1 \over \sqrt{2\pi} \sigma} exp(- \frac {(x - \mu)^2} {2\sigma^2}) \label{56}
+\end{align}
+where,
+\begin{itemize}
+    \item $\mu$ is the mean,
+    \item $\sigma$ is the standard deviation ($\sigma^2$ is the variance)
+\end{itemize}
+The effect of mean and standard deviation on a Gaussian plot can be seen clearly in figure below.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1.0\textwidth]{fig-3-effect-of-mean-and-standard-deviation.png}
+\caption{Effect of Mean and Standard Deviation.}
+\label{fig:fig4}
+\end{figure}\\
+It can be noticed that, while mean, $\mu$ defines the centering of the distribution, the standard deviation, $\sigma$, defines the spread of the distribution. Also, as the spread increases the height of the plot decreases, because the total area under a probability distribution should always integrate to the value 1.\\
+\newline Given a dataset, as in the previous section, $\{x^{(1)}, x^{(2)}, \cdots, x^{(m)}\}$, it is possible to determine the approximate (or the most fitting) gaussian distribution by using the following \textbf{parameter estimation,}
+\begin{align}
+    \mu = {1 \over m} \sum_{i=1}^m x^{(i)} \label{57} \\
+    \sigma^2 = {1 \over m} \sum_{i=1}^m (x^{(i)} - \mu)^2 \label{58}
+\end{align}
+\textbf{There is an alternative formula with the constant $\frac{1}{m-1}$ but in machine learning the formulae \ref{57} and \ref{58} are more prevalent. Both are practically very similar for high values of m.}
+\begin{figure}[!htb]
+\begin{subfigure}{0.75\textwidth}
+\centering
+\includegraphics[width=1.5\linewidth, height=6cm]{Screenshot (185).png} 
+\caption{Anomaly detection example.}
+\label{fig:subim1}
+\end{subfigure}\;
+\begin{subfigure}{0.75\textwidth}
+\centering
+\includegraphics[width=1.5\linewidth, height=6cm]{Screenshot (186).png}
+\caption{Density estimation.}
+\label{fig:subim2}
+\end{subfigure}
+\caption{Examples of Anomaly detection.}
+\label{fig:image2}
+\end{figure}
+\section{Density Estimation Algorithm}
+The Gaussian distribution explained above, can be used to model an anomaly detection algorithm for a training data, $\{x^{(1)}, x^{(2)}, \cdots, x^{(m)}\}$ where each $x^{(i)}$ is a set of n features, $\{x_2^{(i)}, x_2^{(i)}, \cdots, x_n^{(i)}\}$. Then, $p(x)$ in \ref{54} is given by,
+\begin{align}
+    p(x) = p(x_1; \mu_1, \sigma_1^2) p(x_2; \mu_2, \sigma_2^2) \cdots p(x_n; \mu_n, \sigma_n^2) \label{59}
+\end{align}
+\notte{\textbf{Assumption: The features $\{x_1, x_2, \cdots, x_n\}$ are independent of each other.}}
+where,
+\begin{align*}
+    x_1 &\sim \mathcal{N}(\mu_1, \sigma_1^2) \\
+x_2 &\sim \mathcal{N}(\mu_2, \sigma_2^2) \\
+\vdots \\
+x_j &\sim \mathcal{N}(\mu_j, \sigma_j^2) \\
+\vdots \\
+x_n &\sim \mathcal{N}(\mu_n, \sigma_n^2) 
+\end{align*}
+And, \ref{59}, can be written as,
+\begin{align}
+    p(x) = \prod_{j=1}^n p(x_j; \mu_j, \sigma_j^2) \label{60}
+\end{align}
+This estimation of $p(x)$ in \ref{60} is called the density estimation.\\\newpage
+To summarize:
+\begin{enumerate}
+    \item Choose features $x_i$ that are indicative of anomalous behaviour (general properties that define an instance).
+    \item Fit parameters, $\mu_1, \cdots, \mu_n, \sigma_1^2, \cdots, \sigma_n^2$, given by,
+    \begin{align}
+        \mu_j = {1 \over m} \sum_{i=1}^m x_j^{(i)} \label{61}\\
+        \sigma_j = {1 \over m} \sum_{i=1}^m (x_j^{(i)} - \mu_j)^2 \label{62}
+    \end{align}
+    \item Given a new example, compute $p(x)$, using \ref{59} and \ref{56}, and mark as anomalous based on \ref{54}.
+\end{enumerate}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1.0\textwidth]{Screenshot (187).png}
+\caption{Anomaly detection algorithm.}
+\label{fig:fig3}
+\end{figure}\\
+\section{Implementation}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width = 1.0\textwidth]{Screenshot (190).png}
+\caption{Importance of implementation.}
+\label{fig:fig3}
+\end{figure}\\
+\section{Evaluation of Anomaly Detection System}
+\notte{\textbf{Single real-valued evaluation metrics would help in considering or rejecting a choice for improvement of an anomaly detection system.}}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\linewidth]{Screenshot (191).png} 
+\caption{Division of given data set into training/cross-validation/test sets.}
+\label{fig:fig3}
+\end{figure}
+In order to evaluate an anomaly detection system, it is important to have a labeled dataset (similar to a supervised learning algorithm). This dataset would generally be skewed with a high number of normal cases. In order to evaluate the algorithm follow the steps (y = 0 is normal and y = 1 is anomalous),
+\begin{enumerate}
+    \item split the examples with y = 0 into 60-20-20 train-validation-test splits.
+    \item split the examples with y = 1 into 50-50 validation-test splits.
+    \item perform density estimation on the train set.
+    \item check the performance on the cross-validation set to find out metrics like true positive, true negative, false positive, false negative, precision/recall, f1-score. \textbf{Accuracy score would not be a valid metric because in most cases the classes would be highly skewed} (refer $\underline{\href{https://machinelearningmedium.com/2018/04/08/error-metrics-for-skewed-data-and-large-datasets/}{\text{Error Metrics for Skewed Data}}}$).
+    \item Following this, the value of $\epsilon$ can be altered on the cross-validation set to improved the desired metric in the previous step.
+    \item The evalutaion of the final model on the held-out test set would give a unbiased picture of how the model performs.
+\end{enumerate}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (192).png}
+\caption{Evaluating the algorithm.}
+\label{fig:fig3}
+\end{figure}\\
+\section{Anomaly Detection vs Supervised Learning}
+\notte{\textbf{A natural question arises, “If we have labeled data, why not used a supervised learning algorithm like logistic regression or SVM?”.}}
+Even though there are no hard-and-fast rules about when to use what, there a few recommendations based on observations of learning performance of different algorithms in such settings. They are listed below,
+\begin{enumerate}
+    \item In an anomaly detection setting, it is generally the case that there is a very small number of positive examples (i.e. y = 1 or the anomalous examples) and a large number of negative examples (i.e. y = 0 or normal examples). On the contrary, for supervised learning there is a large number of positive and negative examples.
+    \item Many a times there are a variety of anomalies that might be presented by a sample (including anomalies that haven’t been presented so far), and if the number of positive set is small to learn from then anomaly detection algorithm stands a better chance in performing better. On the other hand a supervised learning algorithm needs a bigger set of examples from both positive and negative samples to get a sense of the differentiations among the two are as well as the future anomalies are more likely to be the ones presented so far in the training set.
+\end{enumerate}
+\hspace{-5mm} \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+Anomaly Detection & Supervised Learning \\ \hline
+1. Very small number of positive examples(y = 1, & 1. Large number of positive and negative examples. \\
+  0-20 is common). Large number of negative &  \\ 
+ examples (y = 0). &  \\ \hline
+2. Many different "types" of anomalies. Hard & 2. Enough positive examples for algorithm to \\
+ for any algorithm to learn from positive examples & get a sense of what positive  \\
+  what the anomalies look like; future anomalies & examples are like, future positive  \\
+  may look nothing like any of the anomalous & examples likely to be similar\\ 
+  examples we've seen so far. &  to ones in training set.\\ \hline
+3. Examples, & 3. Examples,  \\
+   \;\;\; $\RomanNumeralCaps{1}$. Fraud detection (y=1). & \;\;\ $\RomanNumeralCaps{1}$. Email spam classification. \\
+   \;\;\; $\RomanNumeralCaps{2}$. Manufacturing (e.g. aircraft engines). & \;\;\; $\RomanNumeralCaps{2}$. Weather prediction (sunny/rainy/etc.). \\
+   \;\;\; $\RomanNumeralCaps{3}$. Monitoring machines in a data center. & \;\;\; $\RomanNumeralCaps{3}$. Cancer classification. \\
+   \;\;\; $\vdots$ & \;\;\; $\vdots$ \\ \hline
+\end{tabular}
+    \caption{Differences between Anomaly detection and Supervised learning.}
+    \label{tab:my_label}
+\end{table}
+\section{Choosing Features}
+\notte{\textbf{Feature engineering (or choosing the features which should be used) has a great deal of effect on the performance of an anomaly detection algorithm.}}
+\begin{enumerate}
+    \item Since the algorithm tries to fit a Gaussian distribution through the dataset, it is always helpful if the the histogram of the data fed to the density estimation looks similar to a Gaussian bell shape.
+    \item If the data is not in-line with the shape of a Gaussian bell curve, sometimes a transformation can help bring the feature closer to a Gaussian approximation. \\
+    Some of the popular transforms used are,
+\begin{enumerate}
+    \item $\log x$.
+    \item $\log (x+ c)$.
+    \item $\sqrt{x}$.
+    \item $x^{\frac{1}{3}}$
+\end{enumerate}
+    \item Choosing of viable feature options for the algorithm sometimes depends on the domain knowledge as it would help selecting the observations that one is targeting as possible features. For example, network load and requests per minute might a good feature for anomaly detection is a data center. Sometimes it possible to come up with combined features to achieve the same objective. So the rule of thumb is to come up with features that are found to differ substantially among the normal and anomalous examples.
+\end{enumerate}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (193).png} 
+\caption{Gaussian approximation.}
+\label{fig:fig3}
+\end{figure}\\
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (194).png} 
+\caption{Error analysis of Anomaly detection.}
+\label{fig:fig3}
+\end{figure}\\
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (195).png} 
+\caption{Monitoring computers in a data center.}
+\label{fig:fig3}
+\end{figure}\\
+\section{Multivariate Gaussian Distribution}
+The $\underline{\href{https://machinelearningmedium.com/2018/05/02/anomaly-detection/#density-estimation-algorithm}{\text{density estimation}}}$ seen earlier had the underlying assumption that the features are independent of each other. While the assumption simplifies the analysis there are various downsides to the assumption as well.\\
+Consider the data as shown in the plot below. It can be seen clearly that there is some correlation (negative correlation to be exact) among the two features.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{fig-5-correlated-features.png} 
+\caption{Correlated Features.}
+\label{fig:fig3}
+\end{figure}\\
+Univariate Gaussian distribution applied to this data results in the following countour plot, which points to the assumption made in \ref{60}. Because while \textbf{the two features are negatively correlated, the contour plot do not show any such dependency}. On the contrary, if multivariate gaussian distribution is applied to the same data one can point out the correlation. Seeing the difference, it is also clear that the chances of test sets (red points) being marked as normal is lower in multivariate Gaussian than in the other.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{fig-6-univariate-vs-multivariate.png} 
+\caption{Univariate vs Multivariate Gaussian.}
+\label{fig:fig3}
+\end{figure}\\
+So, mutlivariate gaussian distribution basically helps model $p(x)$ is one go, unlike \ref{60}, that models individual features $\{x_1, x_2, \cdots, x_n\}$ in x. The multivariate gaussian distribution is given by,
+\begin{align}
+    p(x; \mu, \Sigma) = \frac {1} {(2\pi)^{n/2} \, |\Sigma|^{1/2}} exp\left(-{1 \over 2} (x-\mu)^T \Sigma^{-1} (x-\mu) \right) \label{63}
+\end{align}
+where,
+\begin{enumerate}
+    \item $\mu\ \epsilon\ \Re$ and $\Sigma\ \epsilon\ \Re^{n*n}$ (Covariance matrix) are the parameters of the distribution.
+    \item $\|\Sigma\|$ is the determinant of the matrix $\Sigma$.
+\end{enumerate}
+The density estimation for multivariate gaussian distribution can be done using the following 2 formulae,
+\begin{align}
+    \mu = {1 \over m} \sum_{i=1}^m x^{(i)}  \label{64} \\
+    \Sigma = {1 \over m} \sum_{i=1}^m (x^{(i)} - \mu) (x^{(i)} - \mu)^T  \label{65}
+\end{align}
+\textbf{Steps in multivariate density estimation:}
+\begin{enumerate}
+    \item Given a train dataset, estimate the parameters $\mu$ and $\Sigma$ using \ref{64} and \ref{65}.
+    \item For a new example x, compute $p(x)$ given by \ref{63}.
+    \item Flag as anomaly if $p(x)<\ \epsilon$.
+\end{enumerate}
+The covariance matrix is the term that brings in the major difference between the univariate and the multivariate gaussian. The effect of covariance matrix and mean shifting can be seen in the plots below.
+\notte{\textbf{A covariance matrix is always symmetric about the main diagonal.}}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{fig-7-effect-of-mean-and-covariance.png} 
+\caption{Effect of Mean and Covariance Matrix.}
+\label{fig:fig3}
+\end{figure}\\
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (196).png} 
+\caption{Monitoring machines data center.}
+\label{fig:fig3}
+\end{figure}\\
+\begin{enumerate}
+    \item The mean shifts the center of the distribution.
+    \item Diagonal elements vary the spread of the distribution along corresponding features (also called the variance).
+    \item Off-diagonal elements vary the correlation among the various features.
+\end{enumerate}\newpage
+Also, the original model in \ref{60} is a special case of the multivariate gaussian distribution where the off-diagonal elements of the covariance matrix are contrained to zero (countours are axis aligned).\newpage
+\section{Univariate vs Multivariate Gaussian Distribution}
+\begin{enumerate}
+    \item Univariate model can be used when the features are manually created to capture the anomalies and the features take unusual combinations of values. Whereas multivariate gaussian can be used when the correlation between features is to be captured as well.
+    \item Univariate model is computationally cheaper and hence scales well to the larger dataset (m = 10,000-100,000), whereas the multivariate model is computationally expensive, majorly because of the term $\Sigma_{-1}$.
+    \item Univariate model works well for smaller value of m as well. For multivariate model, $m>n$, or else $\Sigma$ is singular and hence not invertible.
+Generally multivariate gaussian is used when m is much bigger than n, like m>10n, because $\Sigma$ is a fairly large matrix with around $\frac{n}{2}$ parameters, which would be learnt better in a setting with larger m.
+\end{enumerate}
+\textbf{A matrix might be singular because of the presence of redundant features, i.e. two features are linearly dependent (or) a feature is a linear combination of a set of other features. Such matrices are non-invertible.}\newpage
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=0.9\textwidth]{Screenshot (221).png} 
+\caption{Multivariate Gaussian Distribution.}
+\label{fig:fig3}
+\end{figure}\\ 
+\subsection{Anomaly detection with the Multivariate Gaussian}
+\begin{enumerate}
+ \item Fit the model $p(x)$ by setting 
+ \begin{figure}[!htb]
+\centering
+\includegraphics[width=0.5\textwidth]{Screenshot (222).png} 
+\caption{Graph.}
+\label{fig:fig3}
+\end{figure}\\
+    \begin{align}
+        \mu &= {1 \over m} \sum_{i=1}^m x^{(i)} \\ 
+        \Sigma &= {1 \over m} \sum_{i=1}^m (x^{(i)} - \mu) (x^{(i)} - \mu)^T 
+    \end{align} 
+    \item Given a new example x, compute
+    \begin{align}
+    p(x; \mu, \Sigma) = \frac {1} {(2\pi)^{n/2} \, |\Sigma|^{1/2}} exp\left(-{1 \over 2} (x-\mu)^T \Sigma^{-1} (x-\mu) \right) 
+    \end{align}
+    Flag an anomaly if $p(x) < \epsilon$
+\end{enumerate}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (223).png} 
+\caption{Relation to original model.}
+\label{fig:fig3}
+\end{figure}\\ 
+\begin{table}[h!]
+    \begin{tabular}{|c|c|} \hline
+    Original model & Multivariate Gaussian \\ \hline
+    $p(x_1; \mu_1, \sigma_1^2)\times \cdots\times p(x_n; \mu_n, \sigma_n^2)$ & $p(x; \mu, \Sigma) = \frac {1} {(2\pi)^{n/2} \, |\Sigma|^{1/2}} exp\left(-{1 \over 2} (x-\mu)^T \Sigma^{-1} (x-\mu) \right) $  \\
+    1. Manually create features to capture  & 1. Automatically captures correlations  \\
+    anomalies where $x_1,x_2$ take unsual  & between features.  \\ 
+    combinations of values like $x_3 = \frac{x_1}{x_2}$. & \\ 
+    2. Computationally cheaper (alternatively,  & 2. Computationally more expensive.  \\ 
+     scales better to large). & \\
+    3. OK even if m (training set size) is & 3. Must have $m>n$ or else   \\ 
+     \hspace{-5mm}is small. & $\Sigma$ is non-invertible. ($m\geq10n$) \\ \hline
+    \end{tabular}
+    \caption{Differences between Original model and Multivariate Gaussian.}
+    \label{tab:my_label}
+\end{table}
+\chapter{Recommender Systems}
+\textbf{A recommender system or a recommendation system is a subclass of information filtering system that seeks to predict the \textcolor{red}{"rating"} or \textcolor{red}{"preference"} a user would give to an item.}
+\section{Introduction}
+During the last few decades, with the rise of Youtube, Amazon, Netflix and many other such web services, recommender systems have taken more and more place in our lives. From e-commerce (suggest to buyers articles that could interest them) to online advertisement (suggest to users the right contents, matching their preferences), recommender systems are today unavoidable in our daily online journeys.\\
+In a very general way, recommender systems are algorithms aimed at suggesting relevant items to users (items being movies to watch, text to read, products to buy or anything else depending on industries).\\
+Recommender systems are really critical in some industries as they can generate a huge amount of income when they are efficient or also be a way to stand out significantly from competitors. As a proof of the importance of recommender systems, we can mention that, a few years ago, Netflix organised a challenges (the “Netflix prize”) where the goal was to produce a recommender system that performs better than its own algorithm with a prize of 1 million dollars to win.\\
+In this article, we will go through different paradigms of recommender systems. For each of them, we will present how they work, describe their theoretical basis and discuss their strengths and weaknesses.
+\subsection{Outline}
+In the first section we are going to overview the two major paradigms of recommender systems : collaborative and content based methods. The next two sections will then describe various methods of collaborative filtering, such as user-user, item-item and matrix factorization. The following section will be dedicated to content based methods and how they work. Finally, we will discuss how to evaluate a recommender system.
+\section{Collaborative versus content}
+The purpose of a recommender system is to suggest relevant items to users. To achieve this task, there exist two major categories of methods : collaborative filtering methods and content based methods. Before digging more into details of particular algorithms, let’s discuss briefly these two main paradigms.
+\subsection{Collaborative filtering methods}
+Collaborative methods for recommender systems are methods that are based solely on the past interactions recorded between users and items in order to produce new recommendations. These interactions are stored in the so-called \textcolor{green}{“user-item interactions matrix”.}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Illustration of the user-item interactions matrix..png} 
+\caption{Illustration of the user-item interactions matrix.}
+\label{fig:fig3}
+\end{figure}\\ 
+Then, the main idea that rules collaborative methods is that these past user-item interactions are sufficient to detect similar users and/or similar items and make predictions based on these estimated proximities.\\
+The class of collaborative filtering algorithms is divided into two sub-categories that are generally called memory based and model based approaches. Memory based approaches directly works with values of recorded interactions, assuming no model, and are essentially based on nearest neighbours search (for example, find the closest users from a user of interest and suggest the most popular items among these neighbours). Model based approaches assume an underlying “generative” model that explains the user-item interactions and try to discover it in order to make new predictions.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Overview of the collaborative filtering methods paradigm..png} 
+\caption{Overview of the collaborative filtering methods paradigm.}
+\label{fig:fig3}
+\end{figure}\\ 
+The main advantage of collaborative approaches is that they require no information about users or items and, so, they can be used in many situations. Moreover, the more users interact with items the more new recommendations become accurate: for a fixed set of users and items, new interactions recorded over time bring new information and make the system more and more effective.\\
+However, as it only consider past interactions to make recommendations, collaborative filtering suffer from the “cold start problem”: it is impossible to recommend anything to new users or to recommend a new item to any users and many users or items have too few interactions to be efficiently handled. This drawback can be addressed in different way: recommending random items to new users or new items to random users (random strategy), recommending popular items to new users or new items to most active users (maximum expectation strategy), recommending a set of various items to new users or a new item to a set of various users (exploratory strategy) or, finally, using a non collaborative method for the early life of the user or the item.\\
+In the following sections, we will mainly present three classical collaborative filtering approaches: two memory based methods (user-user and item-item) and one model based approach (matrix factorisation).
+\subsection{Problem Formulation}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (224).png} 
+\caption{Example for predicting movie ratings.}
+\label{fig:fig3}
+\end{figure}\\ \newpage
+Give $n_m$ choices and $n_u$ users,
+\begin{enumerate}
+    \item r(i,j)=1  if user j has rated choice i.
+    \item y(i,j)  is the rating given by user j to the choice i, defined only if r(i,j)=1.
+\end{enumerate}
+So, the objective of the reocmmender system is to use the rated choices by the population of users and predict the ratings that a user would attribute to a choice that is not rated i.e. r(i,j)=0. In most real-world cases such as movie ratings, the number of unrated choices is generally very high and hence is not an elementary/easy problem to solve.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (225).png} 
+\caption{Problem formulation.}
+\label{fig:fig3}
+\end{figure}\\ 
+\subsubsection{Content Based Recommendations}
+\begin{enumerate}
+    \item Each choice is alloted an n number of features and rated along those dimensions.
+    \item Following this, for each user j the ratings are regressed as a function of the alloted set of features. 
+    \item The learnt parameter for user j, $\theta^{(j)}$ lies in space $\Re^{n+1}$.
+\end{enumerate}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (226).png} 
+\caption{Content Based Recommender systems.}
+\label{fig:fig3}
+\end{figure}\\ 
+Summarizing,
+\begin{itemize}
+    \item $\theta^{(j)}$  is the parameter vector for user j.
+    \item $x^{(i)}$ is the feature vector for choice i.
+    \item For user j and choice i, predicted rating is given by, $(\theta^{(j)})^{\top}(x^{(i)}).$
+\end{itemize}
+Suppose user j has rated $m^{(j)}$ choices, then learning $\theta^{(j)}$ can be treated as linear regression problem. So, to learn $\theta^{(j)}$,
+\begin{align}
+    min_{\theta^{(j)}} {1 \over 2} \sum_{i: r(i, j)=1} ((\theta^{(j)})^T (x^{(i)}) - y^{(i, j)})^2 + {\lambda \over 2} \sum_{k=1}^n (\theta_k^{(j)})^2  \label{66}
+\end{align} 
+Similarly, to learn $\theta^{(1)}, \theta^{(2)}, \cdots, \theta^{(n_u)}$,
+\begin{align}
+    min_{\theta^{(1)}, \cdots, \theta^{(n_u)}} {1 \over 2} \sum_{j=1}^{n_u} \sum_{i: r(i, j)=1} ((\theta^{(j)})^T (x^{(i)}) - y^{(i, j)})^2 + {\lambda \over 2} \sum_{j=1}^{n_u} \sum_{k=1}^n (\theta_k^{(j)})^2 \label{67}
+\end{align}
+where cost function is given by,
+\begin{align}
+    J(\theta^{(1)}, \cdots, \theta^{(n_u)}) = {1 \over 2} \sum_{j=1}^{n_u} \sum_{i: r(i, j)=1} ((\theta^{(j)})^T (x^{(i)}) - y^{(i, j)})^2 + {\lambda \over 2} \sum_{j=1}^{n_u} \sum_{k=1}^n (\theta_k^{(j)})^2 \label{68}
+\end{align}
+Gradient Descent Update,
+\begin{align}
+\theta_k^{(j)} &= \theta_k^{(j)} - \alpha \left( \sum_{i: r(i, j)=1} ((\theta^{(j)})^T x^{(i)} - y^{(i, j)}) x_k^{(i)}  \right) \text{, for } k = 0 \\
+\theta_k^{(j)} &= \theta_k^{(j)} - \alpha \left( \sum_{i: r(i, j)=1} ((\theta^{(j)})^T x^{(i)} - y^{(i, j)}) x_k^{(i)} + \lambda \theta_k^{(j)}\right) \text{, otherwise } \label{69}
+\end{align}
+where,
+\begin{align}
+\frac {\partial} {\partial \theta_k^{(j)}} J(\theta^{(1)}, \cdots, \theta^{(n_u)}) &= \sum_{i: r(i, j)=1} ((\theta^{(j)})^T x^{(i)} - y^{(i, j)}) x_k^{(i)} \text{, for } k = 0 \\
+\frac {\partial} {\partial \theta_k^{(j)}} J(\theta^{(1)}, \cdots, \theta^{(n_u)}) &= \sum_{i: r(i, j)=1} ((\theta^{(j)})^T x^{(i)} - y^{(i, j)}) x_k^{(i)} + \lambda \theta_k^{(j)} \text{, otherwise } \label{70}
+\end{align}
+\textcolor{red}{Note:} \textcolor{green}{By convention, the terms} \textbf{$\frac{1}{m^{(j)}}$} \textcolor{green}{terms are removed from the equations in recommendation systems. But these do not affect the optimization values as these are only constants used for ease of derivations in linear regression cost function.}
+\notte{\textbf{The effectiveness of content based recommendation depends of identifying the features properly, which is often not easy.}}
+\subsection{Collaborative Filtering}
+\notte{\textbf{Collaborative filtering has the intrinsic property of feature learning (i.e. it can learn by itself what features to use) which helps overcome drawbacks of content-based recommender systems.}}
+Given the scores y(i,j) for a choice, $i\ \epsilon\ [1, n_m]$ by various users $j\ \epsilon\ [1, n_u]$, and the parameter vector $\theta^{(j)}$ for user j, the algorithm learns the values for the features $x^{(i)}$ applying regression by posing the following optimization problem,
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (227).png} 
+\caption{Problem motivation.}
+\label{fig:fig3}
+\end{figure}\\ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (228).png} 
+\caption{Optimization objective.}
+\label{fig:fig3}
+\end{figure}\\
+\begin{align}
+    min_{x^{(i)}} {1 \over 2} \sum_{j:r(i,j)=1} \left[ (\theta^{(j)})^T x^{(i)} - y(i,j) \right]^2 + {\lambda \over 2} \sum_{k=1}^n \left( x_k^{(i)} \right)^2 \label{71}
+\end{align}
+Intuitively this boils down to the scenario where given a choice and its ratings by various users and their parameter vectors, the collaborative filitering algorithm tries to find the most optimal features to represent the choice such that the squared error between the two is minimized. Since this is very similar to the linear regression problem, regularization term is introduced to prevent overfitting of the features learnt. Similarly by extending this, it is possible to learn all the features for all the choices $i\ \epsilon\ [1, n_m]$, i.e. given $\theta^{(1)}, \theta^{(2)}, \cdots, \theta^{(n_u)}$ learn, $x^{(1)}, x^{(2)}, \cdots, x^{(n_m)}$,
+\begin{align}
+    min_{x^{(1)}, \cdots, x^{(n_m)}} {1 \over 2} \sum_{i=1}^{n_m} \sum_{j:r(i,j)=1} \left[ (\theta^{(j)})^T x^{(i)} - y(i,j) \right]^2 + {\lambda \over 2} \sum_{i=1}^{n_m} \sum_{k=1}^n \left( x_k^{(i)} \right)^2 \label{72}
+\end{align}
+Where the updates to the feature vectors will be given by,
+\begin{align}
+    x_k^{(i)} := x_k^{(i)} - \alpha \left( \sum_{j:r(i,j)=1} \left[ (\theta^{(j)})^T x^{(i)} - y(i,j) \right] \theta_k^{(j)} + \lambda x_k^{(i)} \right) \label{73}
+\end{align}
+\notte{\textbf{It is possible to arrive at optimal $\theta$ and x by repetitively minimizing them using \ref{69} and \ref{73}}}
+But it is also possible to solve for both $\theta$ and x simultaneously, given by an update rule which is nothing but the combination of the earlier two update rules in \ref{68} and \ref{72}. So the resulting cost function is given by,
+\begin{align}
+J(x^{(1)}, \cdots, x^{(n_m)}, \theta^{(1)}, \cdots, \theta^{(n_u)}) &= {1 \over 2} \sum_{(i,j):r(i,j)=1} ((\theta^{(j)})^T x^{(i)} - y^{(i, j)})^2 \\ 
+&+ {\lambda \over 2} \sum_{i=1}^{n_m} \sum_{k=1}^{n} (x_k^{(i)})^2 \\
+&+ {\lambda \over 2} \sum_{j=1}^{n_u} \sum_{k=1}^n (\theta_k^{(j)})^2\label{74}
+\end{align}
+and the minimization objective can be written as,
+\begin{align}
+    min_{x^{(1)}, \cdots, x^{(n_m)}, \theta^{(1)}, \cdots, \theta^{(n_u)}} J(x^{(1)}, \cdots, x^{(n_m)}, \theta^{(1)}, \cdots, \theta^{(n_u)}) \label{75}
+\end{align}
+Practically, the minimization objective \ref{75} is equivalent to \ref{69} if 
+x is kept constant. Similarly, it’s equivalent to \ref{73} if $\theta$ is kept constant.
+\notte{\textbf{In \ref{75}, by convention there is no $x_0=1$ and thus consequently, there in no $\theta_0$, hence leading to $x\ \epsilon\ \Re^n$ and $\theta\ \epsilon\ \Re^n$.}}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (229).png} 
+\caption{Collaborative filtering algorithm.}
+\label{fig:fig3}
+\end{figure}\\ 
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (231).png} 
+\caption{Collaborative filtering optimization objective.}
+\label{fig:fig3}
+\end{figure}\\\newpage
+To summarize, the collaborative filtering algorithm has the following steps,
+\begin{enumerate}
+    \item Initializa $x^{(1)}, \cdots, x^{(n_m)}, \theta^{(1)}, \cdots, \theta^{(n_u)}$ to small random values.
+    \item Minimize \ref{74} using gradient descent or any other advance optimization algorithm. The update rules given below can be obtained by following the partial derivatives along x′s and $\theta′s$.
+    \begin{align}
+x_k^{(i)} &= x_k^{(i)} - \alpha \left( \sum_{j:r(i,j)=1} ((\theta^{(j)})^T x^{(i)} - y(i,j)) \theta_k^{(j)} + \lambda x_k^{(i)} \right) \\
+\theta_k^{(j)} &= \theta_k^{(j)} - \alpha \left( \sum_{i: r(i, j)=1} ((\theta^{(j)})^T x^{(i)} - y^{(i, j)}) x_k^{(i)} + \lambda \theta_k^{(j)}\right) \label{76}
+\end{align} 
+\item For a user with parameter $\theta$ and a choice with learned features x, the predicted star rating is given by $\theta^{\top}x.$
+\end{enumerate}
+Consequently, the matrix of ratings, Y, can be written as,\\
+\begin{center}
+\begin{math}
+Y = \left[ 
+\begin{matrix}
+(\theta^{(1)})^T x^{(1)} & (\theta^{(2)})^T x^{(1)} & \cdots & (\theta^{(n_u)})^T x^{(1)} \\
+(\theta^{(1)})^T x^{(2)} & (\theta^{(2)})^T x^{(2)} & \cdots & (\theta^{(n_u)})^T x^{(2)} \\
+\vdots & \vdots & \ddots & \vdots \\
+(\theta^{(1)})^T x^{(n_m)} & (\theta^{(2)})^T x^{(n_m)} & \cdots & (\theta^{(n_u)})^T x^{(n_m)} \\
+\end{matrix}
+\right ] \label{77}
+\end{math}
+\end{center}\\
+\begin{center}
+    \begin{math}
+    X = \left[
+    \begin{matrix}
+    (x^{(1)}) \\
+    (x^{(2)}) \\
+    \vdots\\
+    (x^{(n_m)}) \\
+    \end{matrix}\right]
+    \end{math}\;\;\; &\;\;\; $\Theta$ = \begin{math}
+    \left[ 
+    \begin{matrix}
+    {(\theta^{(1)})}^{\top}\\
+    {(\theta^{(2)})}^{\top}\\
+    \vdots\\
+    {(\theta^{(n_u)})}^{\top}\\
+    \end{matrix}
+    \right] 
+    \end{math}
+\end{center}
+Where y(i,j) is the rating for choice i by user j.\\
+\newline Vectorized implementation of \ref{77}, is given by,
+\begin{align}
+    Y = X \Theta^T  \label{78}
+\end{align}
+Where,
+\begin{enumerate}
+    \item Each row i in X represents the feature vector of choice i.
+    \item Each row j in $\Theta$ represents the parameter vector for user j.
+\end{enumerate}
+\notte{\textbf{The algorithm discussed is also called low rank matrix factorization which is a property of the matrix Y is linear algebra.}}
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (235).png} 
+\caption{Finding related information.}
+\label{fig:fig3}
+\end{figure}\\ \clearpage
+\section{Similar Recommendations}
+After the collaborative filtering algorithm has converged, it can be used to find related choices. For each choice i, a feature vector is learned, $x^{(i)} \in \mathbb{R}^n$. Although it is generally not possible to decipher what the values in the matrix X denote, they encode representative features of the choices in detail. So in order to find choices close to a given choice i, a simple euclidean distance calculation will give the desired results.
+\notte{\textbf{If the distance between choices i and j is small, i.e. $\lVert x^{(i)} - x^{(j)} \rVert$ is small, then they are similar.}}
+\subsection{Mean Normalization}
+Consider a case where one of the users has not rated any of the choices, then the rating matrix Y can be defined as,\\
+Since none of the choices are rated by this user, the entries in R matrix corresponding to this user would be all zeros. So, \ref{74} can be written as follows (because ${1 \over 2} \sum_{(i,j):r(i,j)=1} ((\theta^{(j)})^T x^{(i)} - y^{(i, j)})^2 = 0$),
+\begin{align}
+    J(x^{(1)}, \cdots, x^{(n_m)}, \theta^{(1)}, \cdots, \theta^{(n_u)}) = {\lambda \over 2} \sum_{i=1}^{n_m} \sum_{k=1}^{n} (x_k^{(i)})^2 + {\lambda \over 2} \sum_{j=1}^{n_u} \sum_{k=1}^n (\theta_k^{(j)})^2 \label{79}
+\end{align}
+Since the updates to $\theta$ corresponding to this user is only governed by this cost function, it would only minimize parameter vector $\theta$. This can be seen easily by setting a low tolerance for the collaborative filtering,\\
+Obviously this is not a correct assumption to rate all the choices 0 for a user that has rated none so far. For such a user it would be ideal to predict the rating as the average of ratings attibuted to it by other users so far.\\
+Mean normalization helps in acheiving this. In this process each row of the ratings matrix is normalized by its mean and later denormalized after predictions.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Screenshot (236).png} 
+\caption{Mean Normalization.}
+\label{fig:fig3}
+\end{figure}\\
+
 \chapter{Information beyond this course}
 \section{Backpropagation Derivation}
 \textbf{The post delves into the mathematics of how backpropagation is defined. It has its roots in partial derivatives and is easily understandable.}
@@ -2334,4 +2915,95 @@ which is nothing but the updates to individual parameter matrices based on parti
 \section{Activation Function}
 Generally, the choice of activation function at the output layer is dependent on the type of cost function. This is mainly to simplify the process of differentiation. For example, as shown in the example above, if the cost function is mean-squared error then choice of linear function as activation for the output layer often helps simplify calculations. Similarly, the cross-entropy loss works well with sigmoid or softmax activation functions. But this is not a hard and fast rule. One is free to use any activation function with any cost function, although the equations for partial derivatives might not look as nice.\\
 Similarly, the choice of activation function in hidden layers are plenty. Although sigmoid functions are widely used, they suffer from vanishing gradient as the depth increases, hence other activations like ReLUs are recommended for deeper neural networks.
+\section{Decision Tree}
+Introduction Decision Trees are a type of Supervised Machine Learning (that is you explain what the input is and what the corresponding output is in the training data) where the data is continuously split according to a certain parameter. The tree can be explained by two entities, namely decision nodes and leaves.The leaves are the decisions or the final outcomes. And the decision nodes are where the data is split. An example of a decision tree can be explained using above binary tree. Let’s say you want to predict whether a person is fit given their information like age, eating habit, and physical activity, etc. The decision nodes here are questions like ‘What’s the age?’, ‘Does he exercise?’, ‘Does he eat a lot of pizzas’? And the leaves, which are outcomes like either ‘fit’, or ‘unfit’. In this case this was a binary classification problem (a yes no type problem). There are two main types of Decision Trees:
+\begin{enumerate}
+    \item \textbf{Classification trees (Yes/No types)}\\
+     What we’ve seen above is an example of classification tree, where the outcome was a variable like ‘fit’ or ‘unfit’. Here the decision variable is Categorical.
+     \item \textbf{Regression trees (Continuous data types)}\\
+     Here the decision or the outcome variable is Continuous, e.g. a number like 123.
+\end{enumerate}
+\section{Recommender Systems}
+\subsection{Content based methods}
+Unlike collaborative methods that only rely on the user-item interactions, content based approaches use additional information about users and/or items. If we consider the example of a movies recommender system, this additional information can be, for example, the age, the sex, the job or any other personal information for users as well as the category, the main actors, the duration or other characteristics for the movies (items).\\
+Then, the idea of content based methods is to try to build a model, based on the available “features”, that explain the observed user-item interactions. Still considering users and movies, we will try, for example, to model the fact that young women tend to rate better some movies, that young men tend to rate better some other movies and so on. If we manage to get such model, then, making new predictions for a user is pretty easy: we just need to look at the profile (age, sex, …) of this user and, based on this information, to determine relevant movies to suggest.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Overview of the content based methods paradigm..png} 
+\caption{Overview of the content based methods paradigm.}
+\label{fig:fig3}
+\end{figure}\\ 
+Content based methods suffer far less from the cold start problem than collaborative approaches: new users or items can be described by their characteristics (content) and so relevant suggestions can be done for these new entities. Only new users or items with previously unseen features will logically suffer from this drawback, but once the system old enough, this has few to no chance to happen.\\
+Later in this post, we will further discuss content based approaches and see that, depending on our problem, various classification or regression models can be used, ranging from very simple to much more complex models.
+\subsection{Models, bias and variance}
+Let’s focus a bit more on the main differences between the previously mentioned methods. More especially let’s see the implication that the modelling level has on the bias and the variance.\\
+In memory based collaborative methods, no latent model is assumed. The algorithms directly works with the user-item interactions: for example, users are represented by their interactions with items and a nearest neighbours search on these representations is used to produce suggestions. As no latent model is assumed, these methods have theoretically a low bias but a high variance.\\
+In model based collaborative methods, some latent interaction model is assumed. The model is trained to reconstruct user-item interactions values from its own representation of users and items. New suggestions can then be done based on this model. The users and items latent representations extracted by the model have a mathematical meaning that can be hard to interpret for a human being. As a (pretty free) model for user-item interactions is assumed, this methods has theoretically a higher bias but a lower variance than methods assuming no latent model.\\
+Finally, in content based methods some latent interaction model is also assumed. However, here, the model is provided with content that define the representation of users and/or items: for example, users are represented by given features and we try to model for each item the kind of user profile that likes or not this item. Here, as for model based collaborative methods, a user-item interactions model is assumed. However, this model is more constrained (because representation of users and/or items are given) and, so, the method tends to have the highest bias but the lowest variance.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Summary of the different types of recommender systems algorithms..png} 
+\caption{Summary of the different types of recommender systems algorithms.}
+\label{fig:fig3}
+\end{figure}\\ 
+\section{Memory based collaborative approaches}
+The main characteristics of user-user and item-item approaches it that they use only information from the user-item interaction matrix and they assume no model to produce new recommendations.
+\subsection{User-user}
+In order to make a new recommendation to a user, user-user method roughly tries to identify users with the most similar “interactions profile” (nearest neighbours) in order to suggest items that are the most popular among these neighbours (and that are “new” to our user). This method is said to be “user-centred” as it represent users based on their interactions with items and evaluate distances between users.\\
+Assume that we want to make a recommendation for a given user. First, every user can be represented by its vector of interactions with the different items (“its line” in the interaction matrix). Then, we can compute some kind of “similarity” between our user of interest and every other users. That similarity measure is such that two users with similar interactions on the same items should be considered as being close. Once similarities to every users have been computed, we can keep the k-nearest-neighbours to our user and then suggest the most popular items among them (only looking at the items that our reference user has not interacted with yet).\\
+Notice that, when computing similarity between users, the number of “common interactions” (how much items have already been considered by both users?) should be considered carefully! Indeed, most of the time, we want to avoid that someone that only have one interaction in common with our reference user could have a 100$\%$ match and be considered as being “closer” than someone having 100 common interactions and agreeing “only” on 98$\%$ of them. So, we consider that two users are similar if they have interacted with a lot of common items in the same way (similar rating, similar time hovering…).
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Illustration of the user-user method. The same colour code will be used in the remaining of the post..png} 
+\caption{Illustration of the user-user method. The same colour code will be used in the remaining of the post.}
+\label{fig:fig3}
+\end{figure}\\ 
+\subsection{Item-item}
+To make a new recommendation to a user, the idea of item-item method is to find items similar to the ones the user already “positively” interacted with. Two items are considered to be similar if most of the users that have interacted with both of them did it in a similar way. This method is said to be “item-centred” as it represent items based on interactions users had with them and evaluate distances between those items.\\
+Assume that we want to make a recommendation for a given user. First, we consider the item this user liked the most and represent it (as all the other items) by its vector of interaction with every users (“its column” in the interaction matrix). Then, we can compute similarities between the “best item” and all the other items. Once the similarities have been computed, we can then keep the k-nearest-neighbours to the selected “best item” that are new to our user of interest and recommend these items.\\
+Notice that in order to get more relevant recommendations, we can do this job for more than only the user’s favourite item and consider the n preferred items instead. In this case, we can recommend items that are close to several of these preferred items.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Illustration of the item-item method..png} 
+\caption{Illustration of the item-item method.}
+\label{fig:fig3}
+\end{figure}\\ 
+\subsection{Comparing user-user and item-item}
+The user-user method is based on the search of similar users in terms of interactions with items. As, in general, every user have only interacted with a few items, it makes the method pretty sensitive to any recorded interactions (high variance). On the other hand, as the final recommendation is only based on interactions recorded for users similar to our user of interest, we obtain more personalized results (low bias).\\
+Conversely, the item-item method is based on the search of similar items in terms of user-item interactions. As, in general, a lot of users have interacted with an item, the neighbourhood search is far less sensitive to single interactions (lower variance). As a counterpart, interactions coming from every kind of users (even users very different from our reference user) are then considered in the recommendation, making the method less personalised (more biased). Thus, this approach is less personalized than the user-user approach but more robust.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Illustration of the difference between item-item and user-user methods..png} 
+\caption{Illustration of the difference between item-item and user-user methods.}
+\label{fig:fig3}
+\end{figure}\\ 
+\subsection{Complexity and side effect}
+One of the biggest flaw of memory based collaborative filtering is that they do not scale easily: generating a new recommendation can be extremely time consuming for big systems. Indeed, for systems with millions of users and millions of items, the nearest neighbours search step can become intractable if not carefully designed (KNN algorithm has a complexity of O(ndk) with n the number of users, d the number of items and k the number of considered neighbours). In order to make computations more tractable for huge systems, we can both take advantage of the sparsity of the interaction matrix when designing our algorithm or use approximate nearest neighbours methods (ANN).\\
+In most of the recommendation algorithms, it is necessary to be extremely careful to avoid a “rich-get-richer” effect for popular items and to avoid getting users stuck into what could be called an “information confinement area”. In other words, we do not want that our system tend to recommend more and more only popular items as well as we do not want that our users only receive recommendations for items extremely close to the one they already liked with no chance to get to know new items they might like too (as these items are not “close enough” to be suggested). If, as we mentioned, these problems can arise in most of the recommendation algorithms, it is especially true for memory based collaborative ones. Indeed, with the lack of model “to regularise”, this kind of phenomenon can be accentuated and observed more frequently.
+\section{Model based collaborative approaches}
+Model based collaborative approaches only rely on user-item interactions information and assume a latent model supposed to explain these interactions. For example, matrix factorisation algorithms consists in decomposing the huge and sparse user-item interaction matrix into a product of two smaller and dense matrices: a user-factor matrix (containing users representations) that multiplies a factor-item matrix (containing items representations).
+\subsection{Matrix factorisation}
+The main assumption behind matrix factorisation is that there exists a pretty low dimensional latent space of features in which we can represent both users and items and such that the interaction between a user and an item can be obtained by computing the dot product of corresponding dense vectors in that space.\\
+For example, consider that we have a user-movie rating matrix. In order to model the interactions between users and movies, we can assume that:
+\begin{enumerate}
+    \item There exists some features describing (and telling apart) pretty well movies.
+    \item These features can also be used to describe user preferences (high values for features the user likes, low values otherwise)
+\end{enumerate}
+However we don’t want to give explicitly these features to our model (as it could be done for content based approaches that we will describe later). Instead, we prefer to let the system discover these useful features by itself and make its own representations of both users and items. As they are learned and not given, extracted features taken individually have a mathematical meaning but no intuitive interpretation (and, so, are difficult, if not impossible, to understand as human). However, it is not unusual to ends up having structures emerging from that type of algorithm being extremely close to intuitive decomposition that human could think about. Indeed, the consequence of such factorisation is that close users in terms of preferences as well as close items in terms of characteristics ends up having close representations in the latent space.
+\begin{figure}[!htb]
+\centering
+\includegraphics[width=1\textwidth]{Illustration of the matrix factorization method..png} 
+\caption{Illustration of the matrix factorization method.}
+\label{fig:fig3}
+\end{figure}\\ 
+\subsection{Mathematics of matrix factorisation}
+In this subsection, we will give a simple mathematical overview of matrix factorization. More especially, we describe a classical iterative approach based on gradient descent that makes possible to obtain factorisations for very large matrices without loading all the data at the same time in computer’s memory.\\
+Let’s consider an interaction matrix M ($n\times m$) of ratings where only some items have been rated by each user (most of the interactions are set to None to express the lack of rating). We want to factorise that matrix such that
+\begin{align*}
+    M \approx X.Y^{\top}
+\end{align*}
+where X is the “user matrix” ($n\times l$) whose rows represent the n users and where Y is the “item matrix” ($m\times l$) whose rows represent the m items:
+\begin{align*}
+    user_i \equiv X_i
+\end{align*}
 \end{document}
